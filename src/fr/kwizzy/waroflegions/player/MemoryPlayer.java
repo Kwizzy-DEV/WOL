@@ -6,6 +6,8 @@ import org.bukkit.entity.Player;
 
 import java.util.UUID;
 
+import static fr.kwizzy.waroflegions.util.StringUtils.*;
+
 /**
  * Par Alexis le 30/09/2016.
  */
@@ -28,7 +30,7 @@ public class MemoryPlayer {
         if(p == null)
             return false;
         if(getName() == null) {
-            j.write(path + "name", p.getName());
+            p.sendMessage(messageWithLine(String.format("§eBienvenue §a%s §esur War Of Legions, il y a §a%s joueurs !", p.getName(), Bukkit.getOnlinePlayers().size()), String.format("§eSi tu ne connais pas le serveur fait §a/aide.")));
             set("name", p.getName());
             set("uuid", p.getUniqueId().toString());
             set("joinDate", p.getFirstPlayed());
@@ -44,7 +46,7 @@ public class MemoryPlayer {
     }
 
     public String getName(){
-        return j.getString(path + "name");
+        return get("name");
     }
 
     public void set(String path, Object o){

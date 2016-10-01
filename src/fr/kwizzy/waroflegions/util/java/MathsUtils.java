@@ -1,4 +1,4 @@
-package fr.kwizzy.waroflegions.util;
+package fr.kwizzy.waroflegions.util.java;
 
 /**
  * Par Alexis le 30/09/2016.
