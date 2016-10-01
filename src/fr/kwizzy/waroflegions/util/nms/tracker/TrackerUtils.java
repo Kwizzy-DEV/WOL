@@ -5,8 +5,9 @@ import org.bukkit.entity.Player;
 
 import java.util.Set;
 
-import static core.opengl.utils.nms.NMSUtils.*;
-import static core.opengl.java.Reflection.*;
+import static fr.kwizzy.waroflegions.util.java.Reflection.*;
+import static fr.kwizzy.waroflegions.util.nms.NMSUtils.*;
+
 
 public class TrackerUtils {
 

@@ -6,7 +6,7 @@ import org.bukkit.entity.Player;
 
 import java.util.UUID;
 
-import static fr.kwizzy.waroflegions.util.StringUtils.*;
+import static fr.kwizzy.waroflegions.util.java.StringUtils.*;
 
 /**
  * Par Alexis le 30/09/2016.
@@ -35,8 +35,8 @@ public class MemoryPlayer {
             set("uuid", p.getUniqueId().toString());
             set("joinDate", p.getFirstPlayed());
             set("legion", "neutre");
-            set("economy.changes", 150);
-            set("economy.quota", 0);
+            set("money.changes", 150);
+            set("money.quota", 0);
             set("stats.kills", 0);
             set("stats.deaths", 0);
             j.saveAll();
@@ -54,7 +54,7 @@ public class MemoryPlayer {
     }
 
     public String get(String path){
-        return j.getString(path);
+        return j.getString(this.path + path);
     }
 
 

@@ -1,7 +1,9 @@
 package fr.kwizzy.waroflegions;
 
 import fr.kwizzy.waroflegions.common.listener.MessagesJoinQuit;
+import fr.kwizzy.waroflegions.economy.EconomyCommands;
 import fr.kwizzy.waroflegions.player.WPlayerListeners;
+import fr.kwizzy.waroflegions.util.command.CommandRegisterer;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -20,6 +22,7 @@ public class WarOfLegions extends JavaPlugin {
 
         setInstance(this);
         registerEvents();
+        registerCommands();
 
     }
 
@@ -31,6 +34,10 @@ public class WarOfLegions extends JavaPlugin {
     private void registerEvents(){
         Bukkit.getPluginManager().registerEvents(new WPlayerListeners(), this);
         Bukkit.getPluginManager().registerEvents(new MessagesJoinQuit(), this);
+    }
+
+    private void registerCommands(){
+        CommandRegisterer.register("eco", new EconomyCommands());
     }
 
     private static void setInstance(WarOfLegions instance) {

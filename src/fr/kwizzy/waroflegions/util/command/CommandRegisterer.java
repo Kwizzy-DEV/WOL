@@ -1,12 +1,12 @@
 package fr.kwizzy.waroflegions.util.command;
 
-
 import fr.kwizzy.waroflegions.WarOfLegions;
 import fr.kwizzy.waroflegions.util.bukkit.CommandMapUtil;
 import fr.kwizzy.waroflegions.util.java.bistream.BiStream;
 import org.bukkit.command.*;
 import org.bukkit.command.Command;
 
+import java.awt.*;
 import java.util.Arrays;
 import java.util.List;
 import java.util.regex.Pattern;
@@ -29,25 +29,32 @@ public class CommandRegisterer extends Command{
     public boolean execute(CommandSender sender, String label, String[] args) {
         return Arrays.stream(instance.getClass().getMethods()).filter((m) -> m.isAnnotationPresent(CommandHandler.class)).anyMatch((m) -> {
             CommandHandler handler = m.getAnnotation(CommandHandler.class);
-            if(!handler.infinite() && handler.args().length != args.length) return false;
-            else if(!handler.sender().isInstance(sender))return false;
-            boolean exec;
-            if(handler.pattern())exec =
-                    BiStream.wrap(handler.args() , args)
-                            .allMatch((s1 , s2) -> s1 == null || Pattern.matches(s1 , s2)) ||
-                            BiStream.wrap(handler.alias() , args).allMatch((s1 , s2) -> s1 == null || Pattern.matches(s1 , s2));
-            else exec = BiStream.wrap(handler.args() , args)
-                    .allMatch((s1 , s2) -> s1 == null || s1.equals(s2)) ||
-                    BiStream.wrap(handler.alias() , args).allMatch((s1 , s2) -> s1 == null || s1.equalsIgnoreCase(s2));
-            if(exec) try {
-                m.setAccessible(true);
-                m.invoke(instance , new fr.kwizzy.waroflegions.util.command.Command<>(args , sender , label , this));
-            } catch (Exception e) {
-                WarOfLegions.getInstance().print("Error in method " + m + " : " + e.getMessage());
-                e.printStackTrace();
-            }
-            return exec;
+            if(!handler.infinite() && handler.args().length != args.length || !handler.sender().isInstance(sender))
+                return false;
+            System.out.println(Arrays.toString(args) + " " + Arrays.toString(handler.args()));
+
+            String[] alias = handler.alias().length == handler.args().length ? handler.alias() : null;
+            if(eq(args , handler.args() , alias , handler.pattern()))
+                try {
+                    m.setAccessible(true);
+                    m.invoke(instance , new fr.kwizzy.waroflegions.util.command.Command<>(args , sender , label , this));
+                    return true;
+                } catch (Exception e) {
+                    WarOfLegions.getInstance().print("Error in method " + m + " : " + e.getMessage());
+                    e.printStackTrace();
+                }
+            return false;
         });
+    }
+
+
+    private static boolean eq(String[] args , String[] expected , String[] alias , Boolean pattern) {
+        if(pattern)
+            return BiStream.wrap(expected , args).filter((s1 , s2) -> s1 != null).allMatch(Pattern::matches) || alias != null ?
+                    BiStream.wrap(alias , args).filter((s1 , s2) -> s1 != null).allMatch(Pattern::matches) : false;
+        else
+            return BiStream.wrap(expected , args).filter((s1 , s2) -> s1 != null).allMatch(String::equalsIgnoreCase) || alias != null ?
+                    BiStream.wrap(alias , args).filter((s1 , s2) -> s1 != null).allMatch(String::equalsIgnoreCase) : false;
     }
 
     public static void register(String command , CommandListener listener){

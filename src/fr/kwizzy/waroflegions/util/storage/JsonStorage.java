@@ -11,6 +11,7 @@ import java.util.regex.Pattern;
 import fr.kwizzy.waroflegions.WarOfLegions;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
+import org.bukkit.util.StringUtil;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -105,7 +106,7 @@ public class JsonStorage implements Storage {
 
 	@Override
 	public String getString(String path) {
-		return (String) getFinalValue(path);
+		return String.valueOf(getFinalValue(path));
 	}
 
 	@Override

@@ -4,7 +4,7 @@ import org.bukkit.Location;
 
 import java.util.Arrays;
 
-public class BukkitUtil {
+public class BukkitUtils {
 
     @SuppressWarnings("unchecked")
     public static <T> T getEntityAtBlock(Location loc , Class<T> entityClass){
