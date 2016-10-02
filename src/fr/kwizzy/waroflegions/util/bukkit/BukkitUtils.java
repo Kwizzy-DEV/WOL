@@ -1,10 +1,14 @@
 package fr.kwizzy.waroflegions.util.bukkit;
 
+import fr.kwizzy.waroflegions.util.java.ArraysUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class BukkitUtils {
 
@@ -24,6 +28,11 @@ public class BukkitUtils {
 
     public static void playerExecuteCommand(Player p, String command){
         Bukkit.getServer().dispatchCommand(p, command);
+    }
+
+    public static List<ItemStack> getTotalInventory(Player p){
+        ItemStack[] combined = ArraysUtils.combine(p.getInventory().getContents(), p.getInventory().getArmorContents());
+        return Arrays.asList(combined);
     }
 
 }

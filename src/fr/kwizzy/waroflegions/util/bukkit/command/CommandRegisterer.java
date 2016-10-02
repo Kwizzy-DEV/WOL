@@ -40,6 +40,7 @@ public class CommandRegisterer extends Command{
                     return true;
                 } catch (Exception e) {
                     WarOfLegions.getInstance().print("Error in method " + m + " : " + e.getMessage());
+                    e.printStackTrace();
                 }
             return false;
         });
