@@ -42,4 +42,8 @@ public class StringUtils {
         l = lines.toArray(l);
         return l;
     }
+
+    public static String parenthesisText(String text){
+        return String.format("§7(§a%s§7)", text);
+    }
 }

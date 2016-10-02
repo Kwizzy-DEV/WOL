@@ -1,4 +1,4 @@
-package fr.kwizzy.waroflegions.builder;
+package fr.kwizzy.waroflegions.util.bukkit.builder;
 
 import java.util.*;
 

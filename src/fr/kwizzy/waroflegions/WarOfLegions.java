@@ -3,7 +3,7 @@ package fr.kwizzy.waroflegions;
 import fr.kwizzy.waroflegions.common.listener.MessagesJoinQuit;
 import fr.kwizzy.waroflegions.economy.EconomyCommands;
 import fr.kwizzy.waroflegions.player.WPlayerListeners;
-import fr.kwizzy.waroflegions.util.command.CommandRegisterer;
+import fr.kwizzy.waroflegions.util.bukkit.command.CommandRegisterer;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -24,6 +24,7 @@ public class WarOfLegions extends JavaPlugin {
         registerEvents();
         registerCommands();
 
+        print("§dWarOfLegions plugin by _Kwizzy");
     }
 
     @Override

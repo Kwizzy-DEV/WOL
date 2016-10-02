@@ -1,4 +1,4 @@
-package fr.kwizzy.waroflegions.util.command;
+package fr.kwizzy.waroflegions.util.bukkit.command;
 
 import fr.kwizzy.waroflegions.WarOfLegions;
 import fr.kwizzy.waroflegions.util.bukkit.CommandMapUtil;
@@ -6,7 +6,6 @@ import fr.kwizzy.waroflegions.util.java.bistream.BiStream;
 import org.bukkit.command.*;
 import org.bukkit.command.Command;
 
-import java.awt.*;
 import java.util.Arrays;
 import java.util.List;
 import java.util.regex.Pattern;
@@ -31,13 +30,12 @@ public class CommandRegisterer extends Command{
             CommandHandler handler = m.getAnnotation(CommandHandler.class);
             if(!handler.infinite() && handler.args().length != args.length || !handler.sender().isInstance(sender))
                 return false;
-            System.out.println(Arrays.toString(args) + " " + Arrays.toString(handler.args()));
 
             String[] alias = handler.alias().length == handler.args().length ? handler.alias() : null;
             if(eq(args , handler.args() , alias , handler.pattern()))
                 try {
                     m.setAccessible(true);
-                    m.invoke(instance , new fr.kwizzy.waroflegions.util.command.Command<>(args , sender , label , this));
+                    m.invoke(instance , new fr.kwizzy.waroflegions.util.bukkit.command.Command<>(args , sender , label , this));
                     return true;
                 } catch (Exception e) {
                     WarOfLegions.getInstance().print("Error in method " + m + " : " + e.getMessage());
@@ -50,11 +48,11 @@ public class CommandRegisterer extends Command{
 
     private static boolean eq(String[] args , String[] expected , String[] alias , Boolean pattern) {
         if(pattern)
-            return BiStream.wrap(expected , args).filter((s1 , s2) -> s1 != null).allMatch(Pattern::matches) || alias != null ?
-                    BiStream.wrap(alias , args).filter((s1 , s2) -> s1 != null).allMatch(Pattern::matches) : false;
+            return BiStream.wrap(expected , args).allMatch(Pattern::matches) ||
+                (alias != null && BiStream.wrap(alias, args).allMatch(Pattern::matches));
         else
-            return BiStream.wrap(expected , args).filter((s1 , s2) -> s1 != null).allMatch(String::equalsIgnoreCase) || alias != null ?
-                    BiStream.wrap(alias , args).filter((s1 , s2) -> s1 != null).allMatch(String::equalsIgnoreCase) : false;
+            return BiStream.wrap(expected , args).allMatch(String::equalsIgnoreCase) ||
+                (alias != null && BiStream.wrap(alias, args).allMatch(String::equalsIgnoreCase));
     }
 
     public static void register(String command , CommandListener listener){

@@ -6,6 +6,6 @@ package fr.kwizzy.waroflegions.economy;
 
 public class Economy {
 
-    static String money_name = "§6Pièces d'or§r";
+    public static final String MONEY_NAME = "§6Pièces d'or§r";
 
 }

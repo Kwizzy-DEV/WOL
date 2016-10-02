@@ -1,4 +1,4 @@
-package fr.kwizzy.waroflegions.util.command;
+package fr.kwizzy.waroflegions.util.bukkit.command;
 
 import org.bukkit.command.*;
 
