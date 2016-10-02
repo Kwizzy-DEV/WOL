@@ -97,12 +97,16 @@ public class EssCommands implements IFastCommand {
             if(hasntPemission(p, "wol.hat"))
                 return;
             ItemStack m = p.getItemInHand();
-            if(m != null && !m.equals(Material.AIR)) {
+            if(m != null && !m.getType().equals(Material.AIR)) {
                 ItemStack helmet = p.getInventory().getHelmet();
-                p.getInventory().addItem(helmet);
+                if(helmet != null)
+                    p.getInventory().addItem(helmet);
                 p.getInventory().setHelmet(m);
+                p.getInventory().remove(m);
                 p.sendMessage(hatM);
+                return;
             }
+            p.sendMessage(hatError);
         }
     };
     

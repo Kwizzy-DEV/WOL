@@ -26,7 +26,7 @@ public class WarOfLegions extends JavaPlugin {
         registerEvents();
         registerCommands();
 
-        print("§dWarOfLegions plugin by _Kwizzy");
+        print("WarOfLegions plugin by _Kwizzy");
     }
 
     @Override
