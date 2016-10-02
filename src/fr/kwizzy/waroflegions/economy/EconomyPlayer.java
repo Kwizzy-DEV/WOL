@@ -2,6 +2,7 @@ package fr.kwizzy.waroflegions.economy;
 
 import fr.kwizzy.waroflegions.player.MemoryPlayer;
 import fr.kwizzy.waroflegions.player.WPlayer;
+import fr.kwizzy.waroflegions.util.Saveable;
 import fr.kwizzy.waroflegions.util.bukkit.ActionBar;
 import fr.kwizzy.waroflegions.util.java.StringUtils;
 import org.bukkit.Bukkit;
@@ -16,15 +17,19 @@ import java.util.UUID;
 
 // TODO: 01/10/2016 Quota
 
-public class EconomyPlayer {
+public class EconomyPlayer implements Saveable{
 
     private static final String addMoney = "§a+ %s " + Economy.MONEY_NAME_LOWERCASE + "§a. " + StringUtils.parenthesisText("%s");
     private static final String removeMoney = "§c- %s " + Economy.MONEY_NAME_LOWERCASE + "§c. " + StringUtils.parenthesisText("%s");
     private static final String notEnoughtMoney = "§cTu n'as pas assez de " + Economy.MONEY_NAME_LOWERCASE + "§c.";
+
+    MemoryPlayer memory;
+
     Integer money;
     Player player;
 
     public EconomyPlayer(MemoryPlayer m) {
+        this.memory = m;
         this.money = Integer.parseInt(m.get("economy.changes"));
         this.player = Bukkit.getPlayer(UUID.fromString(m.get("uuid")));
     }
@@ -62,5 +67,10 @@ public class EconomyPlayer {
 
     public Integer getMoney() {
         return money;
+    }
+
+    @Override
+    public void save() {
+        memory.set("economy.changes", money);
     }
 }

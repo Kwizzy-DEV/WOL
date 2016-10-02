@@ -38,6 +38,7 @@ public class WarOfLegions extends JavaPlugin {
 
     @Override
     public void onDisable() {
+        WPlayer.getPlayers().forEach(WPlayer::save);
         JsonStorage.getInstance().saveAll();
     }
 

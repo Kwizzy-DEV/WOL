@@ -35,4 +35,15 @@ public class EssPlayer {
     void setGod(boolean god) {
         memory.set("ess.god", god);
     }
+
+    boolean isAfk(){
+        if(memory.get("ess.afk").equalsIgnoreCase("null")) {
+            setAfk(false);
+        }
+        return Boolean.parseBoolean(memory.get("ess.afk"));
+    }
+
+    void setAfk(boolean b) {
+        memory.set("ess.afk", b);
+    }
 }

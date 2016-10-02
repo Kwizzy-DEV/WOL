@@ -2,9 +2,12 @@ package fr.kwizzy.waroflegions.player;
 
 import fr.kwizzy.waroflegions.common.essential.EssPlayer;
 import fr.kwizzy.waroflegions.economy.EconomyPlayer;
+import fr.kwizzy.waroflegions.level.LevelPlayer;
+import fr.kwizzy.waroflegions.util.Saveable;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.UUID;
 
@@ -12,17 +15,19 @@ import java.util.UUID;
  * Par Alexis le 30/09/2016.
  */
 
-public class WPlayer {
+public class WPlayer implements Saveable {
 
     private static HashMap<UUID, WPlayer> players = new HashMap<>();
 
     MemoryPlayer memoryPlayer;
-    EssPlayer essPlayer;
+
 
     String name;
     UUID uuid;
 
     EconomyPlayer economyPlayer;
+    LevelPlayer levelPlayer;
+    EssPlayer essPlayer;
 
 
     private WPlayer(UUID uuid) {
@@ -31,6 +36,7 @@ public class WPlayer {
         this.name = memoryPlayer.get("name");
 
         this.economyPlayer = new EconomyPlayer(memoryPlayer);
+        this.levelPlayer = new LevelPlayer(memoryPlayer);
         this.essPlayer = new EssPlayer(memoryPlayer);
     }
 
@@ -50,6 +56,12 @@ public class WPlayer {
         return essPlayer;
     }
 
+    @Override
+    public void save() {
+        economyPlayer.save();
+        levelPlayer.save();
+    }
+
     public static WPlayer load(UUID uuid){
         if(players.containsKey(uuid))
             return players.get(uuid);
@@ -61,6 +73,10 @@ public class WPlayer {
     public static WPlayer load(Player p){
         UUID uuid = p.getUniqueId();
         return load(uuid);
+    }
+
+    public static Collection<WPlayer> getPlayers() {
+        return players.values();
     }
 
     static boolean createPlayer(UUID uuid){
@@ -85,5 +101,7 @@ public class WPlayer {
         }
         return false;
     }
+
+
 }
 

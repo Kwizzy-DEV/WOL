@@ -45,6 +45,9 @@ public class EssCommands implements IFastCommand {
     private static final String speedM = "§7Vitesse de déplacement défini à: §a%s§7.";
     private static final String breakM = "§7Vous avez cassé le bloc que vous regardez.";
 
+    private static final String afkM = "§7Le joueur §a%s§7 est maintenant afk.";
+    private static final String notAfkM = "§7Le joueur §a%s§7 n'est plus afk.";
+
     private static final String notObject = "§cTu n'as pas d'objet dans ta main...";
     private static final String needToBeOp = "§cVous n'avez pas la permission d'éxécuter cette commande.";
     private static final String gamemodeBeInt = "§cL'argument doit être un entier compris entre 1 et 3.";
@@ -56,7 +59,7 @@ public class EssCommands implements IFastCommand {
      COMMANDS
     ********************/
 
-    public static final FastCommand GAMEMODE = new FastCommand("gm") {
+    public static final FastCommand GM = new FastCommand("gm") {
         @Override
         public void command(Command<Player> c) {
             Player p = c.getSender();
@@ -132,36 +135,6 @@ public class EssCommands implements IFastCommand {
         }
     };
 
-//    public static final FastCommand REPAIR = new FastCommand("repair") {
-//        @Override
-//        public void command(Command<Player> c) {
-//            Player p = c.getSender();
-//            if(hasntPemission(p, "wol.repair"))
-//                return;
-//            ItemStack m = p.getItemInHand();
-//            if(m != null && !m.getType().equals(Material.AIR)) {
-//                m.setDurability((short) 0);
-//                p.sendMessage(repairM);
-//                return;
-//            }
-//            p.sendMessage(notObject);
-//        }
-//    };
-//
-//    public static final FastCommand REPAIRALL = new FastCommand("repairall") {
-//        @Override
-//        public void command(Command<Player> c) {
-//            Player p = c.getSender();
-//            if(hasntPemission(p, "wol.repairall"))
-//                return;
-//            List<ItemStack> m = BukkitUtils.getTotalInventory(p);
-//            m.stream().filter(stack -> stack != null && !stack.getType().equals(Material.AIR)).forEach(stack -> {
-//                stack.setDurability((short) 0);
-//            });
-//            p.sendMessage(repairAllM);
-//        }
-//    };
-
     public static final FastCommand CLEAR = new FastCommand("clear") {
         @Override
         public void command(Command<Player> c) {
@@ -214,14 +187,14 @@ public class EssCommands implements IFastCommand {
             setSpeed((float) speed/10, p);
             p.sendMessage(String.format(speedM, speed));
         }
-    };
 
-    private static void setSpeed(float speed, Player p){
-        if(p.isFlying())
-            p.setFlySpeed(speed);
-        else
-            p.setWalkSpeed(speed);
-    }
+        private void setSpeed(float speed, Player p){
+            if(p.isFlying())
+                p.setFlySpeed(speed);
+            else
+                p.setWalkSpeed(speed);
+        }
+    };
 
     public static final FastCommand GOD = new FastCommand("god") {
         @Override
@@ -242,19 +215,41 @@ public class EssCommands implements IFastCommand {
             }
             setGod(essPlayer);
         }
+
+        private boolean setGod(EssPlayer e){
+            if(e.isGod()){
+                e.setGod(false);
+                e.getPlayer().sendMessage(String.format(godM, "§cOFF"));
+                return false;
+            }
+            e.setGod(true);
+            e.getPlayer().sendMessage(String.format(godM, "§aON"));
+            return true;
+
+        }
     };
 
-    private static boolean setGod(EssPlayer e){
-        if(e.isGod()){
-            e.setGod(false);
-            e.getPlayer().sendMessage(String.format(godM, "§cOFF"));
-            return false;
+    public static final FastCommand ENDERCHEST = new FastCommand("enderchest", "ec") {
+        @Override
+        public void command(Command<Player> c) {
+            Player p = c.getSender();
+            EssPlayer essPlayer = WPlayer.load(p).getEssPlayer();
+            if(hasntPemission(p, "wol.enderchest"))
+                return;
+            if(c.getArgs().length > 1){
+                if(hasntPemission(p, "wol.enderchest.other"))
+                    return;
+                Player target = Bukkit.getPlayer(c.getArgs()[0]);
+                if(target == null) {
+                    p.sendMessage(String.format(badPlayer, c.getArgs()[0]));
+                    return;
+                }
+                p.openInventory(target.getEnderChest());
+                return;
+            }
+            p.openInventory(p.getEnderChest());
         }
-        e.setGod(true);
-        e.getPlayer().sendMessage(String.format(godM, "§aON"));
-        return true;
-
-    }
+    };
 
     public static final FastCommand BREAK = new FastCommand("break") {
         @Override
@@ -285,6 +280,55 @@ public class EssCommands implements IFastCommand {
             Bukkit.broadcastMessage("");
         }
     };
+
+    public static final FastCommand AFK = new FastCommand("afk", "away-from-keyboard") {
+        @Override
+        public void command(Command<Player> c) {
+            Player p = c.getSender();
+            if(hasntPemission(p, "wol.afk"))
+                return;
+            EssPlayer essPlayer = WPlayer.load(p).getEssPlayer();
+            if(!essPlayer.isAfk()) {
+                Bukkit.broadcastMessage(String.format(afkM, p.getName()));
+                essPlayer.setAfk(true);
+            }
+
+            else {
+                Bukkit.broadcastMessage(String.format(notAfkM, p.getName()));
+                essPlayer.setAfk(false);
+            }
+        }
+    };
+
+    //    public static final FastCommand REPAIR = new FastCommand("repair") {
+//        @Override
+//        public void command(Command<Player> c) {
+//            Player p = c.getSender();
+//            if(hasntPemission(p, "wol.repair"))
+//                return;
+//            ItemStack m = p.getItemInHand();
+//            if(m != null && !m.getType().equals(Material.AIR)) {
+//                m.setDurability((short) 0);
+//                p.sendMessage(repairM);
+//                return;
+//            }
+//            p.sendMessage(notObject);
+//        }
+//    };
+//
+//    public static final FastCommand REPAIRALL = new FastCommand("repairall") {
+//        @Override
+//        public void command(Command<Player> c) {
+//            Player p = c.getSender();
+//            if(hasntPemission(p, "wol.repairall"))
+//                return;
+//            List<ItemStack> m = BukkitUtils.getTotalInventory(p);
+//            m.stream().filter(stack -> stack != null && !stack.getType().equals(Material.AIR)).forEach(stack -> {
+//                stack.setDurability((short) 0);
+//            });
+//            p.sendMessage(repairAllM);
+//        }
+//    };
 
     /********************
      STATIC USEFUL METHODS
