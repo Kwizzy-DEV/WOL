@@ -30,4 +30,8 @@ public class ArraysUtils {
 
         return bytes;
     }
+
+    public static <T> T[] toArray(T... s) {
+        return s;
+    }
 }

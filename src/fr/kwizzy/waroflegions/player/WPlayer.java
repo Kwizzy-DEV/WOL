@@ -1,15 +1,11 @@
 package fr.kwizzy.waroflegions.player;
 
-import com.sun.jna.Memory;
 import fr.kwizzy.waroflegions.economy.EconomyPlayer;
-import fr.kwizzy.waroflegions.util.bukkit.Title;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 import java.util.HashMap;
 import java.util.UUID;
-
-import static fr.kwizzy.waroflegions.util.java.StringUtils.messageWithLine;
 
 /**
  * Par Alexis le 30/09/2016.
@@ -64,13 +60,16 @@ public class WPlayer {
         Player p = Bukkit.getPlayer(uuid);
         if(p == null)
             return false;
-        if(m.getName() == null) {
+        if(m.getName() == null || m.getName().equalsIgnoreCase("null")) {
             m.set("name", p.getName());
             m.set("uuid", p.getUniqueId().toString());
-            m.set("joinDate", p.getFirstPlayed());
-            m.set("legion", "neutre");
-            m.set("money.changes", 150);
-            m.set("money.quota", 0);
+            m.set("date", p.getFirstPlayed());
+            m.set("legion.legion", "neutre");
+            m.set("legion.rank", "mercenaire");
+            m.set("leveling.level", 1);
+            m.set("leveling.exp", 0);
+            m.set("economy.changes", 150);
+            m.set("economy.quota", 0);
             m.set("stats.kills", 0);
             m.set("stats.deaths", 0);
             m.j.saveAll();

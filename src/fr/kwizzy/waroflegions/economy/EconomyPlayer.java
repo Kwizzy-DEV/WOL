@@ -6,6 +6,7 @@ import fr.kwizzy.waroflegions.util.bukkit.ActionBar;
 import fr.kwizzy.waroflegions.util.java.StringUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
+import org.bukkit.util.StringUtil;
 
 import java.util.UUID;
 
@@ -17,9 +18,9 @@ import java.util.UUID;
 
 public class EconomyPlayer {
 
-    private static final String addMoney = "§a+ %s " + Economy.MONEY_NAME + "§a. " + StringUtils.parenthesisText("%s");
-    private static final String removeMoney = "§c- %s " + Economy.MONEY_NAME + "§c. " + StringUtils.parenthesisText("%s");
-
+    private static final String addMoney = "§a+ %s " + Economy.MONEY_NAME_LOWERCASE + "§a. " + StringUtils.parenthesisText("%s");
+    private static final String removeMoney = "§c- %s " + Economy.MONEY_NAME_LOWERCASE + "§c. " + StringUtils.parenthesisText("%s");
+    private static final String notEnoughtMoney = "§cTu n'as pas assez de " + Economy.MONEY_NAME_LOWERCASE + "§c.";
     Integer money;
     Player player;
 
@@ -34,7 +35,7 @@ public class EconomyPlayer {
 
     public void add(int i) {
         this.money += i;
-        ActionBar.sendActionBar(String.format(removeMoney, i, this.money), player);
+        ActionBar.sendActionBar(String.format(addMoney, i, this.money), player);
     }
 
     public void remove(int i){
@@ -55,6 +56,7 @@ public class EconomyPlayer {
             remove(i);
             return true;
         }
+        player.sendMessage(StringUtils.messageWithLine(notEnoughtMoney));
         return false;
     }
 

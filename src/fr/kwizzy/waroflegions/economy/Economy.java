@@ -7,5 +7,6 @@ package fr.kwizzy.waroflegions.economy;
 public class Economy {
 
     public static final String MONEY_NAME = "§6Pièces d'or§r";
+    public static final String MONEY_NAME_LOWERCASE = "§6pièces d'or§r";
 
 }

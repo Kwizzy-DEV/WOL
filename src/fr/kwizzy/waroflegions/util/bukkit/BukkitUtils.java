@@ -1,6 +1,8 @@
 package fr.kwizzy.waroflegions.util.bukkit;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.entity.Player;
 
 import java.util.Arrays;
 
@@ -19,4 +21,9 @@ public class BukkitUtils {
         return (T) Arrays.stream(loc.getChunk().getEntities()).filter((e) -> entityClass.isAssignableFrom(e.getClass()) &&
                 e.getLocation().equals(loc)).findFirst().orElse(null);
     }
+
+    public static void playerExecuteCommand(Player p, String command){
+        Bukkit.getServer().dispatchCommand(p, command);
+    }
+
 }

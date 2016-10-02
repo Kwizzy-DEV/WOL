@@ -15,16 +15,29 @@ import static fr.kwizzy.waroflegions.util.java.StringUtils.messageWithLine;
 
 public class WPlayerListeners implements Listener {
 
-    private static final String welcomeMessage = "§eBienvenue §a%s §esur War Of Legions, il y a §a%s joueurs !";
+    private static final String welcomeMessage0 = "§7Bienvenue §a%s §7sur §eWar Of Legions§7, il y a §e%s §7joueur%s !";
+    private static final String welcomeMessage1 = "§7Si tu ne connais pas le serveur fait §a/aide§7.";
+    private static final String welcomeMessage2 = "§7Site: §bwww.waroflegions.fr";
+    private static final String welcomeMessage3 = "§7Twitter: §b@WarOfLegionsMC";
+    private static final String welcomeMessage4 = "§7Teamspeak: §bts.waroflegions.fr";
+
     private static final String welcomeTitle = "§cWarOfLegions";
     private static final String welcomeSubtitle = "§eUne ère nouvelle...";
 
     @EventHandler
     public void onJoin(PlayerJoinEvent e){
         Player p = e.getPlayer();
+        int py = Bukkit.getOnlinePlayers().size();
+        p.sendMessage(messageWithLine(
+                String.format(welcomeMessage0, p.getName(), py, (py > 1) ? "s" : ""),
+                welcomeMessage1,
+                "",
+                welcomeMessage2,
+                welcomeMessage3,
+                welcomeMessage4
+        ));
         if(WPlayer.createPlayer(e.getPlayer().getUniqueId())){
-            p.sendMessage(messageWithLine(String.format(welcomeMessage, p.getName(), Bukkit.getOnlinePlayers().size()), String.format("§eSi tu ne connais pas le serveur fait §a/aide.")));
-            Title.sendTitle(welcomeTitle, welcomeSubtitle, 35, 20*3, 35, p);
+            Title.sendTitle(welcomeTitle, welcomeSubtitle, 2, 3, 2, p);
         }
     }
 
