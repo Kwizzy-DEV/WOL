@@ -1,12 +1,17 @@
 package fr.kwizzy.waroflegions;
 
 import fr.kwizzy.waroflegions.common.essential.EssCommands;
+import fr.kwizzy.waroflegions.common.essential.EssEvents;
 import fr.kwizzy.waroflegions.common.listener.MessagesJoinQuit;
 import fr.kwizzy.waroflegions.economy.EconomyCommands;
+import fr.kwizzy.waroflegions.player.WPlayer;
 import fr.kwizzy.waroflegions.player.WPlayerListeners;
 import fr.kwizzy.waroflegions.util.bukkit.command.CommandRegisterer;
 
+import fr.kwizzy.waroflegions.util.storage.JsonStorage;
+import fr.kwizzy.waroflegions.util.storage.YamlStorage;
 import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.logging.Level;
@@ -27,16 +32,20 @@ public class WarOfLegions extends JavaPlugin {
         registerCommands();
 
         print("WarOfLegions plugin by _Kwizzy");
+
+        Bukkit.getOnlinePlayers().forEach(WPlayer::load);
     }
 
     @Override
     public void onDisable() {
-
+        JsonStorage.getInstance().saveAll();
     }
 
     private void registerEvents(){
         Bukkit.getPluginManager().registerEvents(new WPlayerListeners(), this);
+
         Bukkit.getPluginManager().registerEvents(new MessagesJoinQuit(), this);
+        Bukkit.getPluginManager().registerEvents(new EssEvents(), this);
     }
 
     private void registerCommands(){

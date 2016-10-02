@@ -8,7 +8,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.regex.Pattern;
 
+import com.jayway.jsonpath.DocumentContext;
+import com.jayway.jsonpath.JsonPath;
 import fr.kwizzy.waroflegions.WarOfLegions;
+import org.bukkit.Bukkit;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.StringUtil;
@@ -28,7 +31,6 @@ import com.google.gson.JsonParser;
 public class JsonStorage implements Storage {
 
 
-	private static File folder = new File(WarOfLegions.getInstance().getDataFolder() + File.separator + "data" + File.separator);
 	static HashMap<String, JSONObject> cacheFiles = new HashMap<>();
 	private static JsonStorage instance = new JsonStorage();
 
@@ -46,7 +48,13 @@ public class JsonStorage implements Storage {
 			JSONObject jsonObject = writeValue(cacheFiles.get(Storage.getFirstPart(path)), path, t);
 			cacheFiles.put(Storage.getFirstPart(path), jsonObject);
 		} else {
+			DocumentContext doc = null;
 			JSONObject j = new JSONObject();
+			try {
+				 doc = JsonPath.parse(Storage.fileFromString(path, ".json"));
+			} catch (IOException e) {}
+			if(doc != null)
+				j = new JSONObject(doc.jsonString());
 			cacheFiles.put(Storage.getFirstPart(path), j);
 			JSONObject jsonObject = writeValue(cacheFiles.get(Storage.getFirstPart(path)), path, t);
 			cacheFiles.put(Storage.getFirstPart(path), jsonObject);
@@ -144,6 +152,7 @@ public class JsonStorage implements Storage {
 
 				Gson gson = new GsonBuilder().setPrettyPrinting().create();
 				JsonParser jp = new JsonParser();
+				Bukkit.broadcastMessage("save: " + e.getValue().toString());
 				JsonElement je = jp.parse(e.getValue().toString());
 				fw.write(gson.toJson(je));
 				fw.flush();
@@ -172,6 +181,7 @@ public class JsonStorage implements Storage {
 	}
 
 	private Object getFinalValue(String path) {
+
 		String[] parts = Storage.getParts(path);
 		String str = Storage.getFinalPart(parts);
 		String[] split = str.split(Pattern.quote("."));
@@ -184,20 +194,31 @@ public class JsonStorage implements Storage {
 				return null;
 			}
 		}
-		if(split.length == 1){
-			return jsonObject.get(split[0]);
+		Bukkit.broadcastMessage("read: " + jsonObject.toString());
+		try {
+			DocumentContext parse = JsonPath.parse(Storage.fileFromString(path, ".json"));
+			Object read = parse.read("$." + str);
+			return read;
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
-		JSONObject json = null;
-		Object o = "";
-
-		for (int i = 0; i < split.length; i++) {
-			if (i == split.length - 1)
-				o = ((json == null) ? jsonObject.get(split[i]) : json.get(split[i]));
-			else
-				json = (JSONObject) ((json == null) ? jsonObject.get(split[i]) : json.get(split[i]));
-
-		}
-		return o;
+//		if(split.length == 1){
+//			return jsonObject.get(split[0]);
+//		}
+//		JSONObject json = null;
+//		Object o = "";
+//		for (int i = 0; i < split.length; i++) {
+//			if (i == split.length - 1)
+//				o = ((json == null) ? jsonObject.get(split[i]) : json.get(split[i]));
+//			else
+//				try {
+//					json = (JSONObject) ((json == null) ? jsonObject.get(split[i]) : json.get(split[i]));
+//				} catch (JSONException e) {
+//					return null;
+//				}
+//		}
+//		return o;
+		return null;
 	}
 
 

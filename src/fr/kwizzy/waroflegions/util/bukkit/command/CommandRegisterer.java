@@ -68,6 +68,11 @@ public class CommandRegisterer extends Command{
         register(cmd.getCommand(), cmd);
     }
 
+    public static void register(FastCommand cmd, String... aliases){
+        List<String> ali = Arrays.asList(aliases);
+        register(cmd.getCommand(), cmd.getCommand(), cmd.getCommand(), ali, cmd);
+    }
+
     public static void register(String command , String description, String usageMessage, List<String> aliases ,CommandListener listener){
         CommandMapUtil.getCommandMap().register(command , new CommandRegisterer(command , description , usageMessage , aliases , listener));
     }

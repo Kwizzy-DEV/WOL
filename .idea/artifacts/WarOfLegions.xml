@@ -1,0 +1,10 @@
+<component name="ArtifactManager">
+  <artifact type="jar" build-on-make="true" name="WarOfLegions">
+    <output-path>E:/Serveur/plugins</output-path>
+    <root id="archive" name="WarOfLegions.jar">
+      <element id="module-output" name="WarOfLegions" />
+      <element id="extracted-dir" path="$USER_HOME$/Documents/api/json-20160810.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$USER_HOME$/Documents/api/json-path-2.2.0.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>

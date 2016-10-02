@@ -1,5 +1,6 @@
 package fr.kwizzy.waroflegions.player;
 
+import fr.kwizzy.waroflegions.common.essential.EssPlayer;
 import fr.kwizzy.waroflegions.economy.EconomyPlayer;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -16,6 +17,7 @@ public class WPlayer {
     private static HashMap<UUID, WPlayer> players = new HashMap<>();
 
     MemoryPlayer memoryPlayer;
+    EssPlayer essPlayer;
 
     String name;
     UUID uuid;
@@ -27,7 +29,9 @@ public class WPlayer {
         this.uuid = uuid;
         this.memoryPlayer = new MemoryPlayer(uuid);
         this.name = memoryPlayer.get("name");
+
         this.economyPlayer = new EconomyPlayer(memoryPlayer);
+        this.essPlayer = new EssPlayer(memoryPlayer);
     }
 
     public String getName() {
@@ -40,6 +44,10 @@ public class WPlayer {
 
     public EconomyPlayer getEconomyPlayer() {
         return economyPlayer;
+    }
+
+    public EssPlayer getEssPlayer() {
+        return essPlayer;
     }
 
     public static WPlayer load(UUID uuid){
