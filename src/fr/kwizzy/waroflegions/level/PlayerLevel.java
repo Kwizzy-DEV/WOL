@@ -1,7 +1,8 @@
 package fr.kwizzy.waroflegions.level;
 
-import fr.kwizzy.waroflegions.player.MemoryPlayer;
-import fr.kwizzy.waroflegions.util.Saveable;
+import fr.kwizzy.waroflegions.player.PlayerData;
+import fr.kwizzy.waroflegions.player.PlayerW;
+import fr.kwizzy.waroflegions.util.IMemory;
 import fr.kwizzy.waroflegions.util.java.MathsUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -13,7 +14,7 @@ import java.util.UUID;
  * Par Alexis le 02/10/2016.
  */
 
-public class LevelPlayer implements Saveable{
+public class PlayerLevel extends PlayerData{
 
     private static HashMap<Integer, Double> levelToExp = new HashMap<>();
     private static final double COEFF = 1.044663;
@@ -27,15 +28,13 @@ public class LevelPlayer implements Saveable{
         }
     }
 
-    MemoryPlayer memory;
-
-    int level = 1;
-    double exp = 0;
+    private int level = 1;
+    private double exp = 0;
 
     Player player;
 
-    public LevelPlayer(MemoryPlayer m){
-        this.memory = m;
+    public PlayerLevel(IMemory m, PlayerW p){
+        super(m, p);
         this.level = Integer.parseInt(m.get("leveling.level"));
         this.exp = Integer.parseInt(m.get("leveling.exp"));
         this.player = Bukkit.getPlayer(UUID.fromString(m.get("uuid")));
@@ -47,10 +46,6 @@ public class LevelPlayer implements Saveable{
 
     public double getExp() {
         return exp;
-    }
-
-    public Player getPlayer() {
-        return player;
     }
 
     public void addLevel(int i){
@@ -80,7 +75,7 @@ public class LevelPlayer implements Saveable{
 
     @Override
     public void save() {
-        memory.set("leveling.level", level);
-        memory.set("leveling.exp", exp);
+        getMemory().set("leveling.level", level);
+        getMemory().set("leveling.exp", exp);
     }
 }

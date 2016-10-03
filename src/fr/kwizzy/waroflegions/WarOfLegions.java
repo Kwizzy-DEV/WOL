@@ -1,17 +1,14 @@
 package fr.kwizzy.waroflegions;
 
-import fr.kwizzy.waroflegions.common.essential.EssCommands;
-import fr.kwizzy.waroflegions.common.essential.EssEvents;
+import fr.kwizzy.waroflegions.common.essential.Commands;
+import fr.kwizzy.waroflegions.common.essential.Listeners;
 import fr.kwizzy.waroflegions.common.listener.MessagesJoinQuit;
-import fr.kwizzy.waroflegions.economy.EconomyCommands;
-import fr.kwizzy.waroflegions.player.WPlayer;
-import fr.kwizzy.waroflegions.player.WPlayerListeners;
+import fr.kwizzy.waroflegions.player.PlayerW;
+import fr.kwizzy.waroflegions.player.listener.WPlayerListeners;
 import fr.kwizzy.waroflegions.util.bukkit.command.CommandRegisterer;
 
 import fr.kwizzy.waroflegions.util.storage.JsonStorage;
-import fr.kwizzy.waroflegions.util.storage.YamlStorage;
 import org.bukkit.Bukkit;
-import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.logging.Level;
@@ -33,12 +30,12 @@ public class WarOfLegions extends JavaPlugin {
 
         print("WarOfLegions plugin by _Kwizzy");
 
-        Bukkit.getOnlinePlayers().forEach(WPlayer::load);
+        Bukkit.getOnlinePlayers().forEach(PlayerW::load);
     }
 
     @Override
     public void onDisable() {
-        WPlayer.getPlayers().forEach(WPlayer::save);
+        PlayerW.getPlayers().forEach(PlayerW::save);
         JsonStorage.getInstance().saveAll();
     }
 
@@ -46,12 +43,12 @@ public class WarOfLegions extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(new WPlayerListeners(), this);
 
         Bukkit.getPluginManager().registerEvents(new MessagesJoinQuit(), this);
-        Bukkit.getPluginManager().registerEvents(new EssEvents(), this);
+        Bukkit.getPluginManager().registerEvents(new Listeners(), this);
     }
 
     private void registerCommands(){
-        CommandRegisterer.register("eco", new EconomyCommands());
-        new EssCommands().init();
+        CommandRegisterer.register("eco", new fr.kwizzy.waroflegions.economy.Commands());
+        new Commands().init();
     }
 
     private static void setInstance(WarOfLegions instance) {

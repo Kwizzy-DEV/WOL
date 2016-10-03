@@ -1,13 +1,12 @@
 package fr.kwizzy.waroflegions.economy;
 
-import fr.kwizzy.waroflegions.player.MemoryPlayer;
-import fr.kwizzy.waroflegions.player.WPlayer;
-import fr.kwizzy.waroflegions.util.Saveable;
+import fr.kwizzy.waroflegions.player.PlayerData;
+import fr.kwizzy.waroflegions.player.PlayerW;
+import fr.kwizzy.waroflegions.util.IMemory;
 import fr.kwizzy.waroflegions.util.bukkit.ActionBar;
 import fr.kwizzy.waroflegions.util.java.StringUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
-import org.bukkit.util.StringUtil;
 
 import java.util.UUID;
 
@@ -17,19 +16,18 @@ import java.util.UUID;
 
 // TODO: 01/10/2016 Quota
 
-public class EconomyPlayer implements Saveable{
+public class PlayerEconomy extends PlayerData{
 
-    private static final String addMoney = "§a+ %s " + Economy.MONEY_NAME_LOWERCASE + "§a. " + StringUtils.parenthesisText("%s");
-    private static final String removeMoney = "§c- %s " + Economy.MONEY_NAME_LOWERCASE + "§c. " + StringUtils.parenthesisText("%s");
-    private static final String notEnoughtMoney = "§cTu n'as pas assez de " + Economy.MONEY_NAME_LOWERCASE + "§c.";
+    private static String addMoney = "§a+ %s " + Economy.MONEY_NAME_LOWERCASE + "§a. " + StringUtils.parenthesisText("%s");
+    private static String removeMoney = "§c- %s " + Economy.MONEY_NAME_LOWERCASE + "§c. " + StringUtils.parenthesisText("%s");
+    private static String notEnoughtMoney = "§cTu n'as pas assez de " + Economy.MONEY_NAME_LOWERCASE + "§c.";
 
-    MemoryPlayer memory;
 
     Integer money;
     Player player;
 
-    public EconomyPlayer(MemoryPlayer m) {
-        this.memory = m;
+    public PlayerEconomy(IMemory m, PlayerW w) {
+        super(m, w);
         this.money = Integer.parseInt(m.get("economy.changes"));
         this.player = Bukkit.getPlayer(UUID.fromString(m.get("uuid")));
     }
@@ -54,8 +52,8 @@ public class EconomyPlayer implements Saveable{
         return i > money;
     }
 
-    public boolean transaction(int i, WPlayer w){
-        EconomyPlayer economyPlayer = w.getEconomyPlayer();
+    public boolean transaction(int i, PlayerW w){
+        PlayerEconomy economyPlayer = w.getEconomyPlayer();
         if(hasMoney(i)){
             economyPlayer.add(i);
             remove(i);
@@ -71,6 +69,6 @@ public class EconomyPlayer implements Saveable{
 
     @Override
     public void save() {
-        memory.set("economy.changes", money);
+        getMemory().set("economy.changes", money);
     }
 }

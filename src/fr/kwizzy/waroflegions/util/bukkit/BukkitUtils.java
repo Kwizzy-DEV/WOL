@@ -9,6 +9,7 @@ import org.bukkit.inventory.ItemStack;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class BukkitUtils {
 
@@ -33,6 +34,37 @@ public class BukkitUtils {
     public static List<ItemStack> getTotalInventory(Player p){
         ItemStack[] combined = ArraysUtils.combine(p.getInventory().getContents(), p.getInventory().getArmorContents());
         return Arrays.asList(combined);
+    }
+
+    public static List<Player> getPlayersAtLocation(Location location, int radius)
+    {
+        List<Player> playerList = Bukkit.getOnlinePlayers().stream().filter(p -> p.getLocation().distance(location) <= radius).collect(Collectors.toList());
+        return playerList;
+    }
+
+    public static String toStringLocation(Location l) {
+        if(l == null){
+            return "none";
+        }
+        return String.format("%s,%s,%s,%s", l.getWorld().getName(), l.getX(), l.getY(), l.getZ());
+    }
+
+    public static Location stringToLocation(String s) {
+
+        String w = null;
+        Double x = null;
+        Double y = null;
+        Double z = null;
+        try {
+            String split[] = s.split(",");
+            w = split[0];
+            x = Double.parseDouble(split[1]);
+            y = Double.parseDouble(split[2]);
+            z = Double.parseDouble(split[3]);
+        } catch (NumberFormatException e) {
+            return null;
+        }
+        return new Location(Bukkit.getWorld(w), x, y, z);
     }
 
 }
