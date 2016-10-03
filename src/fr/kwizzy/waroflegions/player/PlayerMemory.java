@@ -13,11 +13,9 @@ class PlayerMemory implements IMemory {
 
     JsonStorage j = JsonStorage.getInstance();
 
-    private UUID uuid;
-    String path;
+    private String path;
 
     PlayerMemory(UUID uuid) {
-        this.uuid = uuid;
         this.path = "players/" + uuid.toString() + ".";
     }
 

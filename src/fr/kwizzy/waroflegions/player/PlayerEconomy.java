@@ -4,6 +4,7 @@ import fr.kwizzy.waroflegions.economy.Economy;
 import fr.kwizzy.waroflegions.util.IMemory;
 import fr.kwizzy.waroflegions.util.bukkit.ActionBar;
 import fr.kwizzy.waroflegions.util.java.StringUtils;
+import jdk.nashorn.internal.ir.annotations.Ignore;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
@@ -21,9 +22,11 @@ public class PlayerEconomy extends PlayerData{
     private static String removeMoney = "§c- %s " + Economy.MONEY_NAME_LOWERCASE + "§c. " + StringUtils.parenthesisText("%s");
     private static String notEnoughtMoney = "§cTu n'as pas assez de " + Economy.MONEY_NAME_LOWERCASE + "§c.";
 
+    private Integer money;
+    @Ignore
+    private Integer quota;
 
-    Integer money;
-    Player player;
+    private Player player;
 
     PlayerEconomy(IMemory m, PlayerW w) {
         super(m, w);

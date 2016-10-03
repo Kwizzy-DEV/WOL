@@ -14,6 +14,9 @@ import java.util.UUID;
 
 public class PlayerEss extends PlayerData{
 
+    private final static String GOD = "ess.god";
+    private final static String AFK = "ess.afk";
+    private final static String BACK = "ess.back";
 
     private Player player;
 
@@ -28,33 +31,33 @@ public class PlayerEss extends PlayerData{
     }
 
     public boolean isGod() {
-        if("null".equalsIgnoreCase(getMemory().get("ess.god"))) {
+        if("null".equalsIgnoreCase(getMemory().get(GOD))) {
             setGod(false);
         }
-        return Boolean.parseBoolean(getMemory().get("ess.god"));
+        return Boolean.parseBoolean(getMemory().get(GOD));
     }
 
     public void setGod(boolean god) {
-        getMemory().set("ess.god", god);
+        getMemory().set(GOD, god);
     }
 
     public boolean isAfk(){
-        if("null".equalsIgnoreCase(getMemory().get("ess.afk"))) {
+        if("null".equalsIgnoreCase(getMemory().get(AFK))) {
             setAfk(false);
         }
-        return Boolean.parseBoolean(getMemory().get("ess.afk"));
+        return Boolean.parseBoolean(getMemory().get(AFK));
     }
 
     public void setAfk(boolean b) {
-        getMemory().set("ess.afk", b);
+        getMemory().set(AFK, b);
     }
 
     public Location getBack(){
-        return BukkitUtils.stringToLocation(getMemory().get("ess.back"));
+        return BukkitUtils.stringToLocation(getMemory().get(BACK));
     }
 
     public void setBack(Location l){
-        getMemory().set("ess.back", BukkitUtils.toStringLocation(l));
+        getMemory().set(BACK, BukkitUtils.toStringLocation(l));
     }
 
     @Override

@@ -31,7 +31,7 @@ public class PlayerLevel extends PlayerData{
     private int level = 1;
     private double exp = 0;
 
-    Player player;
+    private Player player;
 
     PlayerLevel(IMemory m, PlayerW p){
         super(m, p);
@@ -57,6 +57,10 @@ public class PlayerLevel extends PlayerData{
             addLevel(getLevelPassed(d));
             // TODO: 02/10/2016 level up 
         }
+    }
+
+    public Player getPlayer() {
+        return player;
     }
 
     private int getLevelPassed(double d){
