@@ -71,6 +71,6 @@ public class PlayerEconomy extends PlayerData{
 
     @Override
     public void save() {
-        getMemory().set("economy.changes", money);
+        memory().set("economy.changes", money);
     }
 }

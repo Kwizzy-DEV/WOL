@@ -11,7 +11,7 @@ import java.util.UUID;
  * Par Alexis le 30/09/2016.
  */
 
-public class PlayerW implements ISaveable {
+public class PlayerW {
 
     /********************
      VARIABLES
@@ -60,12 +60,6 @@ public class PlayerW implements ISaveable {
 
     public PlayerEss getEssPlayer() {
         return essPlayer;
-    }
-
-    @Override
-    public void save() {
-        economyPlayer.save();
-        levelPlayer.save();
     }
 
     /********************

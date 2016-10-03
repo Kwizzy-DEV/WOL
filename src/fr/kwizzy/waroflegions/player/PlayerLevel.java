@@ -1,7 +1,5 @@
 package fr.kwizzy.waroflegions.player;
 
-import fr.kwizzy.waroflegions.player.PlayerData;
-import fr.kwizzy.waroflegions.player.PlayerW;
 import fr.kwizzy.waroflegions.util.IMemory;
 import fr.kwizzy.waroflegions.util.java.MathsUtils;
 import org.bukkit.Bukkit;
@@ -79,7 +77,7 @@ public class PlayerLevel extends PlayerData{
 
     @Override
     public void save() {
-        getMemory().set("leveling.level", level);
-        getMemory().set("leveling.exp", exp);
+        memory().set("leveling.level", level);
+        memory().set("leveling.exp", exp);
     }
 }

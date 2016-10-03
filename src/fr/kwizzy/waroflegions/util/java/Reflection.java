@@ -126,8 +126,11 @@ public class Reflection {
     }
 
     public static boolean compare(Class<?> clazz , Class<?> clazz2){
-            return clazz2.equals(Object.class) || clazz.isAssignableFrom(clazz2) || clazz2.isAssignableFrom(clazz) || getPrimitive(clazz).isAssignableFrom(clazz2) ||
-                    clazz.isAssignableFrom(getPrimitive(clazz2));
+            return clazz2.equals(Object.class)
+                    || clazz.isAssignableFrom(clazz2)
+                    || clazz2.isAssignableFrom(clazz)
+                    || getPrimitive(clazz).isAssignableFrom(clazz2)
+                    ||clazz.isAssignableFrom(getPrimitive(clazz2));
     }
 
     public static boolean compare(Class<?>[] clazz , Class<?>[] clazz2){

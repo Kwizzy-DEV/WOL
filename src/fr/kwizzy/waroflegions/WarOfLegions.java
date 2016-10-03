@@ -4,6 +4,7 @@ import fr.kwizzy.waroflegions.common.essential.EssCommands;
 import fr.kwizzy.waroflegions.common.essential.EssListeners;
 import fr.kwizzy.waroflegions.common.listener.MessagesJoinQuit;
 import fr.kwizzy.waroflegions.economy.EcoCommands;
+import fr.kwizzy.waroflegions.player.PlayerData;
 import fr.kwizzy.waroflegions.player.PlayerW;
 import fr.kwizzy.waroflegions.player.listener.InitializerListener;
 import fr.kwizzy.waroflegions.util.bukkit.command.CommandRegisterer;
@@ -36,7 +37,7 @@ public class WarOfLegions extends JavaPlugin {
 
     @Override
     public void onDisable() {
-        PlayerW.getPlayers().forEach(PlayerW::save);
+        PlayerData.saveAll();
         JsonStorage.getInstance().saveAll();
     }
 
