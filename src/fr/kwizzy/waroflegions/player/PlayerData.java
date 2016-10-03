@@ -1,13 +1,13 @@
 package fr.kwizzy.waroflegions.player;
 
 import fr.kwizzy.waroflegions.util.IMemory;
-import fr.kwizzy.waroflegions.util.Saveable;
+import fr.kwizzy.waroflegions.util.ISaveable;
 
 /**
  * Par Alexis le 03/10/2016.
  */
 
-public abstract class PlayerData implements Saveable{
+public abstract class PlayerData implements ISaveable {
 
     IMemory memory;
     PlayerW player;

@@ -1,5 +1,6 @@
 package fr.kwizzy.waroflegions.economy;
 
+import fr.kwizzy.waroflegions.player.PlayerEconomy;
 import fr.kwizzy.waroflegions.player.PlayerW;
 import fr.kwizzy.waroflegions.util.bukkit.command.Command;
 import fr.kwizzy.waroflegions.util.bukkit.command.CommandHandler;
@@ -11,7 +12,7 @@ import org.bukkit.Bukkit;
  * Par Alexis le 01/10/2016.
  */
 
-public class Commands implements CommandListener {
+public class EcoCommands implements CommandListener {
 
     private static String money = "§7Tu as §e%s %s§7.";
     private static String playerNotOnline = "§cLe joueur '§e%s§c' n'est pas en ligne.";
@@ -20,14 +21,14 @@ public class Commands implements CommandListener {
     @CommandHandler(args = {"money"}, sender = org.bukkit.entity.Player.class)
     public void money(Command<org.bukkit.entity.Player> command){
         org.bukkit.entity.Player sender = command.getSender();
-        PlayerEconomy ep = PlayerW.load(command.getSender()).getEconomyPlayer();
+        PlayerEconomy ep = PlayerW.get(command.getSender()).getEconomyPlayer();
         sender.sendMessage(String.format(money, ep.getMoney(), Economy.MONEY_NAME));
     }
 
     @CommandHandler(args = {"pay", CommandHandler.UNDEFINED, }, sender = org.bukkit.entity.Player.class)
     public void pay(Command<org.bukkit.entity.Player> command){
         org.bukkit.entity.Player sender = command.getSender();
-        PlayerEconomy ep = PlayerW.load(command.getSender()).getEconomyPlayer();
+        PlayerEconomy ep = PlayerW.get(command.getSender()).getEconomyPlayer();
         org.bukkit.entity.Player target = Bukkit.getPlayer(command.getArgs()[1]);
         if(target == null){
             sender.sendMessage(String.format(playerNotOnline, command.getArgs()[1]));
@@ -40,7 +41,7 @@ public class Commands implements CommandListener {
             sender.sendMessage(String.format(isNotNumber, command.getArgs()[2]));
             return;
         }
-        ep.transaction(money, PlayerW.load(target));
+        ep.transaction(money, PlayerW.get(target));
 
     }
 

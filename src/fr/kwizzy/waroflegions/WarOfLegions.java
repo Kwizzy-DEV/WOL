@@ -1,10 +1,11 @@
 package fr.kwizzy.waroflegions;
 
-import fr.kwizzy.waroflegions.common.essential.Commands;
-import fr.kwizzy.waroflegions.common.essential.Listeners;
+import fr.kwizzy.waroflegions.common.essential.EssCommands;
+import fr.kwizzy.waroflegions.common.essential.EssListeners;
 import fr.kwizzy.waroflegions.common.listener.MessagesJoinQuit;
+import fr.kwizzy.waroflegions.economy.EcoCommands;
 import fr.kwizzy.waroflegions.player.PlayerW;
-import fr.kwizzy.waroflegions.player.listener.WPlayerListeners;
+import fr.kwizzy.waroflegions.player.listener.InitializerListener;
 import fr.kwizzy.waroflegions.util.bukkit.command.CommandRegisterer;
 
 import fr.kwizzy.waroflegions.util.storage.JsonStorage;
@@ -30,7 +31,7 @@ public class WarOfLegions extends JavaPlugin {
 
         print("WarOfLegions plugin by _Kwizzy");
 
-        Bukkit.getOnlinePlayers().forEach(PlayerW::load);
+        Bukkit.getOnlinePlayers().forEach(PlayerW::get);
     }
 
     @Override
@@ -40,15 +41,15 @@ public class WarOfLegions extends JavaPlugin {
     }
 
     private void registerEvents(){
-        Bukkit.getPluginManager().registerEvents(new WPlayerListeners(), this);
+        Bukkit.getPluginManager().registerEvents(new InitializerListener(), this);
 
         Bukkit.getPluginManager().registerEvents(new MessagesJoinQuit(), this);
-        Bukkit.getPluginManager().registerEvents(new Listeners(), this);
+        Bukkit.getPluginManager().registerEvents(new EssListeners(), this);
     }
 
     private void registerCommands(){
-        CommandRegisterer.register("eco", new fr.kwizzy.waroflegions.economy.Commands());
-        new Commands().init();
+        CommandRegisterer.register("eco", new EcoCommands());
+        new EssCommands().init();
     }
 
     private static void setInstance(WarOfLegions instance) {

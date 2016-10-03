@@ -16,7 +16,7 @@ class PlayerMemory implements IMemory {
     private UUID uuid;
     String path;
 
-    public PlayerMemory(UUID uuid) {
+    PlayerMemory(UUID uuid) {
         this.uuid = uuid;
         this.path = "players/" + uuid.toString() + ".";
     }

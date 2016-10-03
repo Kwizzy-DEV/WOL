@@ -1,4 +1,4 @@
-package fr.kwizzy.waroflegions.level;
+package fr.kwizzy.waroflegions.player;
 
 import fr.kwizzy.waroflegions.player.PlayerData;
 import fr.kwizzy.waroflegions.player.PlayerW;
@@ -33,7 +33,7 @@ public class PlayerLevel extends PlayerData{
 
     Player player;
 
-    public PlayerLevel(IMemory m, PlayerW p){
+    PlayerLevel(IMemory m, PlayerW p){
         super(m, p);
         this.level = Integer.parseInt(m.get("leveling.level"));
         this.exp = Integer.parseInt(m.get("leveling.exp"));

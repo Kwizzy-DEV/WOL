@@ -1,9 +1,6 @@
 package fr.kwizzy.waroflegions.player;
 
-import fr.kwizzy.waroflegions.common.essential.PlayerEss;
-import fr.kwizzy.waroflegions.economy.PlayerEconomy;
-import fr.kwizzy.waroflegions.level.PlayerLevel;
-import fr.kwizzy.waroflegions.util.Saveable;
+import fr.kwizzy.waroflegions.util.ISaveable;
 import org.bukkit.Bukkit;
 
 import java.util.Collection;
@@ -14,7 +11,11 @@ import java.util.UUID;
  * Par Alexis le 30/09/2016.
  */
 
-public class PlayerW implements Saveable {
+public class PlayerW implements ISaveable {
+
+    /********************
+     VARIABLES
+    ********************/
 
     private static HashMap<UUID, PlayerW> players = new HashMap<>();
 
@@ -27,6 +28,9 @@ public class PlayerW implements Saveable {
     PlayerLevel levelPlayer;
     PlayerEss essPlayer;
 
+    /********************
+     CONSTRUCTOR
+    ********************/
 
     private PlayerW(UUID uuid) {
         this.uuid = uuid;
@@ -37,6 +41,10 @@ public class PlayerW implements Saveable {
         this.levelPlayer = new PlayerLevel(memoryPlayer, this);
         this.essPlayer = new PlayerEss(memoryPlayer, this);
     }
+
+    /********************
+     GETTERS
+    ********************/
 
     public String getName() {
         return name;
@@ -60,7 +68,11 @@ public class PlayerW implements Saveable {
         levelPlayer.save();
     }
 
-    public static PlayerW load(UUID uuid){
+    /********************
+     STATIC METHODS
+    ********************/
+
+    public static PlayerW get(UUID uuid){
         if(players.containsKey(uuid))
             return players.get(uuid);
         PlayerW w = new PlayerW(uuid);
@@ -68,9 +80,9 @@ public class PlayerW implements Saveable {
         return w;
     }
 
-    public static PlayerW load(org.bukkit.entity.Player p){
+    public static PlayerW get(org.bukkit.entity.Player p){
         UUID uuid = p.getUniqueId();
-        return load(uuid);
+        return get(uuid);
     }
 
     public static Collection<PlayerW> getPlayers() {

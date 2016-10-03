@@ -1,6 +1,7 @@
 package fr.kwizzy.waroflegions.common.essential;
 
 
+import fr.kwizzy.waroflegions.player.PlayerEss;
 import fr.kwizzy.waroflegions.player.PlayerW;
 import fr.kwizzy.waroflegions.util.bukkit.FireworkUtil;
 import fr.kwizzy.waroflegions.util.bukkit.command.Command;
@@ -26,7 +27,7 @@ import java.util.regex.Pattern;
  * Par Alexis le 02/10/2016.
  */
 
-public class Commands implements IFastCommand {
+public class EssCommands implements IFastCommand {
 
 
     /********************
@@ -226,7 +227,7 @@ public class Commands implements IFastCommand {
         @Override
         public void command(Command<org.bukkit.entity.Player> c) {
             org.bukkit.entity.Player p = c.getSender();
-            PlayerEss essPlayer = PlayerW.load(p).getEssPlayer();
+            PlayerEss essPlayer = PlayerW.get(p).getEssPlayer();
             if(hasntPemission(p, "wol.god"))
                 return;
             if(c.getArgs().length > 0){
@@ -235,7 +236,7 @@ public class Commands implements IFastCommand {
                     p.sendMessage(String.format(badPlayer, c.getArgs()[0]));
                     return;
                 }
-                boolean b = setGod(PlayerW.load(target).getEssPlayer());
+                boolean b = setGod(PlayerW.get(target).getEssPlayer());
                 p.sendMessage(String.format(godForM, target.getName(), b ? "§aON" : "§cOFF"));
                 return;
             }
@@ -259,7 +260,7 @@ public class Commands implements IFastCommand {
         @Override
         public void command(Command<org.bukkit.entity.Player> c) {
             org.bukkit.entity.Player p = c.getSender();
-            PlayerEss essPlayer = PlayerW.load(p).getEssPlayer();
+            PlayerEss essPlayer = PlayerW.get(p).getEssPlayer();
             if(c.getArgs().length == 0){
                 p.sendMessage("§7/skull §a<joueur>");
                 return;
@@ -283,7 +284,7 @@ public class Commands implements IFastCommand {
         @Override
         public void command(Command<org.bukkit.entity.Player> c) {
             org.bukkit.entity.Player p = c.getSender();
-            PlayerEss essPlayer = PlayerW.load(p).getEssPlayer();
+            PlayerEss essPlayer = PlayerW.get(p).getEssPlayer();
             if(hasntPemission(p, "wol.enderchest"))
                 return;
             if(c.getArgs().length > 1){
@@ -337,7 +338,7 @@ public class Commands implements IFastCommand {
             org.bukkit.entity.Player p = c.getSender();
             if(hasntPemission(p, "wol.afk"))
                 return;
-            PlayerEss essPlayer = PlayerW.load(p).getEssPlayer();
+            PlayerEss essPlayer = PlayerW.get(p).getEssPlayer();
             if(!essPlayer.isAfk()) {
                 Bukkit.broadcastMessage(String.format(afkM, p.getName()));
                 essPlayer.setAfk(true);
@@ -424,7 +425,7 @@ public class Commands implements IFastCommand {
             org.bukkit.entity.Player p = c.getSender();
             if(hasntPemission(p, "wol.back"))
                 return;
-            PlayerEss ep = PlayerW.load(p).getEssPlayer();
+            PlayerEss ep = PlayerW.get(p).getEssPlayer();
             if(ep.getBack() == null){
                 p.sendMessage(notBack);
                 return;
