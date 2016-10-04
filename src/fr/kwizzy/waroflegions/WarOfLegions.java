@@ -5,6 +5,7 @@ import fr.kwizzy.waroflegions.common.essential.EssListeners;
 import fr.kwizzy.waroflegions.common.listener.ChatEvent;
 import fr.kwizzy.waroflegions.common.listener.MessagesJoinQuit;
 import fr.kwizzy.waroflegions.economy.EcoCommands;
+import fr.kwizzy.waroflegions.leveling.LevelCommand;
 import fr.kwizzy.waroflegions.player.PlayerData;
 import fr.kwizzy.waroflegions.player.WOLPlayer;
 import fr.kwizzy.waroflegions.player.listener.InitializerListener;
@@ -47,7 +48,6 @@ public class WarOfLegions extends JavaPlugin {
 
     private void registerEvents(){
         Bukkit.getPluginManager().registerEvents(new InitializerListener(), this);
-
         Bukkit.getPluginManager().registerEvents(new MessagesJoinQuit(), this);
         Bukkit.getPluginManager().registerEvents(new ChatEvent(), this);
         Bukkit.getPluginManager().registerEvents(new EssListeners(), this);
@@ -55,6 +55,8 @@ public class WarOfLegions extends JavaPlugin {
 
     private void registerCommands(){
         CommandRegisterer.register("eco", new EcoCommands());
+        CommandRegisterer.register("level", new LevelCommand());
+
         new EssCommands().init();
     }
 

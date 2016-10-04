@@ -61,6 +61,10 @@ public class WOLPlayer {
         return essPlayer;
     }
 
+    public PlayerLevel getPlayerLeveling() {
+        return levelPlayer;
+    }
+
     /********************
      STATIC METHODS
     ********************/
