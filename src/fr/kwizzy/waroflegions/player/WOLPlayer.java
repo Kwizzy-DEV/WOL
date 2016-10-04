@@ -1,6 +1,5 @@
 package fr.kwizzy.waroflegions.player;
 
-import fr.kwizzy.waroflegions.util.ISaveable;
 import org.bukkit.Bukkit;
 
 import java.util.Collection;
@@ -11,13 +10,13 @@ import java.util.UUID;
  * Par Alexis le 30/09/2016.
  */
 
-public class PlayerW {
+public class WOLPlayer {
 
     /********************
      VARIABLES
     ********************/
 
-    private static HashMap<UUID, PlayerW> players = new HashMap<>();
+    private static HashMap<UUID, WOLPlayer> players = new HashMap<>();
 
     PlayerMemory memoryPlayer;
 
@@ -32,7 +31,7 @@ public class PlayerW {
      CONSTRUCTOR
     ********************/
 
-    private PlayerW(UUID uuid) {
+    private WOLPlayer(UUID uuid) {
         this.uuid = uuid;
         this.memoryPlayer = new PlayerMemory(uuid);
         this.name = memoryPlayer.get("name");
@@ -66,20 +65,20 @@ public class PlayerW {
      STATIC METHODS
     ********************/
 
-    public static PlayerW get(UUID uuid){
+    public static WOLPlayer get(UUID uuid){
         if(players.containsKey(uuid))
             return players.get(uuid);
-        PlayerW w = new PlayerW(uuid);
+        WOLPlayer w = new WOLPlayer(uuid);
         players.put(uuid, w);
         return w;
     }
 
-    public static PlayerW get(org.bukkit.entity.Player p){
+    public static WOLPlayer get(org.bukkit.entity.Player p){
         UUID uuid = p.getUniqueId();
         return get(uuid);
     }
 
-    public static Collection<PlayerW> getPlayers() {
+    public static Collection<WOLPlayer> getPlayers() {
         return players.values();
     }
 

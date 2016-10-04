@@ -15,11 +15,11 @@ public abstract class PlayerData implements ISaveable {
     private static List<ISaveable> saveables = new ArrayList<>();
 
     IMemory memory;
-    PlayerW player;
+    WOLPlayer wolPlayer;
 
-    PlayerData(IMemory memory, PlayerW player) {
+    PlayerData(IMemory memory, WOLPlayer player) {
         this.memory = memory;
-        this.player = player;
+        this.wolPlayer = player;
         saveables.add(this);
     }
 
@@ -27,8 +27,8 @@ public abstract class PlayerData implements ISaveable {
         return memory;
     }
 
-    public PlayerW getWolPlayer() {
-        return player;
+    public WOLPlayer getWolPlayer() {
+        return wolPlayer;
     }
 
     public static void saveAll(){

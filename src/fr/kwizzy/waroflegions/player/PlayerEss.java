@@ -21,7 +21,7 @@ public class PlayerEss extends PlayerData{
     private Player player;
 
 
-    PlayerEss(IMemory m, PlayerW w) {
+    PlayerEss(IMemory m, WOLPlayer w) {
         super(m, w);
         this.player = Bukkit.getPlayer(UUID.fromString(memory().get("uuid")));
     }

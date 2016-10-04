@@ -1,6 +1,8 @@
 package fr.kwizzy.waroflegions.util.bukkit.command;
 
+import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 
 public class Command<T extends CommandSender> {
     private String[] args;
@@ -48,5 +50,23 @@ public class Command<T extends CommandSender> {
 
     public CommandRegisterer r() {
         return getRegisterer();
+    }
+
+    public boolean singleArg(){
+        return args.length == 1;
+    }
+
+    public boolean isPlayer(String s){
+        return Bukkit.getPlayer(s) != null;
+    }
+
+    public Player getPlayer(String s){
+        return Bukkit.getPlayer(s);
+    }
+
+    public Player getPlayer(Integer arg){
+        if(arg >= args.length-1)
+            return null;
+        return Bukkit.getPlayer(args[arg]);
     }
 }

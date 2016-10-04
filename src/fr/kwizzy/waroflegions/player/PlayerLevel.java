@@ -31,7 +31,7 @@ public class PlayerLevel extends PlayerData{
 
     private Player player;
 
-    PlayerLevel(IMemory m, PlayerW p){
+    PlayerLevel(IMemory m, WOLPlayer p){
         super(m, p);
         this.level = Integer.parseInt(m.get("leveling.level"));
         this.exp = Integer.parseInt(m.get("leveling.exp"));

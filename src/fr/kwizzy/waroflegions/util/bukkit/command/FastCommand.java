@@ -26,7 +26,7 @@ public abstract class FastCommand implements  CommandListener{
         cmd.setAliases(Arrays.asList(aliases));
     }
 
-    @CommandHandler(args = {"*"}, sender = Player.class, infinite = true)
+    @CommandHandler(args = "*", sender = Player.class, infinite = true)
     public void execution(Command<Player> c){
         command(c);
     }

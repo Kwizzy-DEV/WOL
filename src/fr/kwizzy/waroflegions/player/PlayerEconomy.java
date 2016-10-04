@@ -18,8 +18,8 @@ import java.util.UUID;
 
 public class PlayerEconomy extends PlayerData{
 
-    private static String addMoney = "§a+ %s " + Economy.MONEY_NAME_LOWERCASE + "§a. " + StringUtils.parenthesisText("%s");
-    private static String removeMoney = "§c- %s " + Economy.MONEY_NAME_LOWERCASE + "§c. " + StringUtils.parenthesisText("%s");
+    private static String addMoney = "§a+ %s " + Economy.MONEY_NAME_LOWERCASE + "§a " + StringUtils.parenthesisText("%s");
+    private static String removeMoney = "§c- %s " + Economy.MONEY_NAME_LOWERCASE + "§c " + StringUtils.parenthesisText("%s");
     private static String notEnoughtMoney = "§cTu n'as pas assez de " + Economy.MONEY_NAME_LOWERCASE + "§c.";
 
     private Integer money;
@@ -28,7 +28,7 @@ public class PlayerEconomy extends PlayerData{
 
     private Player player;
 
-    PlayerEconomy(IMemory m, PlayerW w) {
+    PlayerEconomy(IMemory m, WOLPlayer w) {
         super(m, w);
         this.money = Integer.parseInt(m.get("economy.changes"));
         this.player = Bukkit.getPlayer(UUID.fromString(m.get("uuid")));
@@ -51,14 +51,15 @@ public class PlayerEconomy extends PlayerData{
     }
 
     public boolean hasMoney(int i){
-        return i > money;
+        return i <= money;
     }
 
-    public boolean transaction(int i, PlayerW w){
+    public boolean transaction(int i, WOLPlayer w){
         PlayerEconomy economyPlayer = w.getEconomyPlayer();
         if(hasMoney(i)){
-            economyPlayer.add(i);
             remove(i);
+            economyPlayer.add(i);
+
             return true;
         }
         player.sendMessage(StringUtils.messageWithLine(notEnoughtMoney));

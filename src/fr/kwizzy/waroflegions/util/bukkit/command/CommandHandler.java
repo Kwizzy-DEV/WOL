@@ -12,7 +12,7 @@ import java.lang.annotation.Target;
 public @interface CommandHandler {
     String UNDEFINED = "\n\tUNDEFINED\t\n";
 
-    String[] args();
+    String args() default "";
     String[] alias() default {};
     boolean pattern() default false;
     boolean infinite() default false;

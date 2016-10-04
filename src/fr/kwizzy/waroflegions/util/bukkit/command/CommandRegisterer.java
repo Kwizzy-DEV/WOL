@@ -2,6 +2,7 @@ package fr.kwizzy.waroflegions.util.bukkit.command;
 
 import fr.kwizzy.waroflegions.WarOfLegions;
 import fr.kwizzy.waroflegions.util.bukkit.CommandMapUtil;
+import fr.kwizzy.waroflegions.util.java.ArraysUtils;
 import fr.kwizzy.waroflegions.util.java.bistream.BiStream;
 import org.bukkit.Bukkit;
 import org.bukkit.command.*;
@@ -28,12 +29,11 @@ public class CommandRegisterer extends Command{
 
     @Override
     public boolean execute(CommandSender sender, String label, String[] args) {
-        return Arrays.stream(instance.getClass().getMethods()).filter((m) -> m.isAnnotationPresent(CommandHandler.class)).anyMatch((m) -> {
+        return Arrays.stream(instance.getClass().getMethods()).filter(m -> m.isAnnotationPresent(CommandHandler.class)).anyMatch(m -> {
             CommandHandler handler = m.getAnnotation(CommandHandler.class);
-            if(!handler.infinite() && handler.args().length != args.length || !handler.sender().isInstance(sender))
+            if(!handler.sender().isInstance(sender))
                 return false;
-            String[] alias = handler.alias().length == handler.args().length ? handler.alias() : null;
-            if(eq(args , handler.args() , alias , handler.pattern()))
+            if(eq(args , handler.args()))
                 try {
                     m.setAccessible(true);
                     m.invoke(instance , new fr.kwizzy.waroflegions.util.bukkit.command.Command<>(args , sender , label , this));
@@ -47,15 +47,10 @@ public class CommandRegisterer extends Command{
     }
 
 
-    private static boolean eq(String[] args , String[] expected , String[] alias , Boolean pattern) {
-        if("*".equalsIgnoreCase(expected[0]))
-            return true;
-        if(pattern)
-            return BiStream.wrap(expected , args).allMatch(Pattern::matches) ||
-                (alias != null && BiStream.wrap(alias, args).allMatch(Pattern::matches));
-        else
-            return BiStream.wrap(expected , args).allMatch(String::equalsIgnoreCase) ||
-                (alias != null && BiStream.wrap(alias, args).allMatch(String::equalsIgnoreCase));
+    private static boolean eq(String[] args , String expected) {
+        return ("*".equalsIgnoreCase(expected))
+                || (args.length == 0 && expected.isEmpty())
+                || (args.length >= 1 && args[0].equalsIgnoreCase(expected));
     }
 
 

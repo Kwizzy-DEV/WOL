@@ -230,7 +230,7 @@ public class Title {
 	 * Send the title to a player
 	 *
 	 * @param player
-	 *            PlayerW
+	 *            WOLPlayer
 	 */
 	public void send(Player player) {
 		if (packetTitle != null) {
@@ -342,7 +342,7 @@ public class Title {
 	 * Clear the title
 	 *
 	 * @param player
-	 *            PlayerW
+	 *            WOLPlayer
 	 */
 	public void clearTitle(Player player) {
 		try {
@@ -362,7 +362,7 @@ public class Title {
 	 * Reset the title settings
 	 *
 	 * @param player
-	 *            PlayerW
+	 *            WOLPlayer
 	 */
 	public void resetTitle(Player player) {
 		try {

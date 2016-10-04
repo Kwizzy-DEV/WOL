@@ -15,6 +15,13 @@ public class ArraysUtils {
         return finalArray;
     }
 
+    public static String[] replace(String[] array, String from, String to){
+        for (int i = 0; i < array.length; i++) {
+            array[i] = array[i].replace(from, to);
+        }
+        return array;
+    }
+
     public static int[] toInts(char[] chars){
         int[] ints = new int[chars.length];
 
