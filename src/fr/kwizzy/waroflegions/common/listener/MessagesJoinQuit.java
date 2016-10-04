@@ -39,7 +39,7 @@ public class MessagesJoinQuit implements Listener {
 
     @EventHandler
     public void onQuit(PlayerQuitEvent e){
-        e.setQuitMessage(String.format("§a%s §ea rejoint le jeu !", e.getPlayer().getName()));
+        e.setQuitMessage(String.format("§a%s §ea quitté le jeu !", e.getPlayer().getName()));
     }
 
 
