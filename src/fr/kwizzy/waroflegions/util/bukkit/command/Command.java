@@ -29,7 +29,6 @@ public class Command<T extends CommandSender> {
         return label;
     }
 
-
     public CommandRegisterer getRegisterer() {
         return registerer;
     }
@@ -47,7 +46,6 @@ public class Command<T extends CommandSender> {
         return getLabel();
     }
 
-
     public CommandRegisterer r() {
         return getRegisterer();
     }
@@ -58,6 +56,10 @@ public class Command<T extends CommandSender> {
 
     public boolean isPlayer(String s){
         return Bukkit.getPlayer(s) != null;
+    }
+
+    public boolean isPlayer(int i){
+        return getPlayer(i) != null;
     }
 
     public Player getPlayer(String s){
