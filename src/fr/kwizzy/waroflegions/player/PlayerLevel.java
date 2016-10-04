@@ -29,8 +29,8 @@ public class PlayerLevel extends PlayerData{
 
     private static String addExp = "§a+ %s d'exp" + StringUtils.parenthesisText("%s");
     private static String removeExp = "§c- %s d'exp " + StringUtils.parenthesisText("%s");
-    private static String levelUp00 = "§a+ §l§fNIVEAU SUPERIEUR §a+";
-    private static String levelUp01 = "§eTu es maintenant niveau §a§l%s§e !";
+    private static String levelUp00 = "§a+ §f§lNIVEAU SUPERIEUR §a+";
+    private static String levelUp01 = "§eTu es maintenant niveau §a%s§e !";
     private static String levelUp02 = "§eIl te manque §a%s §ed'expérience.";
 
     static {
@@ -109,9 +109,11 @@ public class PlayerLevel extends PlayerData{
         FireworkUtil.playFirework(player.getLocation(), 20*2);
         BukkitUtils.playNotification(player);
         player.sendMessage(StringUtils.LINE);
-        CenteredMessage.sendCenteredMessage(levelUp00);
-        CenteredMessage.sendCenteredMessage(String.format(levelUp01, level));
-        CenteredMessage.sendCenteredMessage(String.format(levelUp02, levelToExp.get(level)));
+        player.sendMessage("");
+        CenteredMessage.sendCenteredMessage(levelUp00, player);
+        CenteredMessage.sendCenteredMessage(String.format(levelUp01, level), player);
+        CenteredMessage.sendCenteredMessage(String.format(levelUp02, levelToExp.get(level)), player);
+        player.sendMessage("");
         player.sendMessage(StringUtils.LINE);
     }
 

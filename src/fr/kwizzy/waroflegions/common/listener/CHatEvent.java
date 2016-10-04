@@ -20,7 +20,7 @@ public class ChatEvent implements Listener {
         String[] strings = new String[7];
         strings[0] = "§7Légion: " + "todo";
         strings[1] = "§7Pts de légion: §6" + "todo";
-        strings[2] = "§7Niveau: §a" + "todo";
+        strings[2] = "§7Niveau: §a" + w.getPlayerLeveling().getLevel();
         strings[3] = "§7Balance: §6" + w.getEconomyPlayer().getMoney();
         strings[4] = "§7Rang: " + "todo";
         strings[5] = "";

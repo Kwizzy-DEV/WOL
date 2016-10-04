@@ -31,7 +31,7 @@ public class StringUtils {
         else return s.substring(s.length() > beginIndex ? beginIndex : s.length() > endIndex ? endIndex : s.length());
     }
 
-    public static final String LINE = "§f+§e§m----------------------------------------------§f+";
+    public static final String LINE = "§f+§e§m------------------------------------------------§f+";
 
     public static String[] messageWithLine(String... s){
         LinkedList<String> lines = new LinkedList<>();
