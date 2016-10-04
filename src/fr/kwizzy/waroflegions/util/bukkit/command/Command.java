@@ -67,8 +67,6 @@ public class Command<T extends CommandSender> {
     }
 
     public Player getPlayer(Integer arg){
-        if(arg >= args.length-1)
-            return null;
         return Bukkit.getPlayer(args[arg]);
     }
 }

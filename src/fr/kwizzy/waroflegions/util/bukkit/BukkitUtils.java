@@ -3,6 +3,7 @@ package fr.kwizzy.waroflegions.util.bukkit;
 import fr.kwizzy.waroflegions.util.java.ArraysUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
@@ -65,6 +66,10 @@ public class BukkitUtils {
             return null;
         }
         return new Location(Bukkit.getWorld(w), x, y, z);
+    }
+
+    public static void playNotification(Player p){
+        p.playSound(p.getLocation(), Sound.NOTE_PLING, 5, 5);
     }
 
 }

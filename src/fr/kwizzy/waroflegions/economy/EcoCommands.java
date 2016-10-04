@@ -25,7 +25,7 @@ public class EcoCommands implements CommandListener {
     private static String addMoney = "§e%s %s §7ont été ajoutés à §a%s.";
     private static String removeMoney = "§e%s %s §7ont été retirés à §a%s.";
     private static String transactionFor = "§a%s §7vient de t'envoyer §e%s %s.";
-    private static String transactionFrom = "§7Tu as envoyé §e%s %s §7à§a%s§7.";
+    private static String transactionFrom = "§7Tu as envoyé §e%s %s §7à§a %s§7.";
     private static String[] help = ArraysUtils.toArray(
             "§e/eco help §7Aide sur la commande eco",
             "§e/eco money §7Regardes ton argent",
@@ -88,7 +88,7 @@ public class EcoCommands implements CommandListener {
     @CommandHandler(args = "give", sender = Player.class)
     public void give(Command<Player> command){
         Player p = command.getSender();
-        if(command.getArgs().length < 2){
+        if(command.getArgs().length < 3){
             p.sendMessage("§7/eco give §a<joueur> <montant>");
             return;
         }
@@ -106,7 +106,7 @@ public class EcoCommands implements CommandListener {
             return;
         }
         ep.add(amount);
-        target.sendMessage(String.format(addMoney, amount, Economy.MONEY_NAME_LOWERCASE));
+        target.sendMessage(String.format(addMoney, amount, Economy.MONEY_NAME_LOWERCASE, target.getName()));
     }
 
     @CommandHandler(args = "remove", sender = Player.class)
@@ -130,7 +130,7 @@ public class EcoCommands implements CommandListener {
             return;
         }
         ep.remove(amount);
-        target.sendMessage(String.format(removeMoney, amount, Economy.MONEY_NAME_LOWERCASE));
+        target.sendMessage(String.format(removeMoney, amount, Economy.MONEY_NAME_LOWERCASE, target.getName()));
     }
 
     @CommandHandler(sender = Player.class)

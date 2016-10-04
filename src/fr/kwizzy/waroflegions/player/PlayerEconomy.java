@@ -3,6 +3,7 @@ package fr.kwizzy.waroflegions.player;
 import fr.kwizzy.waroflegions.economy.Economy;
 import fr.kwizzy.waroflegions.util.IMemory;
 import fr.kwizzy.waroflegions.util.bukkit.ActionBar;
+import fr.kwizzy.waroflegions.util.bukkit.BukkitUtils;
 import fr.kwizzy.waroflegions.util.java.StringUtils;
 import jdk.nashorn.internal.ir.annotations.Ignore;
 import org.bukkit.Bukkit;
@@ -41,6 +42,7 @@ public class PlayerEconomy extends PlayerData{
     public void add(int i) {
         this.money += i;
         ActionBar.sendActionBar(String.format(addMoney, i, this.money), player);
+        BukkitUtils.playNotification(player);
     }
 
     public void remove(int i){
@@ -48,6 +50,7 @@ public class PlayerEconomy extends PlayerData{
             set(0);
         this.money -= i;
         ActionBar.sendActionBar(String.format(removeMoney, i, this.money), player);
+        BukkitUtils.playNotification(player);
     }
 
     public boolean hasMoney(int i){
