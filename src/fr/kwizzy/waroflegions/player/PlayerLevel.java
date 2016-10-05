@@ -55,14 +55,6 @@ public class PlayerLevel extends PlayerData{
         this.player = Bukkit.getPlayer(UUID.fromString(m.get("uuid")));
     }
 
-    public int getLevel() {
-        return level;
-    }
-
-    public double getExp() {
-        return exp;
-    }
-
     public void addLevel(int i){
         level += i;
     }
@@ -81,8 +73,17 @@ public class PlayerLevel extends PlayerData{
         ActionBar.sendActionBar(String.format(addExp, d, level));
     }
 
+
+    private void roundExp(){
+        exp = MathsUtils.roundDouble(exp, 2);
+    }
+
     public Player getPlayer() {
         return player;
+    }
+
+    public int getLevel() {
+        return level;
     }
 
     private Pair<Integer, Double> getRest(double d){
@@ -99,8 +100,24 @@ public class PlayerLevel extends PlayerData{
         return new Pair<>(levelPassed, toAdd);
     }
 
-    private void roundExp(){
-        exp = MathsUtils.roundDouble(exp, 2);
+    public double getRemainingExp(){
+        return (levelToExp.get(level))-exp;
+    }
+
+    public double getExp() {
+        return exp;
+    }
+
+    public double getPercentageExp(){
+        return (exp/(levelToExp.get(level)))*100;
+    }
+
+    public double getExpFor(int i){
+        return levelToExp.get(i);
+    }
+
+    public double getTotalExp(){
+        return getExpFor(level);
     }
 
     private void levelUpFunction(){
@@ -112,7 +129,7 @@ public class PlayerLevel extends PlayerData{
         player.sendMessage("");
         CenteredMessage.sendCenteredMessage(levelUp00, player);
         CenteredMessage.sendCenteredMessage(String.format(levelUp01, level), player);
-        CenteredMessage.sendCenteredMessage(String.format(levelUp02, levelToExp.get(level)), player);
+        CenteredMessage.sendCenteredMessage(String.format(levelUp02, getRemainingExp(), player);
         player.sendMessage("");
         player.sendMessage(StringUtils.LINE);
     }
