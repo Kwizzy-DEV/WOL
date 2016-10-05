@@ -1,6 +1,5 @@
 package fr.kwizzy.waroflegions.player;
 
-import fr.kwizzy.waroflegions.economy.Economy;
 import fr.kwizzy.waroflegions.util.IMemory;
 import fr.kwizzy.waroflegions.util.bukkit.ActionBar;
 import fr.kwizzy.waroflegions.util.bukkit.BukkitUtils;
@@ -11,11 +10,9 @@ import fr.kwizzy.waroflegions.util.java.StringUtils;
 import javafx.util.Pair;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
-import org.bukkit.util.StringUtil;
 
 import java.util.HashMap;
 import java.util.UUID;
-import java.util.function.Consumer;
 
 /**
  * Par Alexis le 02/10/2016.
@@ -28,7 +25,6 @@ public class PlayerLevel extends PlayerData{
 
 
     private static String addExp = "§a+ %s d'exp" + StringUtils.parenthesisText("%s");
-    private static String removeExp = "§c- %s d'exp " + StringUtils.parenthesisText("%s");
     private static String levelUp00 = "§a+ §f§lNIVEAU SUPERIEUR §a+";
     private static String levelUp01 = "§eTu es maintenant niveau §a%s§e !";
     private static String levelUp02 = "§eIl te manque §a%s §ed'expérience.";
@@ -61,18 +57,19 @@ public class PlayerLevel extends PlayerData{
 
     public void addExp(double d){
         if(exp + d >= levelToExp.get(level)){
-            Pair<Integer, Double> rest = getRest(d);
-            addLevel(rest.getKey());
-            exp += rest.getValue();
-            roundExp();
-            levelUpFunction();
-            ActionBar.sendActionBar(String.format(addExp, d, level));
+            addLevel(getRest(d));
+            levelModification();
+            ActionBar.sendActionBar(String.format(addExp, d, level), player);
             return;
         }
         exp += d;
-        ActionBar.sendActionBar(String.format(addExp, d, level));
+        ActionBar.sendActionBar(String.format(addExp, d, level), player);
     }
 
+    public void setLevel(int level){
+        this.level = level;
+        levelModification();
+    }
 
     private void roundExp(){
         exp = MathsUtils.roundDouble(exp, 2);
@@ -86,18 +83,15 @@ public class PlayerLevel extends PlayerData{
         return level;
     }
 
-    private Pair<Integer, Double> getRest(double d){
-        double xp = this.exp;
-        double reach = levelToExp.get(level);
-        double toAdd = d;
+    private Integer getRest(double d){
+        exp += d;
         int levelPassed = 0;
-        while (xp + toAdd > reach){
-            xp = 0;
-            toAdd = xp - reach;
+        while (exp >= getExpFor(levelPassed + level)){
+            exp -= getExpFor(levelPassed + level);
             levelPassed++;
-            reach = levelToExp.get(level + levelPassed);
+            roundExp();
         }
-        return new Pair<>(levelPassed, toAdd);
+        return levelPassed;
     }
 
     public double getRemainingExp(){
@@ -109,7 +103,7 @@ public class PlayerLevel extends PlayerData{
     }
 
     public double getPercentageExp(){
-        return (exp/(levelToExp.get(level)))*100;
+        return MathsUtils.roundDouble((exp/(levelToExp.get(level)))*100, 1);
     }
 
     public double getExpFor(int i){
@@ -120,7 +114,7 @@ public class PlayerLevel extends PlayerData{
         return getExpFor(level);
     }
 
-    private void levelUpFunction(){
+    private void levelModification(){
         if(player == null)
             return;
         FireworkUtil.playFirework(player.getLocation(), 20*2);
@@ -129,7 +123,7 @@ public class PlayerLevel extends PlayerData{
         player.sendMessage("");
         CenteredMessage.sendCenteredMessage(levelUp00, player);
         CenteredMessage.sendCenteredMessage(String.format(levelUp01, level), player);
-        CenteredMessage.sendCenteredMessage(String.format(levelUp02, getRemainingExp(), player);
+        CenteredMessage.sendCenteredMessage(String.format(levelUp02, getRemainingExp(), player));
         player.sendMessage("");
         player.sendMessage(StringUtils.LINE);
     }

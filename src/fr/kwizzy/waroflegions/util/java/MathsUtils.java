@@ -1,5 +1,7 @@
 package fr.kwizzy.waroflegions.util.java;
 
+import org.bukkit.Bukkit;
+
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Random;
@@ -45,6 +47,7 @@ public class MathsUtils {
         return sb.toString();
     }
 
+
     public static boolean chanceOf(int d){
         int fD = randomInteger(0, 100);
         return fD <= d;
@@ -63,6 +66,18 @@ public class MathsUtils {
     public static int randomInteger(int low, int high) {
         Random r = new Random();
         return r.nextInt((high +1 )- low) + low;
+    }
+
+    public static int amountTimeFor(double base, double number){
+        int total = 0;
+        if(number < 10)
+            return 1;
+        double n = number;
+        while (base > n){
+            n += number;
+            total ++;
+        }
+        return total;
     }
 
 

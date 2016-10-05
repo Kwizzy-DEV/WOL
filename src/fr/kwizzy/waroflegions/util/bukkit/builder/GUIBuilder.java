@@ -142,13 +142,14 @@ public abstract class GUIBuilder implements Listener {
      * @param page to add items
      */
     public void setItemPosition(ItemStack is, int position, int page) {
-        if (getPages() > 0 && position > size - 10)
+		if ((getPages()-1) > 0 && position > size - 10)
             return;
 
         new BukkitRunnable() {
             @Override
             public void run() {
-                inventoryList.get(page).setItem(position, is);
+				Bukkit.broadcastMessage("SET POURTANT...");
+				inventoryList.get(page).setItem(position, is);
             }
         }.runTaskLater(instance, 1);
     }
