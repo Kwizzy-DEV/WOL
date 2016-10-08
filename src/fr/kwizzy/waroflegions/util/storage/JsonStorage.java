@@ -263,4 +263,8 @@ public class JsonStorage implements Storage {
 		}
 		return result;
 	}
+
+	public JSONObject getJson(String pathFile) {
+		return cacheFiles.get(pathFile);
+	}
 }

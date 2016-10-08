@@ -148,7 +148,6 @@ public abstract class GUIBuilder implements Listener {
         new BukkitRunnable() {
             @Override
             public void run() {
-				Bukkit.broadcastMessage("SET POURTANT...");
 				inventoryList.get(page).setItem(position, is);
             }
         }.runTaskLater(instance, 1);

@@ -24,7 +24,7 @@ public class PlayerLevel extends PlayerData{
     private static final double COEFF = 1.044663;
 
 
-    private static String addExp = "§a+ %s d'exp" + StringUtils.parenthesisText("%s");
+    private static String addExp = "§a+ %s d'exp " + StringUtils.parenthesisText("%s");
     private static String levelUp00 = "§a+ §f§lNIVEAU SUPERIEUR §a+";
     private static String levelUp01 = "§eTu es maintenant niveau §a%s§e !";
     private static String levelUp02 = "§eIl te manque §a%s §ed'expérience.";
@@ -59,11 +59,11 @@ public class PlayerLevel extends PlayerData{
         if(exp + d >= levelToExp.get(level)){
             addLevel(getRest(d));
             levelModification();
-            ActionBar.sendActionBar(String.format(addExp, d, level), player);
+            ActionBar.sendActionBar(String.format(addExp, d, getPercentageExp() + "%"), player);
             return;
         }
         exp += d;
-        ActionBar.sendActionBar(String.format(addExp, d, level), player);
+        ActionBar.sendActionBar(String.format(addExp, d, getPercentageExp() + "%"), player);
     }
 
     public void setLevel(int level){

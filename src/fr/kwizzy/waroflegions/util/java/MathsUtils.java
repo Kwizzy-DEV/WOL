@@ -69,15 +69,15 @@ public class MathsUtils {
     }
 
     public static int amountTimeFor(double base, double number){
-        int total = 0;
-        if(number < 10)
+        double n = base;
+        int t = 0;
+        if(number < 11)
             return 1;
-        double n = number;
-        while (base > n){
-            n += number;
-            total ++;
+        while (n < number){
+            n += base;
+            t++;
         }
-        return total;
+        return t;
     }
 
 

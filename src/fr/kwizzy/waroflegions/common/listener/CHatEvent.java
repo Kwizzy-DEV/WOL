@@ -17,14 +17,15 @@ public class ChatEvent implements Listener {
         e.setCancelled(true);
         String message = e.getMessage();
         WOLPlayer w = WOLPlayer.get(e.getPlayer());
-        String[] strings = new String[7];
+        String[] strings = new String[8];
         strings[0] = "§7Légion: " + "todo";
         strings[1] = "§7Pts de légion: §6" + "todo";
         strings[2] = "§7Niveau: §a" + w.getPlayerLeveling().getLevel();
-        strings[3] = "§7Balance: §6" + w.getEconomyPlayer().getMoney();
-        strings[4] = "§7Rang: " + "todo";
-        strings[5] = "";
-        strings[6] = "§6§nClique pour envoyer un message";
+        strings[3] = "§7Exp: §a" + w.getPlayerLeveling().getExp() + "§e/§a" + w.getPlayerLeveling().getTotalExp();
+        strings[4] = "§7Balance: §6" + w.getEconomyPlayer().getMoney();
+        strings[5] = "§7Rang: " + "todo";
+        strings[6] = "";
+        strings[7] = "§6§nClique pour envoyer un message";
         JsonMessageBuidler js = new JsonMessageBuidler();
         js.newJComp("§e" + e.getPlayer().getName() + " §7» §f")
                 .addHoverEvent(strings)

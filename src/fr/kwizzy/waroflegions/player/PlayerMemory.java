@@ -2,6 +2,7 @@ package fr.kwizzy.waroflegions.player;
 
 import fr.kwizzy.waroflegions.util.IMemory;
 import fr.kwizzy.waroflegions.util.storage.JsonStorage;
+import org.json.JSONObject;
 
 import java.util.UUID;
 
@@ -31,4 +32,8 @@ class PlayerMemory implements IMemory {
         return j.getString(this.path + path);
     }
 
+    @Override
+    public JSONObject getJson() {
+        return j.getJson(path);
+    }
 }

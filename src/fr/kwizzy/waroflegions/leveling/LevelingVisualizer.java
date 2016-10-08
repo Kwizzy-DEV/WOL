@@ -58,8 +58,7 @@ public class LevelingVisualizer extends GUIBuilder {
     }
 
     private int getAmountItem(){
-        int i = MathsUtils.amountTimeFor(100, pl.getExp());
-        Bukkit.broadcastMessage("nombre de case " + i);
+        int i = MathsUtils.amountTimeFor(11.1, pl.getPercentageExp());
         return i;
 
     }
