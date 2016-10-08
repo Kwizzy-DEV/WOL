@@ -24,7 +24,7 @@ public class QuestFactory extends QuestExecutor implements IQuestFactory{
     @Override
     public void call(int i){
         progress += i;
-        if(quest.getValue() <= progress) {
+        if(quest.getValue() <= progress && !isFinish()) {
             finished = true;
             unregister();
         }

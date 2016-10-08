@@ -12,6 +12,7 @@ public interface IQuest<T extends Event> {
     int getValue();
     int getLevel();
     int getId();
+    double getExp();
     String getName();
     Class<T> getEvent();
     Function<T, Integer> getTester();

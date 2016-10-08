@@ -10,27 +10,30 @@ import java.util.function.Predicate;
  * Par Alexis le 08/10/2016.
  */
 
-public class Quest <T extends Event> implements IQuest{
+public class Quest<T extends Event> implements IQuest{
 
     private int value;
     private int level;
     private int id;
+    private double exp;
     private String name;
     private Class<T> event;
     private Function<T, Integer> tester;
 
-    public Quest(Class<T> event, int callAmount, int id, int level, String name, Function<T, Integer> tester) {
+    public Quest(Class<T> event, int callAmount, int id, int level, double exp, String name, Function<T, Integer> tester) {
         this.level = level;
         this.id = id;
+        this.exp = exp;
         this.value = callAmount;
         this.name = name;
         this.event = event;
         this.tester = tester;
     }
 
-    public Quest(Class<T> event, int callAmount, String name, int id, int level, Predicate<T> tester) {
+    public Quest(Class<T> event, int callAmount, int id, int level, double exp, String name, Predicate<T> tester) {
         this.level = level;
         this.id = id;
+        this.exp = exp;
         this.value = callAmount;
         this.name = name;
         this.event = event;
@@ -65,6 +68,11 @@ public class Quest <T extends Event> implements IQuest{
     @Override
     public int getLevel() {
         return level;
+    }
+
+    @Override
+    public double getExp() {
+        return exp;
     }
 
     @Override

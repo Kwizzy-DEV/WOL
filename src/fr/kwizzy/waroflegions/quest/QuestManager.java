@@ -10,11 +10,13 @@ import java.util.Map;
  * Par Alexis le 08/10/2016.
  */
 
-public class QuestRegister {
+public class QuestManager {
 
     private static Map<Integer, IQuest> questList = new HashMap<>();
 
-    static void register(IQuestList c){
+    private QuestManager() { }
+
+    public static void register(IQuestList c){
         Field[] fields = c.getClass().getFields();
         for (Field field : fields) {
             Object instance = null;
@@ -31,7 +33,7 @@ public class QuestRegister {
         }
     }
 
-    static IQuest getQuest(int i){
+    static public IQuest getQuest(int i){
         return questList.get(i);
     }
 

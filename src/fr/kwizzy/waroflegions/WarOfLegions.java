@@ -9,6 +9,8 @@ import fr.kwizzy.waroflegions.leveling.LevelCommand;
 import fr.kwizzy.waroflegions.player.PlayerData;
 import fr.kwizzy.waroflegions.player.WOLPlayer;
 import fr.kwizzy.waroflegions.player.listener.InitializerListener;
+import fr.kwizzy.waroflegions.quest.QuestManager;
+import fr.kwizzy.waroflegions.quest.list.Quests;
 import fr.kwizzy.waroflegions.util.bukkit.command.CommandRegisterer;
 
 import fr.kwizzy.waroflegions.util.bukkit.noteblocklib.SongUtils;
@@ -58,6 +60,10 @@ public class WarOfLegions extends JavaPlugin {
         CommandRegisterer.register("level", new LevelCommand());
 
         new EssCommands().init();
+    }
+
+    private void registerQuests(){
+        QuestManager.register(new Quests());
     }
 
     private static void setInstance(WarOfLegions instance) {
