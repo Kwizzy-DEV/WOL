@@ -4,6 +4,7 @@ import fr.kwizzy.waroflegions.quest.IQuest;
 import fr.kwizzy.waroflegions.quest.IQuestFactory;
 import fr.kwizzy.waroflegions.quest.QuestManager;
 import fr.kwizzy.waroflegions.util.IMemory;
+import fr.kwizzy.waroflegions.util.java.MathsUtils;
 import org.bukkit.entity.Player;
 import org.json.JSONObject;
 
@@ -28,8 +29,7 @@ public class PlayerQuest extends PlayerData{
     }
 
     private void loadQuests() {
-        JSONObject json = memory().getJson();
-        JSONObject quests = json.getJSONObject("quests");
+        JSONObject quests = getJsonQuest();
         if(quests == null)
             return;
         Set<String> strings = quests.keySet();
@@ -43,6 +43,14 @@ public class PlayerQuest extends PlayerData{
                 addQuest(iQuestFactory);
             }
         }
+        int reachQuest = MathsUtils.nextDecade(WOLPlayer.get(getPlayer()).getPlayerLeveling().getLevel());
+        for (int i = 0; i < reachQuest; i++) {
+            if(!containQuest(i)){
+                IQuest quest = QuestManager.getQuest(i);
+                addQuest(quest);
+            }
+        }
+
     }
 
     public void addQuest(IQuest t){
@@ -56,6 +64,19 @@ public class PlayerQuest extends PlayerData{
     public void removeQuest(IQuestFactory qf){
         if(questFactoryList.contains(qf))
             questFactoryList.remove(qf);
+    }
+
+    public boolean containQuest(int id){
+        for (IQuestFactory iQuestFactory : questFactoryList) {
+            if(iQuestFactory.getQuest().getId() == id)
+                return true;
+        }
+        return false;
+    }
+
+    private JSONObject getJsonQuest(){
+        JSONObject json = memory().getJson();
+        return json.getJSONObject("quests");
     }
 
     @CheckForNull

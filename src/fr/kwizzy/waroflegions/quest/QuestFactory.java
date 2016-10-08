@@ -1,12 +1,13 @@
 package fr.kwizzy.waroflegions.quest;
 
 import fr.kwizzy.waroflegions.player.PlayerQuest;
+import org.bukkit.Bukkit;
 
 /**
  * Par Alexis le 08/10/2016.
  */
 
-public class QuestFactory extends QuestExecutor implements IQuestFactory{
+public class QuestFactory extends QuestExecutor implements IQuestFactory {
 
     private PlayerQuest questPlayer;
 
@@ -23,11 +24,14 @@ public class QuestFactory extends QuestExecutor implements IQuestFactory{
 
     @Override
     public void call(int i){
+        if(isFinish())
+            return;
         progress += i;
-        if(quest.getValue() <= progress && !isFinish()) {
+        if(quest.getValue() <= progress) {
             finished = true;
             unregister();
         }
+        Bukkit.broadcastMessage(quest.getName() + " : " + progress + "/" + quest.getValue());
     }
 
     @Override

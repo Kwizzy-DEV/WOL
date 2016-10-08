@@ -28,8 +28,8 @@ public class MathsUtils {
         roman_numerals.put("IV", 4);
         roman_numerals.put("I", 1);
         String res = "";
-        for(Map.Entry<String, Integer> entry : roman_numerals.entrySet()){
-            int matches = number/entry.getValue();
+        for (Map.Entry<String, Integer> entry : roman_numerals.entrySet()) {
+            int matches = number / entry.getValue();
             res += repeat(entry.getKey(), matches);
             number = number % entry.getValue();
         }
@@ -37,18 +37,18 @@ public class MathsUtils {
     }
 
     private static String repeat(String s, int n) {
-        if(s == null) {
+        if (s == null) {
             return null;
         }
         final StringBuilder sb = new StringBuilder();
-        for(int i = 0; i < n; i++) {
+        for (int i = 0; i < n; i++) {
             sb.append(s);
         }
         return sb.toString();
     }
 
 
-    public static boolean chanceOf(int d){
+    public static boolean chanceOf(int d) {
         int fD = randomInteger(0, 100);
         return fD <= d;
     }
@@ -65,23 +65,27 @@ public class MathsUtils {
 
     public static int randomInteger(int low, int high) {
         Random r = new Random();
-        return r.nextInt((high +1 )- low) + low;
+        return r.nextInt((high + 1) - low) + low;
     }
 
-    public static int amountTimeFor(double base, double number){
+    public static int amountTimeFor(double base, double number) {
         double n = base;
         int t = 0;
-        if(number < 11)
+        if (number < 11)
             return 1;
-        while (n < number){
+        while (n < number) {
             n += base;
             t++;
         }
         return t;
     }
 
-
-
-
-
+    public static int nextDecade(int i){
+        if(i % 10 == 0)
+            return i;
+        while (i % 10 != 0){
+            i++;
+        }
+        return i;
+    }
 }
