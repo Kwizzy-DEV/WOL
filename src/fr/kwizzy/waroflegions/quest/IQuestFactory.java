@@ -12,4 +12,5 @@ public interface IQuestFactory {
     IQuest getQuest();
     int getProgress();
     boolean isFinish();
+    void setFinish(boolean b);
 }

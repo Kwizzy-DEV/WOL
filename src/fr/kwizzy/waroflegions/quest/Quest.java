@@ -35,7 +35,7 @@ public class Quest<T extends Event> implements IQuest{
         this.id = id;
         this.exp = exp;
         this.value = callAmount;
-        this.name = name;
+        this.name = name.replace("{amount}", Integer.toString(callAmount));
         this.event = event;
         this.tester = t -> tester.test(t) ? 1 : 0;
     }

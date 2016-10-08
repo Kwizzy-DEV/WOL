@@ -22,25 +22,26 @@ public class PlayerQuest extends PlayerData{
     private Player player;
     private LinkedList<IQuestFactory> questFactoryList = new LinkedList<>();
 
-    public PlayerQuest(Player player, IMemory m) {
-        super(m, WOLPlayer.get(player));
-        this.player = player;
+    public PlayerQuest(IMemory m, WOLPlayer wol) {
+        super(m, wol);
+        this.player = wol.getPlayer();
         loadQuests();
     }
 
     private void loadQuests() {
         JSONObject quests = getJsonQuest();
-        if(quests == null)
-            return;
-        Set<String> strings = quests.keySet();
-        for (String string : strings) {
-            int o = quests.getInt(string);
-            int questId = Integer.parseInt(string);
-            IQuest quest = QuestManager.getQuest(questId);
-            if(quest != null){
-                IQuestFactory iQuestFactory = quest.create(this);
-                iQuestFactory.call(o);
-                addQuest(iQuestFactory);
+        if(quests != null) {
+            Set<String> strings = quests.keySet();
+            for (String string : strings) {
+                int o = quests.getInt(string);
+                int questId = Integer.parseInt(string);
+                IQuest quest = QuestManager.getQuest(questId);
+                if (quest != null) {
+                    IQuestFactory iQuestFactory = quest.create(this);
+                    if (o >= quest.getValue())
+                        iQuestFactory.setFinish(true);
+                    addQuest(iQuestFactory);
+                }
             }
         }
         int reachQuest = MathsUtils.nextDecade(WOLPlayer.get(getPlayer()).getPlayerLeveling().getLevel());
@@ -50,7 +51,6 @@ public class PlayerQuest extends PlayerData{
                 addQuest(quest);
             }
         }
-
     }
 
     public void addQuest(IQuest t){

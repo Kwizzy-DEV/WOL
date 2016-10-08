@@ -14,17 +14,17 @@ public abstract class PlayerData implements ISaveable {
 
     private static List<ISaveable> saveables = new ArrayList<>();
 
-    IMemory memory;
+    IMemory memo;
     WOLPlayer wolPlayer;
 
     PlayerData(IMemory memory, WOLPlayer player) {
-        this.memory = memory;
+        this.memo = memory;
         this.wolPlayer = player;
         saveables.add(this);
     }
 
     IMemory memory() {
-        return memory;
+        return memo;
     }
 
     public WOLPlayer getWolPlayer() {

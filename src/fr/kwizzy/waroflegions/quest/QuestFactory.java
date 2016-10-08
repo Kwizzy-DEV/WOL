@@ -53,4 +53,11 @@ public class QuestFactory extends QuestExecutor implements IQuestFactory {
     public PlayerQuest getPlayerQuest() {
         return questPlayer;
     }
+
+    @Override
+    public void setFinish(boolean b) {
+        if(b)
+            progress = quest.getValue();
+        finished = b;
+    }
 }

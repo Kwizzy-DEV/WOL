@@ -1,6 +1,7 @@
 package fr.kwizzy.waroflegions.player;
 
 import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
 
 import java.util.Collection;
 import java.util.HashMap;
@@ -26,6 +27,7 @@ public class WOLPlayer {
     PlayerEconomy economyPlayer;
     PlayerLevel levelPlayer;
     PlayerEss essPlayer;
+    PlayerQuest playerQuest;
 
     /********************
      CONSTRUCTOR
@@ -39,6 +41,7 @@ public class WOLPlayer {
         this.economyPlayer = new PlayerEconomy(memoryPlayer, this);
         this.levelPlayer = new PlayerLevel(memoryPlayer, this);
         this.essPlayer = new PlayerEss(memoryPlayer, this);
+        this.playerQuest = new PlayerQuest(memoryPlayer, this);
     }
 
     /********************
@@ -51,6 +54,10 @@ public class WOLPlayer {
 
     public UUID getUuid() {
         return uuid;
+    }
+
+    public Player getPlayer(){
+        return Bukkit.getPlayer(uuid);
     }
 
     public PlayerEconomy getEconomyPlayer() {
