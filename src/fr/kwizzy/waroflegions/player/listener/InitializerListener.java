@@ -22,5 +22,4 @@ public class InitializerListener implements Listener {
             Title.sendTitle(welcomeTitle, welcomeSubtitle, 2, 3, 2, p);
         }
     }
-
 }

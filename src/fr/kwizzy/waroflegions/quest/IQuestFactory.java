@@ -8,6 +8,7 @@ import fr.kwizzy.waroflegions.player.PlayerQuest;
 public interface IQuestFactory {
 
     void call(int i);
+    void hideCall(int i);
     PlayerQuest getPlayerQuest();
     IQuest getQuest();
     int getProgress();

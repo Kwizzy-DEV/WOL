@@ -28,7 +28,7 @@ public class Reflection {
         try {
             return getConstructor(clazz , getClass(arguments)).newInstance(arguments);
         } catch (InstantiationException | InvocationTargetException | IllegalAccessException | NullPointerException e) {
-            if(debug)e.printStackTrace();
+            if(debug)Log.printException(e);
             return null;
         }
     }
@@ -54,7 +54,7 @@ public class Reflection {
         try {
             return returnType.cast(getMethod(instance.getClass() , methodName , returnType ,getClass(arguments)).invoke(instance , arguments));
         } catch (IllegalAccessException | InvocationTargetException | NullPointerException e) {
-            if(debug)e.printStackTrace();
+            if(debug)Log.printException(e);
             return null;
         }
     }
@@ -79,7 +79,7 @@ public class Reflection {
         try {
             return fieldType.cast(getField(fieldClass , fieldName , fieldType).get(null));
         } catch (IllegalAccessException | NullPointerException e) {
-            if(debug)e.printStackTrace();
+            if(debug)Log.printException(e);
             return null;
         }
     }
@@ -92,7 +92,7 @@ public class Reflection {
         try {
             return fieldType.cast(getField(instance.getClass() , fieldName , fieldType).get(instance));
         } catch (IllegalAccessException | NullPointerException e) {
-            if(debug)e.printStackTrace();
+            if(debug)Log.printException(e);
             return null;
         }
     }
@@ -109,7 +109,7 @@ public class Reflection {
         try {
             getField(fieldClass , fieldName , value.getClass()).set(null , value);
         } catch (IllegalAccessException | NullPointerException e) {
-            if(debug)e.printStackTrace();
+            if(debug)Log.printException(e);
         }
     }
 
@@ -117,7 +117,7 @@ public class Reflection {
         try {
             getField(instance.getClass() , fieldName , value.getClass()).set(instance , value);
         } catch (IllegalAccessException | NullPointerException e) {
-            if(debug)e.printStackTrace();
+            if(debug)Log.printException(e);
         }
     }
 

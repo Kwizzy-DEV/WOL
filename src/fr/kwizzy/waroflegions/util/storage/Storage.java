@@ -6,8 +6,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.regex.Pattern;
 
-import fr.kwizzy.waroflegions.WarOfLegions;
-import org.bukkit.Bukkit;
+import fr.kwizzy.waroflegions.WOL;
 import org.bukkit.inventory.ItemStack;
 
 
@@ -17,7 +16,7 @@ import org.bukkit.inventory.ItemStack;
 public interface Storage {
 
 
-    String PATH = WarOfLegions.getInstance().getDataFolder().getAbsolutePath() + File.separator + "data" + File.separator;
+    String PATH = WOL.getInstance().getDataFolder().getAbsolutePath() + File.separator + "data" + File.separator;
 
     void write(String path, Object t);
 
@@ -75,7 +74,7 @@ public interface Storage {
                 file.getParentFile().mkdirs();
                 file.createNewFile();
             } catch (IOException e) {
-                WarOfLegions.getInstance().getLogger().log(Level.INFO, "Can't create " + file.getName());
+                WOL.getInstance().getLogger().log(Level.INFO, "Can't create " + file.getName());
             }
         }
         return file;

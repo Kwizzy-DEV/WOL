@@ -32,6 +32,9 @@ public abstract class PlayerData implements ISaveable {
     }
 
     public static void saveAll(){
-        saveables.forEach(ISaveable::save);
+
+        for (ISaveable saveable : saveables) {
+            saveable.save();
+        }
     }
 }

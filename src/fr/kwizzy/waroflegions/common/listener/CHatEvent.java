@@ -25,7 +25,7 @@ public class ChatEvent implements Listener {
         strings[4] = "§7Balance: §6" + w.getEconomyPlayer().getMoney();
         strings[5] = "§7Rang: " + "todo";
         strings[6] = "";
-        strings[7] = "§6§nClique pour envoyer un message";
+        strings[7] = "§b(Cliques pour envoyer un message)";
         JsonMessageBuidler js = new JsonMessageBuidler();
         js.newJComp("§e" + e.getPlayer().getName() + " §7» §f")
                 .addHoverEvent(strings)

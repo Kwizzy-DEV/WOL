@@ -1,6 +1,6 @@
 package fr.kwizzy.waroflegions.quest;
 
-import fr.kwizzy.waroflegions.WarOfLegions;
+import fr.kwizzy.waroflegions.WOL;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
@@ -27,7 +27,7 @@ import java.util.logging.Level;
 
 class QuestExecutor<T extends Event> implements EventExecutor, Listener {
 
-    private static final Plugin plugin = WarOfLegions.getInstance();
+    private static final Plugin plugin = WOL.getInstance();
 
     private IQuestFactory questFactory;
     private Class<T> event;
@@ -52,15 +52,22 @@ class QuestExecutor<T extends Event> implements EventExecutor, Listener {
     @Override
     @SuppressWarnings("unchecked")
     public void execute(Listener listener, Event event) throws EventException {
-        Player player = getPlayer(event);
-        if(player != null){
-            if(!player.equals(questFactory.getPlayerQuest().getPlayer()))
+        if(event.getClass().equals(event.getClass())) {
+            Player player = getPlayer(event);
+            if (player != null) {
+                if (!player.equals(questFactory.getPlayerQuest().getPlayer()))
+                    return;
+            } else
                 return;
+            int count = 0;
+            try {
+                count = (int) questFactory.getQuest().getTester().apply((T) event);
+            } catch (Exception e) {
+                return;
+            }
+            if (count != 0)
+                questFactory.call(count);
         }
-        else
-            return;
-        int count = (int) questFactory.getQuest().getTester().apply((T) event);
-        questFactory.call(count);
     }
 
     private static Player getPlayer(Event event){

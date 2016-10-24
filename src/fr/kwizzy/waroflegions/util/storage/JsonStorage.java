@@ -1,20 +1,15 @@
 package fr.kwizzy.waroflegions.util.storage;
 
 import java.io.*;
-import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Pattern;
 
-import com.jayway.jsonpath.DocumentContext;
-import com.jayway.jsonpath.JsonPath;
-import fr.kwizzy.waroflegions.WarOfLegions;
-import org.bukkit.Bukkit;
+import fr.kwizzy.waroflegions.WOL;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
-import org.bukkit.util.StringUtil;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -45,7 +40,7 @@ public class JsonStorage implements Storage {
 		} else {
 			String doc = readFile(Storage.fileFromString(path, ".json").getAbsolutePath());
 			JSONObject j = new JSONObject();
-			if(doc != null && !doc.isEmpty() && !doc.equalsIgnoreCase("null"))
+			if(doc != null && !doc.isEmpty() && !"null".equalsIgnoreCase(doc))
 				j = new JSONObject(doc);
 			cacheFiles.put(Storage.getFirstPart(path), j);
 			JSONObject jsonObject = writeValue(cacheFiles.get(Storage.getFirstPart(path)), path, t);
@@ -113,8 +108,9 @@ public class JsonStorage implements Storage {
 	public List<String> getStringList(String path) {
 		List<String> finalL = new ArrayList<>();
 		JSONArray ja = (JSONArray) getFinalValue(path);
+		assert ja != null;
 		ja.forEach(e -> finalL.add((String) e));
-		return null;
+		return finalL;
 	}
 
 	@Override
@@ -137,7 +133,7 @@ public class JsonStorage implements Storage {
 				try {
 					f.createNewFile();
 				} catch (IOException ex) {
-					WarOfLegions.getInstance().print(ex.getMessage());
+					WOL.getInstance().print(ex.getMessage());
 				}
 			}
 			try (FileWriter fw = new FileWriter(f.getAbsolutePath())){
@@ -149,7 +145,7 @@ public class JsonStorage implements Storage {
 				fw.flush();
 				fw.close();
 			} catch (IOException ex) {
-				WarOfLegions.getInstance().print(ex.getMessage());
+				WOL.getInstance().print(ex.getMessage());
 			}
 
 		}
@@ -167,7 +163,7 @@ public class JsonStorage implements Storage {
 			public void run() {
 				saveAll();
 			}
-		}.runTaskTimer(WarOfLegions.getInstance(), (long)20*60*5, (long)20*60*5);
+		}.runTaskTimer(WOL.getInstance(), (long)20*60*5, (long)20*60*5);
 	}
 
 	private Object getFinalValue(String path) {
@@ -259,12 +255,22 @@ public class JsonStorage implements Storage {
 			fileReader.close();
 			br.close();
 		} catch(Exception ex) {
-			WarOfLegions.getInstance().print(ex.getMessage());
+			WOL.getInstance().print(ex.getMessage());
 		}
 		return result;
 	}
 
+
 	public JSONObject getJson(String pathFile) {
-		return cacheFiles.get(pathFile);
+		JSONObject jsonObject = cacheFiles.get(pathFile);
+		if(jsonObject == null) {
+			String doc = readFile(Storage.fileFromString(pathFile, ".json").getAbsolutePath());
+			if (doc != null && !doc.isEmpty() && !doc.equalsIgnoreCase("null")) {
+				JSONObject j = new JSONObject(doc);
+				cacheFiles.put(pathFile, j);
+				return j;
+			}
+		}
+		return jsonObject;
 	}
 }

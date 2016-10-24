@@ -1,6 +1,7 @@
 package fr.kwizzy.waroflegions.util.bukkit.command;
 
 import fr.kwizzy.waroflegions.util.bukkit.CommandMapUtil;
+import fr.kwizzy.waroflegions.util.bukkit.register.DontRegister;
 import org.bukkit.entity.Player;
 
 import java.util.Arrays;
@@ -10,7 +11,8 @@ import java.util.Arrays;
  * Par Alexis le 02/10/2016.
  */
 
-public abstract class FastCommand implements  CommandListener{
+@DontRegister
+public abstract class FastCommand implements  CommandListener {
 
     String command = "none";
 
@@ -33,7 +35,9 @@ public abstract class FastCommand implements  CommandListener{
 
     public abstract void command(Command<Player> c);
 
-    public String getCommand() {
+    @Override
+    public String getCommand()
+    {
         return command;
     }
 }

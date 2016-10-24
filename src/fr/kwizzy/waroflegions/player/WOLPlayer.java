@@ -34,6 +34,8 @@ public class WOLPlayer {
     ********************/
 
     private WOLPlayer(UUID uuid) {
+        players.put(uuid, this);
+
         this.uuid = uuid;
         this.memoryPlayer = new PlayerMemory(uuid);
         this.name = memoryPlayer.get("name");
@@ -72,6 +74,10 @@ public class WOLPlayer {
         return levelPlayer;
     }
 
+    public PlayerQuest getPlayerQuest() {
+        return playerQuest;
+    }
+
     /********************
      STATIC METHODS
     ********************/
@@ -79,9 +85,7 @@ public class WOLPlayer {
     public static WOLPlayer get(UUID uuid){
         if(players.containsKey(uuid))
             return players.get(uuid);
-        WOLPlayer w = new WOLPlayer(uuid);
-        players.put(uuid, w);
-        return w;
+        return new WOLPlayer(uuid);
     }
 
     public static WOLPlayer get(org.bukkit.entity.Player p){

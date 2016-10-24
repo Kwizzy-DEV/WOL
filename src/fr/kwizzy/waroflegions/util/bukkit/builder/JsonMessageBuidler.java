@@ -22,8 +22,7 @@ public class JsonMessageBuidler {
     private LinkedHashMap<String, JComp> creatorHashMap = new LinkedHashMap<>();
 
     public JComp newJComp(String text){
-        JComp jc = new JComp(this, text);
-        return jc;
+        return new JComp(this, text);
     }
 
     private void build(){
@@ -47,9 +46,6 @@ public class JsonMessageBuidler {
     public void send(){
         send(Bukkit.getOnlinePlayers());
     }
-
-
-
 
     public class JComp {
 

@@ -1,6 +1,5 @@
 package fr.kwizzy.waroflegions.util.bukkit.noteblocklib;
 
-import fr.kwizzy.waroflegions.WarOfLegions;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 

@@ -31,6 +31,26 @@ public interface BiStream<T , U> extends BaseStream<BiStream.BiValue<T , U> , Bi
             this.t = t;
             this.u = u;
         }
+
+        public T getKey()
+        {
+            return t;
+        }
+
+        public void setKey(T t)
+        {
+            this.t = t;
+        }
+
+        public U getValue()
+        {
+            return u;
+        }
+
+        public void setValue(U u)
+        {
+            this.u = u;
+        }
     }
 
     /**

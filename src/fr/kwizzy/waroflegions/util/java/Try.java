@@ -3,6 +3,7 @@ package fr.kwizzy.waroflegions.util.java;
 import java.util.*;
 
 public class Try {
+
     public static boolean debug = false;
 
     @FunctionalInterface
@@ -20,7 +21,8 @@ public class Try {
         try {
             return runnable.run();
         } catch (Throwable t) {
-            if(stackTrace)t.printStackTrace();
+            if(stackTrace)
+                t.printStackTrace();
             return defaultValue;
         }
     }

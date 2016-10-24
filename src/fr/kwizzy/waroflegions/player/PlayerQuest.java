@@ -5,30 +5,34 @@ import fr.kwizzy.waroflegions.quest.IQuestFactory;
 import fr.kwizzy.waroflegions.quest.QuestManager;
 import fr.kwizzy.waroflegions.util.IMemory;
 import fr.kwizzy.waroflegions.util.java.MathsUtils;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import javax.annotation.CheckForNull;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.LinkedList;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * Par Alexis le 08/10/2016.
  */
 
-public class PlayerQuest extends PlayerData{
+public class PlayerQuest extends PlayerData {
 
+	private Player player;
+	private LinkedList<IQuestFactory> questFactoryList = new LinkedList<>();
 
-    private Player player;
-    private LinkedList<IQuestFactory> questFactoryList = new LinkedList<>();
+	public PlayerQuest(IMemory m, WOLPlayer wol) {
+		super(m, wol);
+		this.player = wol.getPlayer();
+		loadQuests();
+	}
 
-    public PlayerQuest(IMemory m, WOLPlayer wol) {
-        super(m, wol);
-        this.player = wol.getPlayer();
-        loadQuests();
-    }
-
-    private void loadQuests() {
+	private void loadQuests() {
         JSONObject quests = getJsonQuest();
         if(quests != null) {
             Set<String> strings = quests.keySet();
@@ -41,54 +45,113 @@ public class PlayerQuest extends PlayerData{
                     if (o >= quest.getValue())
                         iQuestFactory.setFinish(true);
                     addQuest(iQuestFactory);
+                    iQuestFactory.hideCall(o);
                 }
             }
         }
         int reachQuest = MathsUtils.nextDecade(WOLPlayer.get(getPlayer()).getPlayerLeveling().getLevel());
         for (int i = 0; i < reachQuest; i++) {
-            if(!containQuest(i)){
-                IQuest quest = QuestManager.getQuest(i);
-                addQuest(quest);
+            Collection<IQuest> questsList = QuestManager.getQuests(i);
+            questsList.forEach(e -> {
+                if(!containQuest(e))
+                    addQuest(e);
+            });
+        }
+        questFactoryList.forEach(e -> e.getQuest().toString());
+    }
+
+	public void addQuest(IQuest t) {
+		questFactoryList.add(t.create(this));
+	}
+
+	public void addQuest(IQuestFactory t) {
+		questFactoryList.add(t);
+	}
+
+	public Collection<IQuestFactory> getQuests() {
+		return questFactoryList;
+	}
+
+	public boolean isFullyCompleted(int pal) {
+		pal *= 10;
+		for (int i = 0; i < pal; i++) {
+            Collection<IQuestFactory> quests = getQuests(i);
+            for (IQuestFactory quest : quests) {
+                if(!quest.isFinish())
+                    return false;
             }
         }
-    }
+        return true;
+	}
 
-    public void addQuest(IQuest t){
-        questFactoryList.add(t.create(this));
-    }
+	public boolean containQuest(int id) {
+		for (IQuestFactory iQuestFactory : questFactoryList) {
+			if (iQuestFactory.getQuest().getId() == id)
+				return true;
+		}
+		return false;
+	}
 
-    public void addQuest(IQuestFactory t){
-        questFactoryList.add(t);
-    }
+	public boolean containQuest(IQuest quest) {
+		for (IQuestFactory iQuestFactory : questFactoryList) {
+			if (iQuestFactory.getQuest().equals(quest))
+				return true;
+		}
+		return false;
+	}
 
-    public void removeQuest(IQuestFactory qf){
-        if(questFactoryList.contains(qf))
-            questFactoryList.remove(qf);
-    }
-
-    public boolean containQuest(int id){
+	public IQuestFactory getQuest(int id) {
         for (IQuestFactory iQuestFactory : questFactoryList) {
-            if(iQuestFactory.getQuest().getId() == id)
-                return true;
+            if (iQuestFactory.getQuest().getId() == id)
+                return iQuestFactory;
         }
-        return false;
+        return null;
+	}
+
+    public int getPal(){
+        return (MathsUtils.nextDecade(WOLPlayer.get(getPlayer()).getPlayerLeveling().getLevel()))/10;
     }
 
-    private JSONObject getJsonQuest(){
-        JSONObject json = memory().getJson();
-        return json.getJSONObject("quests");
-    }
-
-    @CheckForNull
-    public Player getPlayer() {
-        return player;
-    }
-
-    @Override
-    public void save() {
-        for (IQuestFactory iQuestFactory : questFactoryList) {
-            memory().set("quests." + iQuestFactory.getQuest().getId(), iQuestFactory.getProgress());
+    public int getPercentageAchieve(int pal){
+        pal *= 10;
+        double total = 0;
+        double achieve = 0;
+        for (int i = 1; i < pal; i++) {
+            Collection<IQuestFactory> quests = getQuests(i);
+            for (IQuestFactory quest : quests) {
+                total += quest.getQuest().getValue();
+                achieve += quest.getProgress();
+            }
         }
-
+        return (int)((achieve/total)*100);
     }
+
+    public Collection<IQuestFactory> getQuests(int level) {
+        return questFactoryList.stream()
+                .filter(iQuestFactory -> iQuestFactory.getQuest().getLevel() == level)
+                .collect(Collectors.toCollection(ArrayList::new));
+    }
+
+	private JSONObject getJsonQuest() {
+		JSONObject json = memory().getJson();
+		JSONObject quests = null;
+		try {
+			quests = json.getJSONObject("quests");
+		} catch (Exception e) {
+			return null;
+		}
+		return quests == null ? null : quests;
+	}
+
+	@CheckForNull
+	public Player getPlayer() {
+		return player;
+	}
+
+	@Override
+	public void save() {
+		for (IQuestFactory iQuestFactory : questFactoryList) {
+			memory().set("quests." + iQuestFactory.getQuest().getId(), iQuestFactory.getProgress());
+		}
+	}
 }

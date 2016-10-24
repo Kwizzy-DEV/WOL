@@ -1,6 +1,6 @@
 package fr.kwizzy.waroflegions.util.bukkit.safe;
 
-import fr.kwizzy.waroflegions.WarOfLegions;
+import fr.kwizzy.waroflegions.WOL;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -48,7 +48,7 @@ public abstract class SafeTeleportation
                 }
                 i--;
             }
-        }.runTaskTimer(WarOfLegions.getInstance(), 0, 20);
+        }.runTaskTimer(WOL.getInstance(), 0, 20);
     }
 
     private boolean isCancelled(){

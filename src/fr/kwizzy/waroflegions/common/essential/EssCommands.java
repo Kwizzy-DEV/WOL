@@ -7,6 +7,7 @@ import fr.kwizzy.waroflegions.util.bukkit.FireworkUtil;
 import fr.kwizzy.waroflegions.util.bukkit.command.Command;
 import fr.kwizzy.waroflegions.util.bukkit.command.FastCommand;
 import fr.kwizzy.waroflegions.util.bukkit.command.IFastCommand;
+import fr.kwizzy.waroflegions.util.java.Log;
 import fr.kwizzy.waroflegions.util.java.StringUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
@@ -402,7 +403,7 @@ public class EssCommands implements IFastCommand {
                 ping = pingField.getInt(entityPlayer);
                 return ping;
             } catch (Exception e) {
-                e.printStackTrace();
+                Log.printException(e);
                 return 0;
             }
         }

@@ -1,17 +1,13 @@
 package fr.kwizzy.waroflegions.util.bukkit.command;
 
-import fr.kwizzy.waroflegions.WarOfLegions;
+import fr.kwizzy.waroflegions.WOL;
 import fr.kwizzy.waroflegions.util.bukkit.CommandMapUtil;
-import fr.kwizzy.waroflegions.util.java.ArraysUtils;
-import fr.kwizzy.waroflegions.util.java.bistream.BiStream;
-import org.bukkit.Bukkit;
+import fr.kwizzy.waroflegions.util.java.Log;
 import org.bukkit.command.*;
 import org.bukkit.command.Command;
 
-import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.List;
-import java.util.regex.Pattern;
 
 public class CommandRegisterer extends Command{
 
@@ -39,8 +35,8 @@ public class CommandRegisterer extends Command{
                     m.invoke(instance , new fr.kwizzy.waroflegions.util.bukkit.command.Command<>(args , sender , label , this));
                     return true;
                 } catch (Exception e) {
-                    WarOfLegions.getInstance().print("Error in method " + m + " : " + e.getMessage());
-                    e.printStackTrace();
+                    WOL.getInstance().print("Error in method " + m + " : " + e.getMessage());
+                    Log.printException(e);
                 }
             return false;
         });

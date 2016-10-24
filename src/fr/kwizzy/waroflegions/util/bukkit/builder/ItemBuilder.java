@@ -4,10 +4,10 @@ package fr.kwizzy.waroflegions.util.bukkit.builder;
  * Par Alexis le 24/04/2016.
  */
 
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.*;
 
+import fr.kwizzy.waroflegions.util.java.Log;
 import org.apache.commons.lang.Validate;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -20,6 +20,9 @@ import org.bukkit.inventory.meta.SkullMeta;
 import org.bukkit.material.MaterialData;
 
 public class ItemBuilder {
+
+	private static final String NULL_MATERIAL = "The Material is null.";
+	private static final String NULL_DISPLAYNAME = "The Material is null.";
 
 	private ItemStack item;
 	private ItemMeta meta;
@@ -39,7 +42,7 @@ public class ItemBuilder {
 	 * @see Material
 	 */
 	public ItemBuilder(Material material) {
-		Validate.notNull(material, "The Material is null.");
+		Validate.notNull(material, NULL_MATERIAL);
 		this.item = new ItemStack(material);
 		this.material = material;
 	}
@@ -51,7 +54,7 @@ public class ItemBuilder {
 	 * @see Material
 	 */
 	public ItemBuilder(Material material, int amount) {
-		Validate.notNull(material, "The Material is null.");
+		Validate.notNull(material, NULL_MATERIAL);
 		this.item = new ItemStack(material, amount);
 		this.material = material;
 		this.amount = amount;
@@ -64,8 +67,8 @@ public class ItemBuilder {
 	 * @see Material
 	 */
 	public ItemBuilder(Material material, int amount, String displayname) {
-		Validate.notNull(material, "The Material is null.");
-		Validate.notNull(displayname, "The Displayname is null.");
+		Validate.notNull(material, NULL_MATERIAL);
+		Validate.notNull(displayname, NULL_DISPLAYNAME);
 		this.item = new ItemStack(material, amount);
 		this.material = material;
 		this.amount = amount;
@@ -78,8 +81,8 @@ public class ItemBuilder {
 	 * @see Material
 	 */
 	public ItemBuilder(Material material, String displayname) {
-		Validate.notNull(material, "The Material is null.");
-		Validate.notNull(displayname, "The Displayname is null.");
+		Validate.notNull(material, NULL_MATERIAL);
+		Validate.notNull(displayname, NULL_DISPLAYNAME);
 		this.item = new ItemStack(material);
 		this.material = material;
 		this.displayname = displayname;
@@ -410,10 +413,10 @@ public class ItemBuilder {
 		if (displayname != null) {
 			meta.setDisplayName(displayname);
 		}
-		if (lore.size() > 0) {
+		if (lore.isEmpty()) {
 			meta.setLore(lore);
 		}
-		if (flags.size() > 0) {
+		if (flags.isEmpty()) {
 			for (ItemFlag f : flags) {
 				meta.addItemFlags(f);
 			}
@@ -532,8 +535,8 @@ public class ItemBuilder {
 				}
 				try {
 					return (String) compound.getClass().getMethod("getString", String.class).invoke(compound, key);
-				} catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException ex) {
-					ex.printStackTrace();
+				} catch (ReflectiveOperationException ex) {
+					Log.printException(ex);
 				}
 				return null;
 			}
@@ -547,8 +550,8 @@ public class ItemBuilder {
 				try {
 					compound.getClass().getMethod("setString", String.class, String.class).invoke(compound, key, value);
 					nmsItem = setNBTTag(compound, nmsItem);
-				} catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException ex) {
-					ex.printStackTrace();
+				} catch (ReflectiveOperationException ex) {
+					Log.printException(ex);
 				}
 				return getItemAsBukkitStack(nmsItem);
 			}
@@ -560,8 +563,8 @@ public class ItemBuilder {
 				}
 				try {
 					return (Integer) compound.getClass().getMethod("getInt", String.class).invoke(compound, key);
-				} catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException ex) {
-					ex.printStackTrace();
+				} catch (ReflectiveOperationException ex) {
+					Log.printException(ex);
 				}
 				return -1;
 			}
@@ -575,8 +578,8 @@ public class ItemBuilder {
 				try {
 					compound.getClass().getMethod("setInt", String.class, Integer.class).invoke(compound, key, value);
 					nmsItem = setNBTTag(compound, nmsItem);
-				} catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException ex) {
-					ex.printStackTrace();
+				} catch (ReflectiveOperationException ex) {
+					Log.printException(ex);
 				}
 				return getItemAsBukkitStack(nmsItem);
 			}
@@ -588,8 +591,8 @@ public class ItemBuilder {
 				}
 				try {
 					return (Double) compound.getClass().getMethod("getDouble", String.class).invoke(compound, key);
-				} catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException ex) {
-					ex.printStackTrace();
+				} catch (ReflectiveOperationException ex) {
+					Log.printException(ex);
 				}
 				return Double.NaN;
 			}
@@ -603,8 +606,8 @@ public class ItemBuilder {
 				try {
 					compound.getClass().getMethod("setDouble", String.class, Double.class).invoke(compound, key, value);
 					nmsItem = setNBTTag(compound, nmsItem);
-				} catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException ex) {
-					ex.printStackTrace();
+				} catch (ReflectiveOperationException ex) {
+					Log.printException(ex);
 				}
 				return getItemAsBukkitStack(nmsItem);
 			}
@@ -616,8 +619,8 @@ public class ItemBuilder {
 				}
 				try {
 					return (Boolean) compound.getClass().getMethod("getBoolean", String.class).invoke(compound, key);
-				} catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException ex) {
-					ex.printStackTrace();
+				} catch (ReflectiveOperationException ex) {
+					Log.printException(ex);
 				}
 				return false;
 			}
@@ -632,8 +635,8 @@ public class ItemBuilder {
 					compound.getClass().getMethod("setBoolean", String.class, Boolean.class).invoke(compound, key,
 							value);
 					nmsItem = setNBTTag(compound, nmsItem);
-				} catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException ex) {
-					ex.printStackTrace();
+				} catch (ReflectiveOperationException ex) {
+					Log.printException(ex);
 				}
 				return getItemAsBukkitStack(nmsItem);
 			}
@@ -645,8 +648,8 @@ public class ItemBuilder {
 				}
 				try {
 					return (Boolean) compound.getClass().getMethod("hasKey", String.class).invoke(compound, key);
-				} catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
-					e.printStackTrace();
+				} catch (ReflectiveOperationException ex) {
+					Log.printException(ex);
 				}
 				return false;
 			}
@@ -656,8 +659,8 @@ public class ItemBuilder {
 				String ver = Bukkit.getServer().getClass().getPackage().getName().split(".")[3];
 				try {
 					return Class.forName("net.minecraft.server." + ver + ".NBTTagCompound").newInstance();
-				} catch (ClassNotFoundException | IllegalAccessException | InstantiationException ex) {
-					ex.printStackTrace();
+				} catch (ReflectiveOperationException ex) {
+					Log.printException(ex);
 				}
 				return null;
 			}
@@ -666,8 +669,8 @@ public class ItemBuilder {
 				try {
 					item.getClass().getMethod("setTag", item.getClass()).invoke(item, tag);
 					return item;
-				} catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException ex) {
-					ex.printStackTrace();
+				} catch (ReflectiveOperationException ex) {
+					Log.printException(ex);
 				}
 				return null;
 			}
@@ -675,8 +678,8 @@ public class ItemBuilder {
 			public Object getNBTTagCompound(Object nmsStack) {
 				try {
 					return nmsStack.getClass().getMethod("getTag").invoke(nmsStack);
-				} catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException ex) {
-					ex.printStackTrace();
+				} catch (ReflectiveOperationException ex) {
+					Log.printException(ex);
 				}
 				return null;
 			}
@@ -686,8 +689,8 @@ public class ItemBuilder {
 				try {
 					Method m = getCraftItemStackClass().getMethod("asNMSCopy", ItemStack.class);
 					return m.invoke(getCraftItemStackClass(), item);
-				} catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException ex) {
-					ex.printStackTrace();
+				} catch (ReflectiveOperationException ex) {
+					Log.printException(ex);
 				}
 				return null;
 			}
@@ -697,8 +700,8 @@ public class ItemBuilder {
 				try {
 					Method m = getCraftItemStackClass().getMethod("asCraftMirror", nmsStack.getClass());
 					return (ItemStack) m.invoke(getCraftItemStackClass(), nmsStack);
-				} catch (NoSuchMethodException | InvocationTargetException | IllegalAccessException ex) {
-					ex.printStackTrace();
+				} catch (ReflectiveOperationException ex) {
+					Log.printException(ex);
 				}
 				return null;
 			}
@@ -708,7 +711,7 @@ public class ItemBuilder {
 				try {
 					return Class.forName("org.bukkit.craftbukkit." + ver + ".inventory.CraftItemStack");
 				} catch (ClassNotFoundException ex) {
-					ex.printStackTrace();
+					Log.printException(ex);
 				}
 				return null;
 			}

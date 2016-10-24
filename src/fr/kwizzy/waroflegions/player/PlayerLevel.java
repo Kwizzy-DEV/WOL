@@ -20,22 +20,22 @@ import java.util.UUID;
 
 public class PlayerLevel extends PlayerData{
 
-    private static HashMap<Integer, Double> levelToExp = new HashMap<>();
+    private static HashMap<Short, Double> levelToExp = new HashMap<>();
     private static final double COEFF = 1.044663;
 
 
     private static String addExp = "§a+ %s d'exp " + StringUtils.parenthesisText("%s");
-    private static String levelUp00 = "§a+ §f§lNIVEAU SUPERIEUR §a+";
+    private static String levelUp00 = "§a§l⇪ §f§lNIVEAU SUPERIEUR §a§l⇪";
     private static String levelUp01 = "§eTu es maintenant niveau §a%s§e !";
     private static String levelUp02 = "§eIl te manque §a%s §ed'expérience.";
 
     static {
         double exp = 50;
-        levelToExp.put(1, 50.0);
-        for (int i = 2; i < 5000; i++) {
+        levelToExp.put((short) 1, 50.0);
+        for (short i = 2; i < 5000; i++)
+        {
             exp *= COEFF;
             levelToExp.put(i, MathsUtils.roundDouble(exp, 1));
-
         }
     }
 
@@ -47,7 +47,7 @@ public class PlayerLevel extends PlayerData{
     PlayerLevel(IMemory m, WOLPlayer p){
         super(m, p);
         this.level = Integer.parseInt(m.get("leveling.level"));
-        this.exp = Integer.parseInt(m.get("leveling.exp"));
+        this.exp = Double.parseDouble(m.get("leveling.exp"));
         this.player = Bukkit.getPlayer(UUID.fromString(m.get("uuid")));
     }
 
@@ -56,7 +56,7 @@ public class PlayerLevel extends PlayerData{
     }
 
     public void addExp(double d){
-        if(exp + d >= levelToExp.get(level)){
+        if(exp + d >= levelToExp.get((short) level)){
             addLevel(getRest(d));
             levelModification();
             ActionBar.sendActionBar(String.format(addExp, d, getPercentageExp() + "%"), player);
@@ -107,7 +107,7 @@ public class PlayerLevel extends PlayerData{
     }
 
     public double getExpFor(int i){
-        return levelToExp.get(i);
+        return levelToExp.get((short) i);
     }
 
     public double getTotalExp(){

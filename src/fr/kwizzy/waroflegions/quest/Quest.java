@@ -25,19 +25,17 @@ public class Quest<T extends Event> implements IQuest{
         this.id = id;
         this.exp = exp;
         this.value = callAmount;
-        this.name = name;
+        this.name = name.replace("{amount}", Integer.toString(callAmount));
         this.event = event;
         this.tester = tester;
     }
 
     public Quest(Class<T> event, int callAmount, int id, int level, double exp, String name, Predicate<T> tester) {
-        this.level = level;
-        this.id = id;
-        this.exp = exp;
-        this.value = callAmount;
-        this.name = name.replace("{amount}", Integer.toString(callAmount));
-        this.event = event;
-        this.tester = t -> tester.test(t) ? 1 : 0;
+        this(event, callAmount, id, level, exp, name, tranformPredicate(tester));
+    }
+
+    private static <T extends Event> Function<T, Integer> tranformPredicate(Predicate<T> tester){
+        return t -> tester.test(t) ? 1 : 0;
     }
 
     @Override
@@ -78,5 +76,17 @@ public class Quest<T extends Event> implements IQuest{
     @Override
     public IQuestFactory create(PlayerQuest pq) {
         return new QuestFactory(this, pq);
+    }
+
+    @Override
+    public String toString() {
+        return "Quest{" +
+                "value=" + value +
+                ", level=" + level +
+                ", id=" + id +
+                ", exp=" + exp +
+                ", name='" + name + '\'' +
+                ", event=" + event.getName() +
+                "}\n";
     }
 }

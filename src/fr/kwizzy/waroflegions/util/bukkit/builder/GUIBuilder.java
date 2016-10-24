@@ -2,7 +2,7 @@ package fr.kwizzy.waroflegions.util.bukkit.builder;
 
 import java.util.*;
 
-import fr.kwizzy.waroflegions.WarOfLegions;
+import fr.kwizzy.waroflegions.WOL;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.HumanEntity;
@@ -24,7 +24,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 public abstract class GUIBuilder implements Listener {
 
 	private static Map<Player, GUIBuilder> guiList = new HashMap<>();
-	private static Plugin instance = WarOfLegions.getInstance();
+	private static Plugin instance = WOL.getInstance();
 	private static boolean isRegistered = false;
 
 	private Integer size = 9;

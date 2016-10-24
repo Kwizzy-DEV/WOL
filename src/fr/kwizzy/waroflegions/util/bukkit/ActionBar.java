@@ -8,6 +8,7 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 
+import fr.kwizzy.waroflegions.util.java.Log;
 import fr.kwizzy.waroflegions.util.java.Reflection;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -36,7 +37,7 @@ public class ActionBar {
 					.getDeclaredMethod("sendPacket", Class.forName("net.minecraft.server." + BV + ".Packet"));
 			initialised = true;
 		} catch (ReflectiveOperationException e) {
-			e.printStackTrace();
+			Log.printException(e);
 			Bukkit.getServer().getLogger().warning("Cannot initialise Action Bar Utils (Blame fillpant)");
 			initialised = false;
 		}
@@ -73,7 +74,7 @@ public class ActionBar {
 			Object packet = packetChat.newInstance(o, (byte) 2);
 			sendPacket(packet, p);
 		} catch (ReflectiveOperationException e) {
-			e.printStackTrace();
+			Log.printException(e);
 			initialised = false;
 		}
 		return initialised;

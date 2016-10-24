@@ -1,5 +1,6 @@
 package fr.kwizzy.waroflegions.util.nms;
 
+import fr.kwizzy.waroflegions.util.java.Log;
 import org.bukkit.World;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.ItemFrame;
@@ -41,7 +42,7 @@ public class NMSUtils {
             return newInstance(NMSVer.getCurrentNMSClass("PacketPlayOutMap") , (int)mapId, (byte) 0, new ArrayList<>(), render, 0, 0,
                     128, 128);
         } catch (ClassNotFoundException e) {
-            e.printStackTrace();
+            Log.printException(e);
             return null;
         }
     }
@@ -50,7 +51,7 @@ public class NMSUtils {
         try {
             return newInstance(NMSVer.getCurrentNMSClass("PacketPlayOutEntityMetadata") ,entityId, dataWatcher, b);
         } catch (ClassNotFoundException e) {
-            e.printStackTrace();
+            Log.printException(e);
             return null;
         }
     }
@@ -62,7 +63,7 @@ public class NMSUtils {
             set(packet , "b" , name);
             return packet;
         } catch (ClassNotFoundException e) {
-            e.printStackTrace();
+            Log.printException(e);
             return null;
         }
     }
@@ -77,7 +78,7 @@ public class NMSUtils {
             set(packet , "d" , getMethod(NMSVer.getCurrentNMSClass("PacketPlayOutScoreboardScore$EnumScoreboardAction") , "valueOf" , new Class<?>[]{String.class}).invoke(null ,action));
             return packet;
         } catch (Exception e) {
-            e.printStackTrace();
+            Log.printException(e);
             return null;
         }
     }
@@ -91,7 +92,7 @@ public class NMSUtils {
             set(packet , "d" , mode);
             return packet;
         } catch (Exception e) {
-            e.printStackTrace();
+            Log.printException(e);
             return null;
         }
     }
@@ -107,7 +108,7 @@ public class NMSUtils {
                             , 1 , (int)mapId));
             sendPacket(p, newPacketEntityMetadata(frame.getEntityId(), watcher, true));
         } catch (Exception e) {
-            e.printStackTrace();
+            Log.printException(e);
         }
 
 
@@ -117,7 +118,7 @@ public class NMSUtils {
         try {
             return newInstance(NMSVer.getCurrentNMSClass("DataWatcher") , new Object[]{null});
         } catch (ClassNotFoundException e) {
-            e.printStackTrace();
+            Log.printException(e);
             return null;
         }
     }

@@ -1,5 +1,6 @@
 package fr.kwizzy.waroflegions.util.bukkit;
 
+import fr.kwizzy.waroflegions.util.java.Log;
 import fr.kwizzy.waroflegions.util.nms.NMSVer;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandMap;
@@ -18,7 +19,7 @@ public class CommandMapUtil {
                 commandMap = (CommandMap)f.get(Bukkit.getServer());
             }
         } catch (NoSuchFieldException | SecurityException | IllegalArgumentException | IllegalAccessException | ClassNotFoundException e) {
-            e.printStackTrace();
+            Log.printException(e);
         }
     }
 

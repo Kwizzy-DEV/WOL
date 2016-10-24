@@ -9,6 +9,7 @@ import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
 
+import fr.kwizzy.waroflegions.util.java.Log;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
@@ -265,7 +266,7 @@ public class Title {
 					sendPacket.invoke(connection, packet);
 				}
 			} catch (Exception e) {
-				e.printStackTrace();
+				Log.printException(e);
 			}
 		}
 	}
@@ -288,7 +289,7 @@ public class Title {
 					sendPacket.invoke(connection, packet);
 				}
 			} catch (Exception e) {
-				e.printStackTrace();
+				Log.printException(e);
 			}
 		}
 	}
@@ -306,7 +307,7 @@ public class Title {
 						.newInstance(new Object[]{actions[0], serialized});
 				sendPacket.invoke(connection, packet);
 			} catch (Exception e) {
-				e.printStackTrace();
+				Log.printException(e);
 			}
 		}
 	}
@@ -324,7 +325,7 @@ public class Title {
 						.newInstance(new Object[]{actions[1], serialized});
 				sendPacket.invoke(connection, packet);
 			} catch (Exception e) {
-				e.printStackTrace();
+				Log.printException(e);
 			}
 		}
 	}
@@ -354,7 +355,7 @@ public class Title {
 			Object packet = packetTitle.getConstructor(packetActions, chatBaseComponent).newInstance(actions[3], null);
 			sendPacket.invoke(connection, packet);
 		} catch (Exception e) {
-			e.printStackTrace();
+			Log.printException(e);
 		}
 	}
 
@@ -374,7 +375,7 @@ public class Title {
 			Object packet = packetTitle.getConstructor(packetActions, chatBaseComponent).newInstance(actions[4], null);
 			sendPacket.invoke(connection, packet);
 		} catch (Exception e) {
-			e.printStackTrace();
+			Log.printException(e);
 		}
 	}
 
@@ -403,7 +404,7 @@ public class Title {
 		try {
 			return getMethod("getHandle", obj.getClass()).invoke(obj);
 		} catch (Exception e) {
-			e.printStackTrace();
+			Log.printException(e);
 			return null;
 		}
 	}
@@ -430,7 +431,7 @@ public class Title {
 		try {
 			clazz = Class.forName(fullName);
 		} catch (Exception e) {
-			e.printStackTrace();
+			Log.printException(e);
 		}
 		return clazz;
 	}
@@ -441,7 +442,7 @@ public class Title {
 			field.setAccessible(true);
 			return field;
 		} catch (Exception e) {
-			e.printStackTrace();
+			Log.printException(e);
 			return null;
 		}
 	}

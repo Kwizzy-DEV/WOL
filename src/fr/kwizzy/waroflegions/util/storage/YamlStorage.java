@@ -5,11 +5,9 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
 import java.util.regex.Pattern;
 
-import fr.kwizzy.waroflegions.WarOfLegions;
-import org.bukkit.Bukkit;
+import fr.kwizzy.waroflegions.WOL;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -35,7 +33,7 @@ public class YamlStorage implements Storage {
 	 */
 
 
-    private static File        folder   = new File(WarOfLegions.getInstance().getDataFolder() + File.separator + "data" + File.separator);
+    private static File        folder   = new File(WOL.getInstance().getDataFolder() + File.separator + "data" + File.separator);
     private static YamlStorage instance = new YamlStorage();
 
 	private static HashMap<String, BiValue<YamlConfiguration, File>> cacheFiles = new HashMap<>();
@@ -168,7 +166,7 @@ public class YamlStorage implements Storage {
 			try {
 				e.getValue().getKey().save(e.getValue().getValue());
 			} catch (IOException ex) {
-				WarOfLegions.getInstance().print("Can't save " + e.getValue().getValue().getAbsolutePath());
+				WOL.getInstance().print("Can't save " + e.getValue().getValue().getAbsolutePath());
 			}
 		}
 	}
@@ -207,7 +205,7 @@ public class YamlStorage implements Storage {
             public void run() {
                 instance.saveAll();
             }
-        }.runTaskTimer(WarOfLegions.getInstance(), (long)20*60*5, (long)20*60*5);
+        }.runTaskTimer(WOL.getInstance(), (long)20*60*5, (long)20*60*5);
     }
 
 	public Map<String, Object> getMap(String path){

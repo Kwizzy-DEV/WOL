@@ -1,7 +1,6 @@
 package fr.kwizzy.waroflegions.util.bukkit;
 
-import fr.kwizzy.waroflegions.WarOfLegions;
-import org.bukkit.Bukkit;
+import fr.kwizzy.waroflegions.WOL;
 import org.bukkit.Color;
 import org.bukkit.FireworkEffect;
 import org.bukkit.Location;
@@ -116,7 +115,7 @@ public class FireworkUtil {
             public void run() {
                 fw.detonate();
             }
-        }.runTaskLater(WarOfLegions.getInstance(), detonateTicks);
+        }.runTaskLater(WOL.getInstance(), detonateTicks);
     }
 
 

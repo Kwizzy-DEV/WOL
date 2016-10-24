@@ -39,4 +39,10 @@ public class LevelCommand implements CommandListener {
     public void exp(Command<Player> co){
         new LevelingVisualizer(co.getSender()).show();
     }
+
+    @Override
+    public String getCommand()
+    {
+        return "leveling";
+    }
 }

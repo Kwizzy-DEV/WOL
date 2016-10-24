@@ -1,5 +1,7 @@
 package fr.kwizzy.waroflegions.util.bukkit.noteblocklib;
 
+import fr.kwizzy.waroflegions.util.java.Log;
+
 import java.io.*;
 import java.util.HashMap;
 
@@ -9,7 +11,7 @@ public class NBSDecoder {
         try {
             return parse(new FileInputStream(decodeFile), decodeFile);
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
+			Log.printException(e);
         }
         return null;
     }
@@ -66,12 +68,11 @@ public class NBSDecoder {
                 }
             }
             return new Song(speed, layerHashMap, songHeight, length, title, author, description, decodeFile);
-        } catch (FileNotFoundException e) {
+        } catch (IOException e)
+        {
             e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
+            return null;
         }
-        return null;
     }
 
     private static void setNote(int layer, int ticks, byte instrument, byte key, HashMap<Integer, Layer> layerHashMap) {

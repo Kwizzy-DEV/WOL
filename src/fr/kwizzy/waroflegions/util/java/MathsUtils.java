@@ -1,10 +1,7 @@
 package fr.kwizzy.waroflegions.util.java;
 
-import org.bukkit.Bukkit;
-
-import java.util.LinkedHashMap;
-import java.util.Map;
-import java.util.Random;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * Par Alexis le 30/09/2016.
@@ -87,5 +84,29 @@ public class MathsUtils {
             i++;
         }
         return i;
+    }
+
+    public static Set<Integer> getBorderSlot(int size){
+        final int t = 9;
+        final int d = (int) (t/2.0 + (1.0));
+        final int midleDown = size*t - d;
+        Set<Integer> slots = new HashSet<>();
+        for (int i = 0; i < size; i++) {
+            slots.add(i*t);
+            slots.add(t-1 + (i*t));
+        }
+        for (int i = 0; i < t-1; i++) {
+            slots.add(i);
+            slots.add(i+(t*size - t));
+        }
+        slots.remove(midleDown);
+
+        List<Integer> autorized = new ArrayList<>();
+        for (int i = 0; i < size * t; i++) {
+            autorized.add(i);
+        }
+        List<Integer> nAutorized = slots.stream().filter(slot -> !autorized.contains(slot)).collect(Collectors.toList());
+        slots.removeAll(nAutorized);
+        return slots;
     }
 }
