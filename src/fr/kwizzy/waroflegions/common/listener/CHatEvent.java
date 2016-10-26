@@ -18,12 +18,12 @@ public class ChatEvent implements Listener {
         String message = e.getMessage();
         WOLPlayer w = WOLPlayer.get(e.getPlayer());
         String[] strings = new String[8];
-        strings[0] = "§7Légion: " + "todo";
-        strings[1] = "§7Pts de légion: §6" + "todo";
+        strings[0] = "§7Légion: " + w.getPlayerLegion().getLegion().getPrefix();
+        strings[1] = "§7Pts de légion: §6" + w.getPlayerLegion().getLegionPoints();
         strings[2] = "§7Niveau: §a" + w.getPlayerLeveling().getLevel();
         strings[3] = "§7Exp: §a" + w.getPlayerLeveling().getExp() + "§e/§a" + w.getPlayerLeveling().getTotalExp();
         strings[4] = "§7Balance: §6" + w.getEconomyPlayer().getMoney();
-        strings[5] = "§7Rang: " + "todo";
+        strings[5] = "§7Rang: " + w.getPlayerLegion().getRank().getColoredName();
         strings[6] = "";
         strings[7] = "§b(Cliques pour envoyer un message)";
         JsonMessageBuidler js = new JsonMessageBuidler();
