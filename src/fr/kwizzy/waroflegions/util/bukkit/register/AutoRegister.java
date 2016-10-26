@@ -36,10 +36,7 @@ public class AutoRegister {
     public <T> void registerAction(Class<? extends T> mustBePrimary, Consumer<T> action, Class... mustBeOther)
     {
         for (BiValues<? extends Class<?>, Object> objectBiValues : getFinal(mustBePrimary, mustBeOther))
-        {
-            Bukkit.getLogger().log(Level.INFO, " > Registering: " + objectBiValues.getKey().getSimpleName() + " ...");
             action.accept((T) objectBiValues.getValue());
-        }
     }
 
     private Set<BiValues<? extends Class<?>, Object>> getFinal(Class mustBePrimary, Class... mustBeOther)
