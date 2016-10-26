@@ -103,7 +103,7 @@ public class NMSUtils {
             invoke(watcher , "a", 0, (byte) 0);
             invoke(watcher , "a", 1, (short) 0);
             invoke(watcher , "a", 8,
-                    newInstance(NMSVer.getCurrentNMSClass("ItemStack") ,
+                    newInstance(NMSVer.getCurrentNMSClass("ItemStackJson") ,
                             get(NMSVer.getCurrentNMSClass("Items") , "FILLED_MAP" , Object.class)
                             , 1 , (int)mapId));
             sendPacket(p, newPacketEntityMetadata(frame.getEntityId(), watcher, true));
