@@ -13,29 +13,29 @@ import java.util.regex.Pattern;
 
 public class JSONCreator {
 
-	JSONObject jo = new JSONObject();
+    JSONObject jo = new JSONObject();
 
-	public JSONCreator(JSONObject jo) {
-		this.jo = jo;
-	}
+    public JSONCreator(JSONObject jo) {
+        this.jo = jo;
+    }
 
-	public Object get(String path) {
+    public Object get(String path) {
         String[] split = path.split(Pattern.quote("."));
         JSONObject jsonObject = jo;
-		JSONObject json = null;
-		Object o = "";
-		for (int i = 0; i < split.length; i++) {
-			try {
-				if (i == split.length - 1)
-					o = ((json == null) ? jsonObject.get(split[i]) : json.get(split[i]));
-				else
-					json = (JSONObject) ((json == null) ? jsonObject.get(split[i]) : json.get(split[i]));
-			} catch (JSONException e) {
-				return null;
-			}
-		}
-		return o;
-	}
+        JSONObject json = null;
+        Object o = "";
+        for (int i = 0; i < split.length; i++) {
+            try {
+                if (i == split.length - 1)
+                    o = ((json == null) ? jsonObject.get(split[i]) : json.get(split[i]));
+                else
+                    json = (JSONObject) ((json == null) ? jsonObject.get(split[i]) : json.get(split[i]));
+            } catch (JSONException e) {
+                return null;
+            }
+        }
+        return o;
+    }
 
     public void set(String path, Object object){
         String[] paths = path.split(Pattern.quote("."));
