@@ -89,7 +89,7 @@ public class ItemBuilder {
 	}
 
 	/**
-	 * Initials the ItemBuilder with an already existing ItemStack
+	 * Initials the ItemBuilder with an already existing ItemStackJson
 	 * 
 	 * @see ItemStack
 	 */
@@ -131,7 +131,7 @@ public class ItemBuilder {
 	}
 
 	/**
-	 * Sets the amount of the builded ItemStack
+	 * Sets the amount of the builded ItemStackJson
 	 * 
 	 * @param amount
 	 *            (Integer)
@@ -142,7 +142,7 @@ public class ItemBuilder {
 	}
 
 	/**
-	 * Sets the MaterialData of the builded ItemStack
+	 * Sets the MaterialData of the builded ItemStackJson
 	 * 
 	 * @param data
 	 *            (MaterialData)
@@ -154,7 +154,7 @@ public class ItemBuilder {
 	}
 
 	/**
-	 * Sets the damage (durability) of the builded ItemStack
+	 * Sets the damage (durability) of the builded ItemStackJson
 	 * 
 	 * @param damage
 	 *            (Short)
@@ -167,7 +167,7 @@ public class ItemBuilder {
 	}
 
 	/**
-	 * Sets the durability (damage) of the builded ItemStack
+	 * Sets the durability (damage) of the builded ItemStackJson
 	 * 
 	 * @param damage
 	 *            (Short)
@@ -178,7 +178,7 @@ public class ItemBuilder {
 	}
 
 	/**
-	 * Sets the Material of the builded ItemStack
+	 * Sets the Material of the builded ItemStackJson
 	 * 
 	 * @param material
 	 *            (Material)
@@ -190,7 +190,7 @@ public class ItemBuilder {
 	}
 
 	/**
-	 * Sets the ItemMeta of the builded ItemStack
+	 * Sets the ItemMeta of the builded ItemStackJson
 	 * 
 	 * @param meta
 	 *            (ItemMeta)
@@ -202,7 +202,7 @@ public class ItemBuilder {
 	}
 
 	/**
-	 * Adds the Enchantment of the builded ItemStack
+	 * Adds the Enchantment of the builded ItemStackJson
 	 * 
 	 * @param enchant
 	 *            (Enchantment)
@@ -214,7 +214,7 @@ public class ItemBuilder {
 	}
 
 	/**
-	 * Sets the Enchantments of the builded ItemStack
+	 * Sets the Enchantments of the builded ItemStackJson
 	 * 
 	 * @param enchantments
 	 *            (Map<Enchantment, Integer> )
@@ -226,7 +226,7 @@ public class ItemBuilder {
 	}
 
 	/**
-	 * Sets the Displayname of the builded ItemStack
+	 * Sets the Displayname of the builded ItemStackJson
 	 * 
 	 * @param displayname
 	 *            (Displayname)
@@ -241,7 +241,7 @@ public class ItemBuilder {
 	}
 
 	/**
-	 * Adds the line to the Lore of the builded ItemStack
+	 * Adds the line to the Lore of the builded ItemStackJson
 	 * 
 	 * @param line
 	 *            (String)
@@ -256,7 +256,7 @@ public class ItemBuilder {
 	}
 
 	/**
-	 * Sets the lore of the builded ItemStack
+	 * Sets the lore of the builded ItemStackJson
 	 * 
 	 * @param lore
 	 *            (List<String>)
@@ -268,7 +268,7 @@ public class ItemBuilder {
 	}
 
 	/**
-	 * Adds the lines to the Lore of the builded ItemStack
+	 * Adds the lines to the Lore of the builded ItemStackJson
 	 * 
 	 * @param lines
 	 *            (String...)
@@ -305,7 +305,7 @@ public class ItemBuilder {
 	}
 
 	/**
-	 * Adds the ItemFlag to the builded ItemStack
+	 * Adds the ItemFlag to the builded ItemStackJson
 	 * 
 	 * @param flag
 	 *            (ItemFlag)
@@ -317,7 +317,7 @@ public class ItemBuilder {
 	}
 
 	/**
-	 * Sets the ItemFlags of the builded ItemStack
+	 * Sets the ItemFlags of the builded ItemStackJson
 	 * 
 	 * @param flags
 	 *            (List<ItemFlag>)
@@ -395,9 +395,9 @@ public class ItemBuilder {
 	}
 
 	/**
-	 * Builds the ItemStack and returns it
+	 * Builds the ItemStackJson and returns it
 	 * 
-	 * @return (ItemStack)
+	 * @return (ItemStackJson)
 	 */
 	public ItemStack build() {
 		item.setType(material);

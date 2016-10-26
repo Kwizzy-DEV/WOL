@@ -1,15 +1,13 @@
 package fr.kwizzy.waroflegions.util.bukkit.builder;
 
-import fr.kwizzy.waroflegions.util.storage.JSONCreator;
+import fr.kwizzy.waroflegions.util.storage.JSONStorage;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.json.JSONArray;
 import org.json.JSONObject;
-import org.json.JSONWriter;
 
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 
 /**
@@ -50,14 +48,14 @@ public class JsonMessageBuidler {
     public class JComp {
 
         private JsonMessageBuidler jmb;
-        private JSONCreator j = new JSONCreator(new JSONObject());
+        private JSONStorage j = new JSONStorage();
 
         public JComp(JsonMessageBuidler jsonMessageBuidler, String text) {
 
 
             this.jmb = jsonMessageBuidler;
 
-            j.set("text", text.replace("{}", "").replace("[]", ""));
+            j.put("text", text.replace("{}", "").replace("[]", ""));
             jmb.creatorHashMap.put(text, this);
         }
 
@@ -66,14 +64,14 @@ public class JsonMessageBuidler {
         }
 
         public JComp addCommandExecutor(String command){
-            j.set("clickEvent.action", "run_command");
-            j.set("clickEvent.value", command);
+            j.put("clickEvent.action", "run_command");
+            j.put("clickEvent.value", command);
             return this;
         }
 
         public JComp addCommandSuggest(String command){
-            j.set("clickEvent.action", "suggest_command");
-            j.set("clickEvent.value", command);
+            j.put("clickEvent.action", "suggest_command");
+            j.put("clickEvent.value", command);
             return this;
         }
 
@@ -84,29 +82,29 @@ public class JsonMessageBuidler {
                 if(i != hover.length-1)
                     b.append("\n");
             }
-            j.set("hoverEvent.action", "show_text");
-            j.set("hoverEvent.value", b.toString());
+            j.put("hoverEvent.action", "show_text");
+            j.put("hoverEvent.value", b.toString());
             return this;
         }
 
         public JComp addChatSuggest(String chat){
-            j.set("insertion", chat);
+            j.put("insertion", chat);
             return this;
         }
 
         public JComp addUrl(String url){
-            j.set("clickEvent.action", "open_url");
-            j.set("clickEvent.value", url);
+            j.put("clickEvent.action", "open_url");
+            j.put("clickEvent.value", url);
             return this;
         }
 
         public JComp addColor(ChatColor c){
-            j.set("color", c.name().toLowerCase());
+            j.put("color", c.name().toLowerCase());
             return this;
         }
 
         public JSONObject getJson() {
-            return j.getJson();
+            return j.getFullJson();
         }
     }
 
