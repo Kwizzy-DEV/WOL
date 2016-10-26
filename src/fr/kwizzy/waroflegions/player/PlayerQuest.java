@@ -3,11 +3,9 @@ package fr.kwizzy.waroflegions.player;
 import fr.kwizzy.waroflegions.quest.IQuest;
 import fr.kwizzy.waroflegions.quest.IQuestFactory;
 import fr.kwizzy.waroflegions.quest.QuestManager;
-import fr.kwizzy.waroflegions.util.IMemory;
+import fr.kwizzy.waroflegions.util.Memory;
 import fr.kwizzy.waroflegions.util.java.MathsUtils;
-import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import javax.annotation.CheckForNull;
@@ -26,7 +24,7 @@ public class PlayerQuest extends PlayerData {
 	private Player player;
 	private LinkedList<IQuestFactory> questFactoryList = new LinkedList<>();
 
-	public PlayerQuest(IMemory m, WOLPlayer wol) {
+	public PlayerQuest(Memory m, WOLPlayer wol) {
 		super(m, wol);
 		this.player = wol.getPlayer();
 		loadQuests();
@@ -151,7 +149,7 @@ public class PlayerQuest extends PlayerData {
 	@Override
 	public void save() {
 		for (IQuestFactory iQuestFactory : questFactoryList) {
-			memory().set("quests." + iQuestFactory.getQuest().getId(), iQuestFactory.getProgress());
+			memory().put("quests." + iQuestFactory.getQuest().getId(), iQuestFactory.getProgress());
 		}
 	}
 }

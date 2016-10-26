@@ -1,7 +1,8 @@
 package fr.kwizzy.waroflegions.player;
 
-import fr.kwizzy.waroflegions.util.IMemory;
+import fr.kwizzy.waroflegions.util.Memory;
 import fr.kwizzy.waroflegions.util.ISaveable;
+import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,16 +15,16 @@ public abstract class PlayerData implements ISaveable {
 
     private static List<ISaveable> saveables = new ArrayList<>();
 
-    IMemory memo;
+    Memory memo;
     WOLPlayer wolPlayer;
 
-    PlayerData(IMemory memory, WOLPlayer player) {
+    PlayerData(Memory memory, WOLPlayer player) {
         this.memo = memory;
         this.wolPlayer = player;
         saveables.add(this);
     }
 
-    IMemory memory() {
+    Memory memory() {
         return memo;
     }
 
@@ -32,9 +33,11 @@ public abstract class PlayerData implements ISaveable {
     }
 
     public static void saveAll(){
+        saveables.forEach(ISaveable::save);
+    }
 
-        for (ISaveable saveable : saveables) {
-            saveable.save();
-        }
+    public Player getPlayer()
+    {
+        return wolPlayer.getPlayer();
     }
 }

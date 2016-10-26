@@ -1,6 +1,6 @@
 package fr.kwizzy.waroflegions.player;
 
-import fr.kwizzy.waroflegions.util.IMemory;
+import fr.kwizzy.waroflegions.util.Memory;
 import fr.kwizzy.waroflegions.util.bukkit.BukkitUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -12,7 +12,7 @@ import java.util.UUID;
  * Par Alexis le 02/10/2016.
  */
 
-public class PlayerEss extends PlayerData{
+public class PlayerEss extends PlayerData {
 
     private final static String GOD = "ess.god";
     private final static String AFK = "ess.afk";
@@ -21,7 +21,7 @@ public class PlayerEss extends PlayerData{
     private Player player;
 
 
-    PlayerEss(IMemory m, WOLPlayer w) {
+    PlayerEss(Memory m, WOLPlayer w) {
         super(m, w);
         this.player = Bukkit.getPlayer(UUID.fromString(memory().get("uuid")));
     }
@@ -38,7 +38,7 @@ public class PlayerEss extends PlayerData{
     }
 
     public void setGod(boolean god) {
-        memory().set(GOD, god);
+        memory().put(GOD, god);
     }
 
     public boolean isAfk(){
@@ -49,7 +49,7 @@ public class PlayerEss extends PlayerData{
     }
 
     public void setAfk(boolean b) {
-        memory().set(AFK, b);
+        memory().put(AFK, b);
     }
 
     public Location getBack(){
@@ -57,7 +57,7 @@ public class PlayerEss extends PlayerData{
     }
 
     public void setBack(Location l){
-        memory().set(BACK, BukkitUtils.toStringLocation(l));
+        memory().put(BACK, BukkitUtils.toStringLocation(l));
     }
 
     @Override

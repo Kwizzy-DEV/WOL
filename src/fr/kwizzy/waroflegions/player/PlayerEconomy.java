@@ -1,7 +1,7 @@
 package fr.kwizzy.waroflegions.player;
 
 import fr.kwizzy.waroflegions.economy.Economy;
-import fr.kwizzy.waroflegions.util.IMemory;
+import fr.kwizzy.waroflegions.util.Memory;
 import fr.kwizzy.waroflegions.util.bukkit.ActionBar;
 import fr.kwizzy.waroflegions.util.bukkit.BukkitUtils;
 import fr.kwizzy.waroflegions.util.java.StringUtils;
@@ -29,7 +29,7 @@ public class PlayerEconomy extends PlayerData{
 
     private Player player;
 
-    PlayerEconomy(IMemory m, WOLPlayer w) {
+    PlayerEconomy(Memory m, WOLPlayer w) {
         super(m, w);
         this.money = Integer.parseInt(m.get("economy.changes"));
         this.player = Bukkit.getPlayer(UUID.fromString(m.get("uuid")));
@@ -75,6 +75,6 @@ public class PlayerEconomy extends PlayerData{
 
     @Override
     public void save() {
-        memory().set("economy.changes", money);
+        memory().put("economy.changes", money);
     }
 }

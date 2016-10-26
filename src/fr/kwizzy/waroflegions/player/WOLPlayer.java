@@ -28,6 +28,7 @@ public class WOLPlayer {
     PlayerLevel levelPlayer;
     PlayerEss essPlayer;
     PlayerQuest playerQuest;
+    PlayerLegion playerLegion;
 
     /********************
      CONSTRUCTOR
@@ -38,12 +39,13 @@ public class WOLPlayer {
 
         this.uuid = uuid;
         this.memoryPlayer = new PlayerMemory(uuid);
-        this.name = memoryPlayer.get("name");
+        this.name = memoryPlayer.getName();
 
         this.economyPlayer = new PlayerEconomy(memoryPlayer, this);
         this.levelPlayer = new PlayerLevel(memoryPlayer, this);
         this.essPlayer = new PlayerEss(memoryPlayer, this);
         this.playerQuest = new PlayerQuest(memoryPlayer, this);
+        this.playerLegion = new PlayerLegion(memoryPlayer, this);
     }
 
     /********************
@@ -78,6 +80,11 @@ public class WOLPlayer {
         return playerQuest;
     }
 
+    public PlayerLegion getPlayerLegion()
+    {
+        return playerLegion;
+    }
+
     /********************
      STATIC METHODS
     ********************/
@@ -103,18 +110,19 @@ public class WOLPlayer {
         if(p == null)
             return false;
         if(m.getName() == null || m.getName().equalsIgnoreCase("null")) {
-            m.set("name", p.getName());
-            m.set("uuid", p.getUniqueId().toString());
-            m.set("date", p.getFirstPlayed());
-            m.set("legion.legion", "neutre");
-            m.set("legion.rank", "mercenaire");
-            m.set("leveling.level", 1);
-            m.set("leveling.exp", 0);
-            m.set("economy.changes", 150);
-            m.set("economy.quota", 0);
-            m.set("stats.kills", 0);
-            m.set("stats.deaths", 0);
-            m.j.saveAll();
+            m.put("name", p.getName());
+            m.put("uuid", p.getUniqueId().toString());
+            m.put("date", p.getFirstPlayed());
+            m.put("legion.legion", 0);
+            m.put("legion.points", 0);
+            m.put("legion.rank", 0);
+            m.put("leveling.level", 1);
+            m.put("leveling.exp", 0);
+            m.put("economy.changes", 150);
+            m.put("economy.quota", 0);
+            m.put("stats.kills", 0);
+            m.put("stats.deaths", 0);
+            m.getJs().save();
             return true;
         }
         return false;

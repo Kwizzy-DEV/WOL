@@ -1,13 +1,12 @@
 package fr.kwizzy.waroflegions.player;
 
-import fr.kwizzy.waroflegions.util.IMemory;
+import fr.kwizzy.waroflegions.util.Memory;
 import fr.kwizzy.waroflegions.util.bukkit.ActionBar;
 import fr.kwizzy.waroflegions.util.bukkit.BukkitUtils;
 import fr.kwizzy.waroflegions.util.bukkit.FireworkUtil;
 import fr.kwizzy.waroflegions.util.bukkit.centered.CenteredMessage;
 import fr.kwizzy.waroflegions.util.java.MathsUtils;
 import fr.kwizzy.waroflegions.util.java.StringUtils;
-import javafx.util.Pair;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
@@ -44,7 +43,7 @@ public class PlayerLevel extends PlayerData{
 
     private Player player;
 
-    PlayerLevel(IMemory m, WOLPlayer p){
+    PlayerLevel(Memory m, WOLPlayer p){
         super(m, p);
         this.level = Integer.parseInt(m.get("leveling.level"));
         this.exp = Double.parseDouble(m.get("leveling.exp"));
@@ -130,7 +129,7 @@ public class PlayerLevel extends PlayerData{
 
     @Override
     public void save() {
-        memory().set("leveling.level", level);
-        memory().set("leveling.exp", exp);
+        memory().put("leveling.level", level);
+        memory().put("leveling.exp", exp);
     }
 }
