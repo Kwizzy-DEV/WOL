@@ -10,7 +10,7 @@ import fr.kwizzy.waroflegions.util.bukkit.command.CommandRegisterer;
 
 import fr.kwizzy.waroflegions.util.bukkit.noteblocklib.SongUtils;
 import fr.kwizzy.waroflegions.util.bukkit.register.AutoRegister;
-import fr.kwizzy.waroflegions.util.storage.JsonStorage;
+import fr.kwizzy.waroflegions.util.storage.JSONStorage;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.ConsoleCommandSender;
@@ -38,7 +38,7 @@ public class WOL extends JavaPlugin {
     @Override
     public void onDisable() {
         PlayerData.saveAll();
-        JsonStorage.getInstance().saveAll();
+        JSONStorage.saveAll();
         SongUtils.clearSongs();
     }
 
