@@ -15,8 +15,7 @@ import java.util.Map;
 
 public class ArmorCalculator {
 
-	private static String pointProtection = "§9+ %s points de protection";
-	private static String pointGlobal = "§9+ %s points de protection globaux";
+	private static String pointProtection = "§9+%s Resistance damage";
 
 	int[] armorId = {
             298, 299, 300, 301,
@@ -43,20 +42,14 @@ public class ArmorCalculator {
         ItemMeta itemMeta = armor.getItemMeta();
         int index = 0;
         BiStream.BiValue<Boolean, Integer> prot = new BiStream.BiValue<>(false, -1);
-        BiStream.BiValue<Boolean, Integer> glob = new BiStream.BiValue<>(false, -1);
         List<String> lore = itemMeta.getLore();
         if(lore != null && !lore.isEmpty())
             for (String s : lore)
             {
-                if(s.contains("points de protection"))
+                if(s.contains("Resistance damage"))
                 {
                     prot.setKey(true);
                     prot.setValue(index);
-                }
-                if(s.contains("points de protection globaux"))
-                {
-                    glob.setKey(true);
-                    glob.setValue(index);
                 }
                 index++;
             }
@@ -69,13 +62,6 @@ public class ArmorCalculator {
         }
         else
             lore.set(prot.getValue(), String.format(pointProtection, calcProt()));
-        if(calcGlobal() != calcProt())
-        {
-            if(!glob.getKey())
-                lore.add(String.format(pointGlobal, calcGlobal()));
-            else
-                lore.set(glob.getValue(), String.format(pointGlobal, calcGlobal()));
-        }
 
         itemMeta.setLore(lore);
         armor.setItemMeta(itemMeta);
@@ -87,13 +73,6 @@ public class ArmorCalculator {
 		}
 		return -1.0;
 	}
-
-    public double calcGlobal() {
-        if (isArmor()) {
-            return getBaseArmorPoint() + getGlobalPoint();
-        }
-        return -1.0;
-    }
 
 	public boolean isArmor() {
 		for (int i : armorId) {
@@ -163,28 +142,4 @@ public class ArmorCalculator {
 		}
 		return 0;
 	}
-
-    private double getGlobalPoint()
-    {
-        Map<Enchantment, Integer> enchantments = armor.getEnchantments();
-        int total = 0;
-        if (enchantments.isEmpty())
-            return total;
-        for (Map.Entry<Enchantment, Integer> x : enchantments.entrySet())
-        {
-            Enchantment ench = x.getKey();
-            int level = x.getValue();
-            if(ench.equals(Enchantment.PROTECTION_ENVIRONMENTAL))
-                total += getProtectionPoint();
-            if(ench.equals(Enchantment.PROTECTION_FIRE))
-                total += (6 + level) * 1.25 / 3;
-            if(ench.equals(Enchantment.PROTECTION_PROJECTILE))
-                total += (6 + level) * 1.5 / 3;
-            if(ench.equals(Enchantment.PROTECTION_EXPLOSIONS))
-                total += (6 + level) * 1.5 / 3;
-            if(ench.equals(Enchantment.PROTECTION_FALL))
-                total += (6 + level) * 2.5 / 3;
-        }
-        return total;
-    }
 }

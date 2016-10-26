@@ -437,36 +437,6 @@ public class EssCommands implements IFastCommand {
         }
     };
 
-    //    public static final FastCommand REPAIR = new FastCommand("repair") {
-//        @Override
-//        public void command(Command<WOLPlayer> c) {
-//            WOLPlayer p = c.getSender();
-//            if(hasntPemission(p, "wol.repair"))
-//                return;
-//            ItemStack m = p.getItemInHand();
-//            if(m != null && !m.getType().equals(Material.AIR)) {
-//                m.setDurability((short) 0);
-//                p.sendMessage(repairM);
-//                return;
-//            }
-//            p.sendMessage(notObject);
-//        }
-//    };
-//
-//    public static final FastCommand REPAIRALL = new FastCommand("repairall") {
-//        @Override
-//        public void command(Command<WOLPlayer> c) {
-//            WOLPlayer p = c.getSender();
-//            if(hasntPemission(p, "wol.repairall"))
-//                return;
-//            List<ItemStack> m = BukkitUtils.getTotalInventory(p);
-//            m.stream().filter(stack -> stack != null && !stack.getType().equals(Material.AIR)).forEach(stack -> {
-//                stack.setDurability((short) 0);
-//            });
-//            p.sendMessage(repairAllM);
-//        }
-//    };
-
     /********************
      STATIC USEFUL METHODS
     ********************/
