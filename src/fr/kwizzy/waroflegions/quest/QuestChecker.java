@@ -1,9 +1,15 @@
 package fr.kwizzy.waroflegions.quest;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.block.Furnace;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.CraftItemEvent;
 import org.bukkit.event.inventory.FurnaceExtractEvent;
+import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.inventory.InventoryType;
+import org.bukkit.inventory.FurnaceInventory;
+import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
 /**
@@ -18,7 +24,21 @@ public class QuestChecker {
 	 * STATIC METHODS
 	 ********************/
 
+	public static int getAmountFurnaceExtractAmount(Material m, InventoryClickEvent e)
+	{
+		Inventory clickedInventory = e.getClickedInventory();
+		if(!clickedInventory.getType().equals(InventoryType.FURNACE))
+			return 0;
+		FurnaceInventory fi = (FurnaceInventory) clickedInventory;
+		boolean click = e.getClick().isShiftClick() || e.getClick().isLeftClick() && e.getRawSlot() == 2;
+		boolean item = fi.getResult() != null && fi.getResult().getType().equals(m);
+		if(click && item)
+			return fi.getResult().getAmount();
+		return 0;
+	}
+
 	public static int getAmountFurnaceExtractAmount(Material m, FurnaceExtractEvent e) {
+		Bukkit.broadcastMessage("lol");
 		if (!e.getItemType().equals(m))
 			return 0;
 		if (e.getItemType().equals(m)) {

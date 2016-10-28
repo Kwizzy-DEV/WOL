@@ -1,5 +1,6 @@
 package fr.kwizzy.waroflegions.common.listener;
 
+import fr.kwizzy.waroflegions.util.bukkit.classmanager.message.Message;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -16,11 +17,11 @@ import static fr.kwizzy.waroflegions.util.java.StringUtils.messageWithLine;
 public class MessagesJoinQuit implements Listener {
 
 
-    private static String welcomeMessage0 = "§7Bienvenue §a%s §7sur §eWar Of Legions§7, il y a §e%s §7joueur%s !";
-    private static String welcomeMessage1 = "§7Si tu ne connais pas le serveur fait §a/aide§7.";
-    private static String welcomeMessage2 = "§7Site: §bwww.waroflegions.fr";
-    private static String welcomeMessage3 = "§7Twitter: §b@WarOfLegionsMC";
-    private static String welcomeMessage4 = "§7Teamspeak: §bts.waroflegions.fr";
+    @Message private static String welcomeMessage0 = "§7Bienvenue §a%s §7sur §eWar Of Legions§7, il y a §e%s §7joueur%s !";
+    @Message private static String welcomeMessage1 = "§7Si tu ne connais pas le serveur fait §a/aide§7.";
+    @Message private static String welcomeMessage2 = "§7Site: §bwww.waroflegions.fr";
+    @Message private static String welcomeMessage3 = "§7Twitter: §b@WarOfLegionsMC";
+    @Message private static String welcomeMessage4 = "§7Teamspeak: §bts.waroflegions.fr";
 
     @EventHandler
     public void onJoin(PlayerJoinEvent e){

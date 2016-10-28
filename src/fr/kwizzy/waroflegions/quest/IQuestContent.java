@@ -5,7 +5,8 @@ import fr.kwizzy.waroflegions.player.PlayerQuest;
 /**
  * Par Alexis le 08/10/2016.
  */
-public interface IQuestFactory {
+public interface IQuestContent
+{
 
     void call(int i);
     void hideCall(int i);

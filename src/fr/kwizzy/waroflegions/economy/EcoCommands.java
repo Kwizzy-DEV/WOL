@@ -2,15 +2,14 @@ package fr.kwizzy.waroflegions.economy;
 
 import fr.kwizzy.waroflegions.player.PlayerEconomy;
 import fr.kwizzy.waroflegions.player.WOLPlayer;
+import fr.kwizzy.waroflegions.util.bukkit.classmanager.message.Message;
 import fr.kwizzy.waroflegions.util.bukkit.command.Command;
 import fr.kwizzy.waroflegions.util.bukkit.command.CommandHandler;
 import fr.kwizzy.waroflegions.util.bukkit.command.CommandListener;
 import fr.kwizzy.waroflegions.util.java.ArraysUtils;
 import fr.kwizzy.waroflegions.util.java.StringUtils;
-import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
-import java.util.Arrays;
 
 /**
  * Par Alexis le 01/10/2016.
@@ -19,14 +18,16 @@ import java.util.Arrays;
 public class EcoCommands implements CommandListener
 {
 
-    private static String money = "§7Tu as §e%s %s§7.";
-    private static String moneyFor = "§a%s§7 a §e%s %s§7.";
-    private static String playerNotOnline = "§cLe joueur '§e%s§c' n'est pas en ligne.";
-    private static String isNotNumber = "§cL'agument '§e%s§c' n'est pas un chiffre.";
-    private static String addMoney = "§e%s %s §7ont été ajoutés à §a%s.";
-    private static String removeMoney = "§e%s %s §7ont été retirés à §a%s.";
-    private static String transactionFor = "§a%s §7vient de t'envoyer §e%s %s.";
-    private static String transactionFrom = "§7Tu as envoyé §e%s %s §7à§a %s§7.";
+
+    @Message private static String money = "§7Tu as §e%s %s§7.";
+    @Message private static String moneyFor = "§a%s§7 a §e%s %s§7.";
+    @Message private static String playerNotOnline = "§cLe joueur '§e%s§c' n'est pas en ligne.";
+    @Message private static String isNotNumber = "§cL'agument '§e%s§c' n'est pas un chiffre.";
+    @Message private static String addMoney = "§e%s %s §7ont été ajoutés à §a%s.";
+    @Message private static String removeMoney = "§e%s %s §7ont été retirés à §a%s.";
+    @Message private static String transactionFor = "§a%s §7vient de t'envoyer §e%s %s.";
+    @Message private static String transactionFrom = "§7Tu as envoyé §e%s %s §7à§a %s§7.";
+
     private static String[] help = ArraysUtils.toArray(
             "§e/eco help §7Aide sur la commande eco",
             "§e/eco money §7Regardes ton argent",

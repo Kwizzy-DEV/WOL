@@ -5,11 +5,12 @@ import fr.kwizzy.waroflegions.player.PlayerData;
 import fr.kwizzy.waroflegions.player.WOLPlayer;
 import fr.kwizzy.waroflegions.quest.QuestManager;
 import fr.kwizzy.waroflegions.quest.list.Quests;
+import fr.kwizzy.waroflegions.util.bukkit.classmanager.message.MessageRegister;
 import fr.kwizzy.waroflegions.util.bukkit.command.CommandListener;
 import fr.kwizzy.waroflegions.util.bukkit.command.CommandRegisterer;
 
 import fr.kwizzy.waroflegions.util.bukkit.noteblocklib.SongUtils;
-import fr.kwizzy.waroflegions.util.bukkit.register.AutoRegister;
+import fr.kwizzy.waroflegions.util.bukkit.classmanager.register.AutoRegister;
 import fr.kwizzy.waroflegions.util.storage.JSONStorage;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -26,12 +27,10 @@ public class WOL extends JavaPlugin {
 
     @Override
     public void onEnable() {
-
+        System.setProperty("file.encoding", "UTF-8");
         setInstance(this);
         register();
-
-        print("WOL plugin by _Kwizzy");
-
+        print(" Plugin by _Kwizzy");
         Bukkit.getOnlinePlayers().forEach(WOLPlayer::get);
     }
 
@@ -58,6 +57,10 @@ public class WOL extends JavaPlugin {
          Quests
         ********************/
         QuestManager.register(new Quests());
+        /********************
+         Messages
+        ********************/
+        new MessageRegister(this, "fr.kwizzy").init();
 
     }
 

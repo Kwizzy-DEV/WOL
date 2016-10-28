@@ -109,15 +109,15 @@ public class WOLPlayer {
         org.bukkit.entity.Player p = Bukkit.getPlayer(uuid);
         if(p == null)
             return false;
-        if(m.getName() == null || m.getName().equalsIgnoreCase("null")) {
+        if(m.getName() == null || "null".equalsIgnoreCase(m.getName())) {
             m.put("name", p.getName());
             m.put("uuid", p.getUniqueId().toString());
             m.put("date", p.getFirstPlayed());
             m.put("legion.legion", 0);
-            m.put("legion.points", 0);
+            m.put("legion.points", 0.0);
             m.put("legion.rank", 0);
             m.put("leveling.level", 1);
-            m.put("leveling.exp", 0);
+            m.put("leveling.exp", 0.0);
             m.put("economy.changes", 150);
             m.put("economy.quota", 0);
             m.put("stats.kills", 0);

@@ -1,11 +1,8 @@
 package fr.kwizzy.waroflegions.clan;
 
-import com.google.gson.Gson;
-import fr.kwizzy.waroflegions.util.Memory;
-import fr.kwizzy.waroflegions.util.ISaveable;
-import fr.kwizzy.waroflegions.util.storage.JSONStorage;
+import fr.kwizzy.waroflegions.util.storage.Memory;
+import fr.kwizzy.waroflegions.util.storage.ISaveable;
 import org.json.JSONArray;
-import org.json.JSONObject;
 
 /**
  * Par Alexis le 25/10/2016.
@@ -53,11 +50,11 @@ public class ClanMemory extends Memory implements ISaveable
 
     Long getTime()
     {
-        return (Long) getObject("created");
+        return (Long) get("created");
     }
     Integer getTimeExpire()
     {
-        return (Integer) getObject("expire");
+        return (Integer) get("expire");
     }
 
     String getName()

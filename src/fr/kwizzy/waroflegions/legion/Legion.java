@@ -45,11 +45,6 @@ public enum Legion
         return prefix;
     }
 
-    public void setPrefix(String prefix)
-    {
-        this.prefix = prefix;
-    }
-
     public static Legion getById(int i)
     {
         for (Legion legion : Legion.values())

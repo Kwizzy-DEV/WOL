@@ -29,19 +29,19 @@ class QuestExecutor<T extends Event> implements EventExecutor, Listener {
 
     private static final Plugin plugin = WOL.getInstance();
 
-    private IQuestFactory questFactory;
+    private IQuestContent questFactory;
     private Class<T> event;
 
-    public QuestExecutor(Class<T> event) {
+    QuestExecutor(Class<T> event) {
         this.event = event;
         Bukkit.getPluginManager().registerEvent(event , this , EventPriority.HIGHEST , this , plugin);
     }
 
-    public void setQuestFactory(IQuestFactory questFactory) {
+    void setQuestFactory(IQuestContent questFactory) {
         this.questFactory = questFactory;
     }
 
-    public void unregister() {
+    void unregister() {
         try{
             ((HandlerList)event.getMethod("getHandlerList").invoke(null)).unregister(this);
         }catch(ReflectiveOperationException e){
@@ -53,7 +53,7 @@ class QuestExecutor<T extends Event> implements EventExecutor, Listener {
     @SuppressWarnings("unchecked")
     public void execute(Listener listener, Event event) throws EventException {
         if(event.getClass().equals(event.getClass())) {
-            Player player = getPlayer(event);
+            Player player = handlePlayer(event);
             if (player != null) {
                 if (!player.equals(questFactory.getPlayerQuest().getPlayer()))
                     return;
@@ -70,7 +70,7 @@ class QuestExecutor<T extends Event> implements EventExecutor, Listener {
         }
     }
 
-    private static Player getPlayer(Event event){
+    private static Player handlePlayer(Event event){
         Player player = null;
         if(event instanceof PlayerEvent)
             player = ((PlayerEvent)event).getPlayer();

@@ -24,7 +24,7 @@ public class ClanFactory
             return clanList.get(clanName);
 
         ClanMemory clanMemory = new ClanMemory(clanName);
-        if(clanMemory.getName() == null || clanMemory.getName().equalsIgnoreCase("null"))
+        if(clanMemory.getName() == null || "null".equalsIgnoreCase(clanMemory.getName()))
             clan = new Clan(clanName, System.currentTimeMillis(), Member.getMember(leader));
         else
             clan = new Clan(clanMemory.getMembers(), clanMemory.getName(), clanMemory.getTimeExpire(), clanMemory.getTime(), false);

@@ -69,13 +69,13 @@ public class Quest<T extends Event> implements IQuest{
     }
 
     @Override
-    public double getExp() {
+    public double getReward() {
         return exp;
     }
 
     @Override
-    public IQuestFactory create(PlayerQuest pq) {
-        return new QuestFactory(this, pq);
+    public IQuestContent create(PlayerQuest pq) {
+        return new QuestContent(this, pq);
     }
 
     @Override

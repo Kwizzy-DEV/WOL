@@ -38,6 +38,8 @@ public interface IClan
 
     boolean isLeader(Member m);
 
+    String getPrefix();
+
     static IClan getClan(String name)
     {
 

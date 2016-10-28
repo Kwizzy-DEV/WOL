@@ -1,5 +1,6 @@
 package fr.kwizzy.waroflegions.common.armorcalc;
 
+import fr.kwizzy.waroflegions.util.bukkit.classmanager.message.Message;
 import fr.kwizzy.waroflegions.util.java.bistream.BiStream;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemStack;
@@ -15,7 +16,7 @@ import java.util.Map;
 
 public class ArmorCalculator {
 
-	private static String pointProtection = "§9+%s Resistance damage";
+	@Message private static String pointProtection = "§9+%s Resistance damage";
 
 	int[] armorId = {
             298, 299, 300, 301,
@@ -39,6 +40,8 @@ public class ArmorCalculator {
 
     public void addProtPoint()
     {
+		if(!isArmor())
+			return;
         ItemMeta itemMeta = armor.getItemMeta();
         int index = 0;
         BiStream.BiValue<Boolean, Integer> prot = new BiStream.BiValue<>(false, -1);

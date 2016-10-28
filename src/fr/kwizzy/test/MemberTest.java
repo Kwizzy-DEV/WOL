@@ -2,29 +2,29 @@ package fr.kwizzy.test;
 
 import fr.kwizzy.waroflegions.clan.Member;
 import fr.kwizzy.waroflegions.clan.Members;
-import org.json.JSONArray;
-import org.json.JSONObject;
-
-import java.util.ArrayList;
-import java.util.List;
 import java.util.UUID;
 
 /**
  * Par Alexis le 25/10/2016.
  */
 
-public class MemberTest extends Testeable
+public class MemberTest
 {
 
-    @Override
+
     public void test()
     {
-//        Member member0 = new Member(false, false, true, 120, "jackos", "usi", UUID.randomUUID());
-//        Member member1 = new Member(true, false, true, 150, "minale", "usi", UUID.randomUUID());
-//        Member member2 = new Member(false, false, true, 140, "fermo", "usi", UUID.randomUUID());
-//        Member member3 = new Member(false, false, true, 0, "kaka", "usi", UUID.randomUUID());
-//        Members<Member> test = new Members<>(member0, member1, member2, member3);
-//
+        Member member0 = new Member(false, false, true, 120, "jackos", "usi", UUID.randomUUID());
+        Member member1 = new Member(true, false, true, 150, "minale", "usi", UUID.randomUUID());
+        Member member2 = new Member(false, false, true, 140, "fermo", "usi", UUID.randomUUID());
+        Member member3 = new Member(false, false, true, 0, "kaka", "usi", UUID.randomUUID());
+        Members<Member> test = new Members<>(member0, member1, member2, member3);
+
+        for (Member member : test.sort())
+        {
+            System.out.println("Member : " + member);
+        }
+
 //        List<Member> list = new ArrayList<>();
 //        list.addAll(test);
 //        JSONArray jo = new JSONArray(g.toJson(test));

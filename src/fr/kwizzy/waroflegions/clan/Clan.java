@@ -3,18 +3,25 @@ package fr.kwizzy.waroflegions.clan;
 import fr.kwizzy.waroflegions.player.WOLPlayer;
 import fr.kwizzy.waroflegions.rank.Rank;
 import fr.kwizzy.waroflegions.util.bukkit.ScheduleUtil;
+import fr.kwizzy.waroflegions.util.bukkit.classmanager.message.Message;
 import fr.kwizzy.waroflegions.util.java.DateUtils;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Par Alexis le 25/10/2016.
  */
-
 class Clan implements IClan
 {
+
+    /********************
+     Messages
+    ********************/
+
+    @Message private static String delete = "Votre clan a été supprimé !";
 
     private Members<Member> members = new Members<>(this);
     private List<Member> invitedMembers = new ArrayList<>();
@@ -35,6 +42,7 @@ class Clan implements IClan
         this.timeExpire = timeExpire();
         this.created = created;
         this.clanMemory = new ClanMemory(name);
+        this.checkTime();
     }
 
     Clan(Members<Member> members, String name, int timeExpire, long created, boolean deleted)
@@ -46,6 +54,7 @@ class Clan implements IClan
         this.created = created;
         this.deleted = deleted;
         this.clanMemory = new ClanMemory(name);
+        this.checkTime();
     }
 
     @Override
@@ -111,6 +120,13 @@ class Clan implements IClan
     public void delete()
     {
         deleted = true;
+        members.sendMessage(getPrefix() + delete);
+    }
+
+    @Override
+    public String getPrefix()
+    {
+        return "§9[§e" + name + "§9] §c";
     }
 
     @Override
@@ -192,6 +208,14 @@ class Clan implements IClan
                 timeExpire *= 2;
         }
         return timeExpire;
+    }
+
+    private void checkTime()
+    {
+        ScheduleUtil.runWhileOut(5, e -> this.delete(), e -> {
+            long seconds = TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis() - created);
+            return seconds >= timeExpire;
+        });
     }
 
     ClanMemory getClanMemory()

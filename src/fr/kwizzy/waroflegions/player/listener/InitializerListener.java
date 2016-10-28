@@ -2,6 +2,7 @@ package fr.kwizzy.waroflegions.player.listener;
 
 import fr.kwizzy.waroflegions.player.WOLPlayer;
 import fr.kwizzy.waroflegions.util.bukkit.Title;
+import fr.kwizzy.waroflegions.util.bukkit.classmanager.message.Message;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
@@ -12,8 +13,8 @@ import org.bukkit.event.player.PlayerJoinEvent;
 
 public class InitializerListener implements Listener {
 
-    private static String welcomeTitle = "§cWarOfLegions";
-    private static String welcomeSubtitle = "§eUne ère nouvelle...";
+    @Message private static String welcomeTitle = "§cWarOfLegions";
+    @Message private static String welcomeSubtitle = "§eUne ère nouvelle...";
 
     @EventHandler
     public void onJoin(PlayerJoinEvent e){

@@ -1,7 +1,7 @@
 package fr.kwizzy.waroflegions.player;
 
-import fr.kwizzy.waroflegions.util.Memory;
-import fr.kwizzy.waroflegions.util.ISaveable;
+import fr.kwizzy.waroflegions.util.storage.Memory;
+import fr.kwizzy.waroflegions.util.storage.ISaveable;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;

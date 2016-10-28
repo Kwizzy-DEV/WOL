@@ -12,11 +12,11 @@ public interface IQuest<T extends Event> {
     int getValue();
     int getLevel();
     int getId();
-    double getExp();
+    double getReward();
     String getName();
     Class<T> getEvent();
     Function<T, Integer> getTester();
 
-    IQuestFactory create(PlayerQuest pq);
+    IQuestContent create(PlayerQuest pq);
 
 }

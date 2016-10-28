@@ -2,6 +2,7 @@ package fr.kwizzy.waroflegions.leveling;
 
 import fr.kwizzy.waroflegions.player.PlayerLevel;
 import fr.kwizzy.waroflegions.player.WOLPlayer;
+import fr.kwizzy.waroflegions.util.bukkit.classmanager.message.Message;
 import fr.kwizzy.waroflegions.util.bukkit.command.Command;
 import fr.kwizzy.waroflegions.util.bukkit.command.CommandHandler;
 import fr.kwizzy.waroflegions.util.bukkit.command.CommandListener;
@@ -14,7 +15,7 @@ import org.bukkit.entity.Player;
 
 public class LevelCommand implements CommandListener {
 
-    private static String isNotNumber = "§cL'agument '§e%s§c' n'est pas un chiffre.";
+    @Message private static String isNotNumber = "§cL'agument '§e%s§c' n'est pas un chiffre.";
 
     @CommandHandler(args = "addexp", sender = Player.class)
     public void command(Command<Player> co){

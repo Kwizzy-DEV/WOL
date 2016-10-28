@@ -47,4 +47,14 @@ public class QuestManager {
                 .collect(Collectors.toList());
     }
 
+    public static Collection<IQuest> getQuests(int start, int end)
+    {
+        Collection<IQuest> quests = new ArrayList<>();
+        for (int i = start; i < end; i++)
+        {
+            quests.addAll(getQuests(i));
+        }
+        return quests;
+    }
+
 }

@@ -4,6 +4,7 @@ package fr.kwizzy.waroflegions.common.essential;
 import fr.kwizzy.waroflegions.player.PlayerEss;
 import fr.kwizzy.waroflegions.player.WOLPlayer;
 import fr.kwizzy.waroflegions.util.bukkit.FireworkUtil;
+import fr.kwizzy.waroflegions.util.bukkit.classmanager.message.Message;
 import fr.kwizzy.waroflegions.util.bukkit.command.Command;
 import fr.kwizzy.waroflegions.util.bukkit.command.FastCommand;
 import fr.kwizzy.waroflegions.util.bukkit.command.IFastCommand;
@@ -36,34 +37,35 @@ public class EssCommands implements IFastCommand {
     ********************/
 
 
-    private static String gamemodeChange = "§7Tu es maintenant en mode '§a%s§7'.";
-    private static String healM = "§7Ta vie est maintenant au §amaximum§7.";
-    private static String feedM = "§7Ta nourriture est maintenant au §amaximum§7.";
-    private static String fireworkM = "§7Et hop ! Un petit §afeu d'artifice§7.";
-    private static String hatM = "§7Alors, la classe ce §achapeau ?§7.";
-    private static String repairM = "§7Ton objet a été réparé.";
-    private static String repairAllM = "§7Tous tes objets ont été réparés.";
-    private static String clearM = "§7Ton inventaire a été supprimé.";
-    private static String flyM = "§7Vol: %s";
-    private static String godM = "§7Dieu: %s";
-    private static String godForM = "§7Dieu pour %s: %s";
-    private static String speedM = "§7Vitesse de déplacement défini à: §a%s§7.";
-    private static String breakM = "§7Vous avez cassé le bloc que vous regardez.";
-    private static String moreM = "§7Vous avez le nombre maximum pour l'objet dans votre main.";
-    private static String skullM = "§7Tu as maintenant la tête de '§a%s§7'.";
-    private static String pingForM = "§7Le ping de §a%s§7 est de: §a%s§7.";
-    private static String pingM = "§7Ton ping est de: §a%s§7.";
+    @Message private static String gamemodeChange = "§7Tu es maintenant en mode '§a%s§7'.";
+    @Message private static String healM = "§7Ta vie est maintenant au §amaximum§7.";
+    @Message private static String feedM = "§7Ta nourriture est maintenant au §amaximum§7.";
+    @Message private static String fireworkM = "§7Et hop ! Un petit §afeu d'artifice§7.";
+    @Message private static String hatM = "§7Alors, la classe ce §achapeau ?§7.";
+    @Message private static String repairM = "§7Ton objet a été réparé.";
+    @Message private static String repairAllM = "§7Tous tes objets ont été réparés.";
+    @Message private static String clearM = "§7Ton inventaire a été supprimé.";
+    @Message private static String flyM = "§7Vol: %s";
+    @Message private static String godM = "§7Dieu: %s";
+    @Message private static String godForM = "§7Dieu pour %s: %s";
+    @Message private static String speedM = "§7Vitesse de déplacement défini à: §a%s§7.";
+    @Message private static String breakM = "§7Vous avez cassé le bloc que vous regardez.";
+    @Message private static String moreM = "§7Vous avez le nombre maximum pour l'objet dans votre main.";
+    @Message private static String skullM = "§7Tu as maintenant la tête de '§a%s§7'.";
+    @Message private static String pingForM = "§7Le ping de §a%s§7 est de: §a%s§7.";
 
-    private static String afkM = "§7Le joueur §a%s§7 est maintenant afk.";
-    private static String notAfkM = "§7Le joueur §a%s§7 n'est plus afk.";
-    private static String backM = "§7Te voilà à ton anciennne location.";
+    @Message private static String pingM = "§7Ton ping est de: §a%s§7.";
 
-    private static String notObject = "§cTu n'as pas d'objet dans ta main...";
-    private static String needToBeOp = "§cVous n'avez pas la permission d'éxécuter cette commande.";
-    private static String gamemodeBeInt = "§cL'argument doit être un entier compris entre 1 et 3.";
-    private static String speedBeInt = "§cL'argument doit être un chifre compris entre 0 et 10.";
-    private static String badPlayer = "§cLe joueur §e%s§c est introuvable.";
-    private static String notBack = "§cTu n'as pas pas d'ancienne location.";
+    @Message private static String afkM = "§7Le joueur §a%s§7 est maintenant afk.";
+    @Message private static String notAfkM = "§7Le joueur §a%s§7 n'est plus afk.";
+    @Message private static String backM = "§7Te voilà à ton anciennne location.";
+
+    @Message private static String notObject = "§cTu n'as pas d'objet dans ta main...";
+    @Message private static String needToBeOp = "§cVous n'avez pas la permission d'éxécuter cette commande.";
+    @Message private static String gamemodeBeInt = "§cL'argument doit être un entier compris entre 1 et 3.";
+    @Message private static String speedBeInt = "§cL'argument doit être un chifre compris entre 0 et 10.";
+    @Message private static String badPlayer = "§cLe joueur §e%s§c est introuvable.";
+    @Message private static String notBack = "§cTu n'as pas pas d'ancienne location.";
 
 
     /********************
@@ -104,7 +106,7 @@ public class EssCommands implements IFastCommand {
         }
     };
 
-    public static final FastCommand FEED = new FastCommand("feed") {
+    public static final FastCommand FEED = new FastCommand("feed", "eat") {
         @Override
         public void command(Command<org.bukkit.entity.Player> c) {
             org.bukkit.entity.Player p = c.getSender();

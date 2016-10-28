@@ -1,6 +1,7 @@
 package fr.kwizzy.waroflegions.player;
 
-import fr.kwizzy.waroflegions.util.Memory;
+import fr.kwizzy.waroflegions.util.bukkit.classmanager.message.Message;
+import fr.kwizzy.waroflegions.util.storage.Memory;
 import fr.kwizzy.waroflegions.util.bukkit.ActionBar;
 import fr.kwizzy.waroflegions.util.bukkit.BukkitUtils;
 import fr.kwizzy.waroflegions.util.bukkit.FireworkUtil;
@@ -23,10 +24,10 @@ public class PlayerLevel extends PlayerData{
     private static final double COEFF = 1.044663;
 
 
-    private static String addExp = "§a+ %s d'exp " + StringUtils.parenthesisText("%s");
-    private static String levelUp00 = "§a§l⇪ §f§lNIVEAU SUPERIEUR §a§l⇪";
-    private static String levelUp01 = "§eTu es maintenant niveau §a%s§e !";
-    private static String levelUp02 = "§eIl te manque §a%s §ed'expérience.";
+    @Message private static String addExp = "§a+ %s d'exp " + StringUtils.parenthesisText("%s");
+    @Message private static String levelUp00 = "§a§l⇪ §f§lNIVEAU SUPERIEUR §a§l⇪";
+    @Message private static String levelUp01 = "§eTu es maintenant niveau §a%s§e !";
+    @Message private static String levelUp02 = "§eIl te manque §a%s §ed'expérience.";
 
     static {
         double exp = 50;
@@ -38,16 +39,16 @@ public class PlayerLevel extends PlayerData{
         }
     }
 
-    private int level = 1;
+    private short level = 1;
     private double exp = 0;
 
     private Player player;
 
     PlayerLevel(Memory m, WOLPlayer p){
         super(m, p);
-        this.level = Integer.parseInt(m.get("leveling.level"));
-        this.exp = Double.parseDouble(m.get("leveling.exp"));
-        this.player = Bukkit.getPlayer(UUID.fromString(m.get("uuid")));
+        this.level = Short.parseShort(m.getJs().getString("leveling.level"));
+        this.exp = Double.parseDouble(m.getJs().getString("leveling.exp"));
+        this.player = Bukkit.getPlayer(UUID.fromString(m.getJs().getString("uuid")));
     }
 
     public void addLevel(int i){
@@ -55,7 +56,7 @@ public class PlayerLevel extends PlayerData{
     }
 
     public void addExp(double d){
-        if(exp + d >= levelToExp.get((short) level)){
+        if(exp + d >= levelToExp.get(level)){
             addLevel(getRest(d));
             levelModification();
             ActionBar.sendActionBar(String.format(addExp, d, getPercentageExp() + "%"), player);
@@ -65,15 +66,21 @@ public class PlayerLevel extends PlayerData{
         ActionBar.sendActionBar(String.format(addExp, d, getPercentageExp() + "%"), player);
     }
 
-    public void setLevel(int level){
+    public void setLevel(short level){
         this.level = level;
         levelModification();
+    }
+
+    public void setExp(double exp)
+    {
+        this.exp = exp;
     }
 
     private void roundExp(){
         exp = MathsUtils.roundDouble(exp, 2);
     }
 
+    @Override
     public Player getPlayer() {
         return player;
     }
@@ -105,7 +112,7 @@ public class PlayerLevel extends PlayerData{
         return MathsUtils.roundDouble((exp/(levelToExp.get(level)))*100, 1);
     }
 
-    public double getExpFor(int i){
+    private double getExpFor(int i){
         return levelToExp.get((short) i);
     }
 

@@ -1,8 +1,6 @@
 package fr.kwizzy.waroflegions.player;
 
-import fr.kwizzy.waroflegions.util.Memory;
-import fr.kwizzy.waroflegions.util.storage.JSONStorage;
-import org.json.JSONObject;
+import fr.kwizzy.waroflegions.util.storage.Memory;
 
 import java.util.UUID;
 
@@ -18,6 +16,6 @@ class PlayerMemory extends Memory
     }
 
     public String getName(){
-        return get("name");
+        return (String) get("name");
     }
 }

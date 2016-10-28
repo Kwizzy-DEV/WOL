@@ -2,7 +2,8 @@ package fr.kwizzy.waroflegions.player;
 
 import fr.kwizzy.waroflegions.legion.Legion;
 import fr.kwizzy.waroflegions.rank.Rank;
-import fr.kwizzy.waroflegions.util.Memory;
+import fr.kwizzy.waroflegions.util.java.MathsUtils;
+import fr.kwizzy.waroflegions.util.storage.Memory;
 
 /**
  * Par Alexis le 25/10/2016.
@@ -12,15 +13,15 @@ public class PlayerLegion extends PlayerData
 {
 
     private Legion legion;
-    private int legionPoints;
+    private double legionPoints;
     private Rank rank;
 
     public PlayerLegion(Memory memory, WOLPlayer player)
     {
         super(memory, player);
-        legion = Legion.getById(Integer.parseInt(memory.get("legion.legion")));
-        legionPoints = Integer.parseInt(memory.get("legion.points"));
-        rank = Rank.getById(Integer.parseInt(memory.get("legion.rank")));
+        legion = Legion.getById((Integer) memory.get("legion.legion"));
+        legionPoints = Double.parseDouble(memory.getJs().getString("legion.points"));
+        rank = Rank.getById((Integer) memory.get("legion.rank"));
     }
 
     public boolean setLegion(Legion l)
@@ -38,9 +39,9 @@ public class PlayerLegion extends PlayerData
         return legion;
     }
 
-    public int getLegionPoints()
+    public double getLegionPoints()
     {
-        return legionPoints;
+        return MathsUtils.roundDouble(legionPoints, 2);
     }
 
     public Rank getRank()

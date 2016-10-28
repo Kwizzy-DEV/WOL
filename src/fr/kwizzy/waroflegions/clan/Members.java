@@ -155,8 +155,9 @@ public class Members<T extends Member> extends AbstractList<T> implements Iterab
         return list.length;
     }
 
-    JSONArray toJsonArray()
+    Object toJsonArray()
     {
-        return new JSONArray(new Gson().toJson(this));
+//        return new JSONArray(new Gson().toJson(this));
+        return new Object();
     }
 }

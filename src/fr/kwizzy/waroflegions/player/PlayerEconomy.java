@@ -1,7 +1,8 @@
 package fr.kwizzy.waroflegions.player;
 
 import fr.kwizzy.waroflegions.economy.Economy;
-import fr.kwizzy.waroflegions.util.Memory;
+import fr.kwizzy.waroflegions.util.bukkit.classmanager.message.Message;
+import fr.kwizzy.waroflegions.util.storage.Memory;
 import fr.kwizzy.waroflegions.util.bukkit.ActionBar;
 import fr.kwizzy.waroflegions.util.bukkit.BukkitUtils;
 import fr.kwizzy.waroflegions.util.java.StringUtils;
@@ -19,9 +20,9 @@ import java.util.UUID;
 
 public class PlayerEconomy extends PlayerData{
 
-    private static String addMoney = "§a+ %s " + Economy.MONEY_NAME_LOWERCASE + "§a " + StringUtils.parenthesisText("%s");
-    private static String removeMoney = "§c- %s " + Economy.MONEY_NAME_LOWERCASE + "§c " + StringUtils.parenthesisText("%s");
-    private static String notEnoughtMoney = "§cTu n'as pas assez de " + Economy.MONEY_NAME_LOWERCASE + "§c.";
+    @Message private static String addMoney = "§a+ %s " + Economy.MONEY_NAME_LOWERCASE + "§a " + StringUtils.parenthesisText("%s");
+    @Message private static String removeMoney = "§c- %s " + Economy.MONEY_NAME_LOWERCASE + "§c " + StringUtils.parenthesisText("%s");
+    @Message private static String notEnoughtMoney = "§cTu n'as pas assez de " + Economy.MONEY_NAME_LOWERCASE + "§c.";
 
     private Integer money;
     @Ignore
@@ -31,8 +32,8 @@ public class PlayerEconomy extends PlayerData{
 
     PlayerEconomy(Memory m, WOLPlayer w) {
         super(m, w);
-        this.money = Integer.parseInt(m.get("economy.changes"));
-        this.player = Bukkit.getPlayer(UUID.fromString(m.get("uuid")));
+        this.money = (Integer) m.get("economy.changes");
+        this.player = Bukkit.getPlayer(UUID.fromString((String) m.get("uuid")));
     }
 
     public void set(int i){

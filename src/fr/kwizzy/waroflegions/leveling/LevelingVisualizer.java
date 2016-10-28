@@ -6,7 +6,6 @@ import fr.kwizzy.waroflegions.util.bukkit.builder.GUIBuilder;
 import fr.kwizzy.waroflegions.util.bukkit.builder.ItemBuilder;
 import fr.kwizzy.waroflegions.util.java.MathsUtils;
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
@@ -16,7 +15,8 @@ import org.bukkit.event.inventory.InventoryCloseEvent;
  * Par Alexis le 05/10/2016.
  */
 
-public class LevelingVisualizer extends GUIBuilder {
+public class LevelingVisualizer extends GUIBuilder
+{
 
     PlayerLevel pl;
 
@@ -36,9 +36,9 @@ public class LevelingVisualizer extends GUIBuilder {
         for (int i = 0; i < (amount == 0 ? 1 : amount); i++) {
             boolean b = (amount != 0) && (i != amount-1);
             setItemPosition(new ItemBuilder(Material.STAINED_GLASS_PANE)
-                    .durability(getColor(i))
-                    .displayname("§a" + Double.toString(b ? (i+1)*10 : pl.getPercentageExp()) + " %")
-                    .build(), i);
+                    .setDurability(getColor(i))
+                    .setName("§a" + Double.toString(b ? (i+1)*10 : pl.getPercentageExp()) + " %")
+                    .toItemStack(), i);
         }
 
     }

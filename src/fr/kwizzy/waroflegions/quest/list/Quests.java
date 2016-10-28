@@ -9,6 +9,7 @@ import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.inventory.CraftItemEvent;
 import org.bukkit.event.inventory.FurnaceExtractEvent;
+import org.bukkit.event.inventory.InventoryClickEvent;
 
 /**
  * Par Alexis le 08/10/2016.
@@ -47,9 +48,9 @@ public class Quests implements IQuestList {
     );
 
     public static IQuest q05 = new Quest<>(
-            FurnaceExtractEvent.class, 5, 5, 3, 30,
+            InventoryClickEvent.class, 5, 5, 3, 30,
             "Cuir {amount} minérais de fer",
-            (FurnaceExtractEvent e) -> QuestChecker.getAmountFurnaceExtractAmount(Material.IRON_INGOT, e)
+            (InventoryClickEvent e) -> QuestChecker.getAmountFurnaceExtractAmount(Material.IRON_INGOT, e)
     );
 
 }

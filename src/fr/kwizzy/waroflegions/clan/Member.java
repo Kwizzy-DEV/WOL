@@ -26,7 +26,7 @@ public class Member implements Comparator<Member>, Comparable<Member>
     String clanName;
     UUID uuid;
 
-    private Member(boolean leader, boolean tempLeader, boolean online, double xp, String name, String clanName, UUID uuid)
+    public Member(boolean leader, boolean tempLeader, boolean online, double xp, String name, String clanName, UUID uuid)
     {
         this.leader = leader;
         this.tempLeader = tempLeader;
@@ -54,13 +54,15 @@ public class Member implements Comparator<Member>, Comparable<Member>
     @Override
     public int compare(Member o1, Member o2)
     {
-        return o1.xp < o2.xp ? -1 : 1;
+        return o1.xp < o2.xp ? 1 : -1;
     }
 
     public String toJson()
     {
-        return g.toJson(this);
+//        return g.toJson(this);
+        return "lol";
     }
+
 
     public Player getPlayer()
     {
